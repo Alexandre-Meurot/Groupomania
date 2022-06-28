@@ -34,15 +34,19 @@ export class PostsService {
     );
   }
 
-  // méthode d'ajout du nouveau post avec un ID valable
-  // addPost(formValue: { title: string, description: string, imageUrl: string, location: string }): void {
-  //   const post: Post = {
-  //     ...formValue,
-  //     createdDate: new Date(),
-  //     likes: 0,
-  //     id: this.posts[this.posts.length - 1].id + 1
-  //   };
-  //   this.posts.push(post);
-  // }
+  // méthode d'ajout du nouveau post avec un ID valable croissant
+  addPost(formValue: { title: string, description: string, imageUrl: string, location?: string }): Observable<Post> {
+    return this.getAllPosts().pipe(
+      map(posts => [...posts].sort((a: Post, b: Post) => a.id - b.id)),
+      map(sortedPosts => sortedPosts[sortedPosts.length - 1]),
+      map(previousPost => ({
+        ...formValue,
+        likes: 0,
+        createdDate: new Date(),
+        id: previousPost.id + 1
+      })),
+      switchMap(newPost => this.http.post<Post>('http://localhost:3000/posts', newPost))
+    )
+  }
 
 }
