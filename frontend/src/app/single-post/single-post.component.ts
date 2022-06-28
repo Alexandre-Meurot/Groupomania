@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Post} from "../models/post.model";
 import {PostsService} from "../services/posts.service";
 import {ActivatedRoute} from "@angular/router";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-single-post',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class SinglePostComponent implements OnInit {
 
-  post!: Post;
+  posts$!: Observable<Post>;
   buttonText!: string;
 
   constructor(private postService: PostsService,
@@ -19,17 +20,17 @@ export class SinglePostComponent implements OnInit {
   ngOnInit() {
     this.buttonText = 'like';
     const postId = +this.route.snapshot.params['id'];
-    this.post = this.postService.getPostById(postId);
+    this.posts$ = this.postService.getPostById(postId);
   };
 
   onLike() {
-    if (this.buttonText === 'like') {
-      this.postService.likePostById(this.post.id, "like");
-      this.buttonText = 'disLike';
-    } else {
-      this.postService.likePostById(this.post.id, 'disLike')
-      this.buttonText = 'like';
-    }
+    // if (this.buttonText === 'like') {
+    //   this.postService.likePostById(this.post.id, "like");
+    //   this.buttonText = 'disLike';
+    // } else {
+    //   this.postService.likePostById(this.post.id, 'disLike')
+    //   this.buttonText = 'like';
+    // }
   };
 
 }

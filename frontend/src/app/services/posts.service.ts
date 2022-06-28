@@ -22,19 +22,14 @@ export class PostsService {
   }
 
   // méthode de récupération d'un post en fonction de son ID
-  getPostById(postId: number): Post {
-    const post = this.posts.find(post => post.id === postId);
-    if (!post) {
-      throw new Error('Post not found!');
-    } else {
-      return post;
-    }
+  getPostById(postId: number): Observable<Post> {
+    return this.http.get<Post>(`http://localhost:3000/posts/${postId}`)
   }
 
   // méthode de like de post en fonction de son ID
   likePostById(postId: number, likeType: 'like' | 'disLike'): void {
-    const post = this.getPostById(postId)
-    likeType === 'like' ? post.likes++ : post.likes--
+    // const post = this.getPostById(postId)
+    // likeType === 'like' ? post.likes++ : post.likes--
   }
 
   // méthode d'ajout du nouveau post avec un ID valable
