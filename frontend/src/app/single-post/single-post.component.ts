@@ -23,14 +23,14 @@ export class SinglePostComponent implements OnInit {
     this.posts$ = this.postService.getPostById(postId);
   };
 
-  onLike() {
-    // if (this.buttonText === 'like') {
-    //   this.postService.likePostById(this.post.id, "like");
-    //   this.buttonText = 'disLike';
-    // } else {
-    //   this.postService.likePostById(this.post.id, 'disLike')
-    //   this.buttonText = 'like';
-    // }
+  onLike(postId: number) {
+    if (this.buttonText === 'like') {
+      this.postService.likePostById(postId, "like");
+      this.buttonText = 'disLike';
+    } else {
+      this.postService.likePostById(postId, 'disLike')
+      this.buttonText = 'like';
+    }
   };
 
 }

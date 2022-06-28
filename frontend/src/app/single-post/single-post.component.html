@@ -5,7 +5,7 @@
   <p *ngIf="post.location">Photo prise à {{ post.location }}</p>
   <p>{{ post.description }}</p>
   <p>
-    <button (click)="onLike()">{{ buttonText }}</button>
+    <button (click)="onLike(post.id)">{{ buttonText }}</button>
     ❤ {{ post.likes }}
   </p>
   <a routerLink="/posts">BACK</a>
