@@ -1,0 +1,12 @@
+<div class="post-card" [ngClass]="{ liked: buttonText === 'disLike' }">
+  <h2>{{ post.title | titlecase }}</h2>
+  <p>Mis en ligne le {{ post.createdDate | date: 'd MMMM yyyy, à HH:mm' }}</p>
+  <img [src]="post.imageUrl" [alt]="post.title">
+  <p *ngIf="post.location">Photo prise à {{ post.location }}</p>
+  <p>{{ post.description }}</p>
+  <p>
+    <button (click)="onLike()">{{ buttonText }}</button>
+    ❤ {{ post.likes }}
+  </p>
+</div>
+
