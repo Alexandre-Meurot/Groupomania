@@ -1,43 +1,24 @@
 import {Injectable} from "@angular/core";
 import {Post} from "../models/post.model";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: "root"
 })
 
 export class PostsService {
+
+  // injection du httpClient
+  constructor(private http: HttpClient) {
+  }
+
   // Récupération des posts sous la forme d'un tableau
-  posts: Post[] = [
-    {
-      id: 1,
-      title: 'Premier post',
-      imageUrl: 'https://cdn.pixabay.com/photo/2022/06/23/09/46/mountain-7279430_960_720.jpg',
-      location: 'Quelque part',
-      description: 'contenu textuel du post',
-      createdDate: new Date(),
-      likes: 6
-    },
-    {
-      id: 2,
-      title: 'Deuxième post',
-      imageUrl: 'https://cdn.pixabay.com/photo/2022/06/23/09/46/mountain-7279430_960_720.jpg',
-      description: 'contenu textuel du deuxième post',
-      createdDate: new Date(),
-      likes: 18
-    },
-    {
-      id: 3,
-      title: 'Dernier post',
-      imageUrl: 'https://cdn.pixabay.com/photo/2022/06/23/09/46/mountain-7279430_960_720.jpg',
-      description: 'contenu textuel du dernier post',
-      createdDate: new Date(),
-      likes: 4
-    },
-  ];
+  posts: Post[] = [];
 
   // méthode de récupération de tous les posts
-  getAllPosts(): Post[] {
-    return this.posts
+  getAllPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>('http://localhost:3000/posts');
   }
 
   // méthode de récupération d'un post en fonction de son ID

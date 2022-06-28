@@ -1,12 +1,12 @@
 {
-  "facesnaps": [
+  "posts": [
     {
       "id": 1,
       "title": "Archibald",
       "description": "Mon meilleur ami depuis tout petit !",
       "imageUrl": "https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg",
       "createdDate": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
-      "snaps": 89,
+      "likes": 89,
       "location": "Paris"
     },
     {
@@ -15,7 +15,7 @@
       "description": "Un endroit magnifique pour les randonnées.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg",
       "createdDate": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
-      "snaps": 6,
+      "likes": 6,
       "location": "la montagne"
     },
     {
@@ -24,7 +24,7 @@
       "description": "Mmmh que c'est bon !",
       "imageUrl": "https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg",
       "createdDate": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
-      "snaps": 156
+      "likes": 156
     },
     {
       "id": 4,
@@ -32,7 +32,7 @@
       "description": "Mon meilleur ami depuis tout petit !",
       "imageUrl": "https://cdn.pixabay.com/photo/2015/05/31/16/03/teddy-bear-792273_1280.jpg",
       "createdDate": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
-      "snaps": 89,
+      "likes": 89,
       "location": "Paris"
     },
     {
@@ -41,7 +41,7 @@
       "description": "Un endroit magnifique pour les randonnées.",
       "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg",
       "createdDate": "Mon Dec 13 2021 14:51:42 GMT+0100 (Central European Standard Time)",
-      "snaps": 27,
+      "likes": 27,
       "location": "la montagne"
     },
     {
@@ -50,7 +50,7 @@
       "description": "Mmmh que c'est bon !",
       "imageUrl": "https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg",
       "createdDate": "new Date()",
-      "snaps": 101
+      "likes": 101
     }
   ]
 }

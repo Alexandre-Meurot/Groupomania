@@ -1,1 +1,1 @@
-<app-post *ngFor="let postElementInArray of posts"[post]="postElementInArray"></app-post>
+<app-post *ngFor="let postElementInArray of posts$ | async"[post]="postElementInArray"></app-post>

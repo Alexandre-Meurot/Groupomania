@@ -13,6 +13,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NewPostComponent } from './new-post/new-post.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NewPostComponent } from './new-post/new-post.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     { provide:  LOCALE_ID, useValue: 'fr-FR' }
