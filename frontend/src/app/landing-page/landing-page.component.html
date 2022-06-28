@@ -1,5 +1,12 @@
 <div class="landing-block">
 
+  <!-- formulaire d'inscription à la newsletter -->
+  <form #emailForm="ngForm" (ngSubmit)="onSubmitForm(emailForm)">
+    <label for="emailInput">Inscrivez-vous à la newsletter !</label>
+    <input type="email" id="emailInput" [(ngModel)]="userEmail" name="userEmail">
+    <button type="submit">OK!</button>
+  </form>
+
 <!--  <img src="assets/icon-left-font-monochrome-black.png" alt="Groupomania logo">-->
 
   <div class="landing-links">

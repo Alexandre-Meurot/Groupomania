@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-landing-page',
@@ -8,13 +9,22 @@ import {Router} from "@angular/router";
 })
 export class LandingPageComponent implements OnInit {
 
+  userEmail!: string;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
+  // méthode lien vers les posts
   onContinue():void {
     this.router.navigateByUrl('posts');
+  }
+
+  // méthode de souscription à la newsletter
+  onSubmitForm(form: NgForm): void {
+    // concevoir par la suite méthode d'envoi au serveur
+    console.log(form.value);
   }
 
 }
