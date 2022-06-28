@@ -1,22 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Post} from "../models/post.model";
 import {PostsService} from "../services/posts.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  selector: 'app-single-post',
+  templateUrl: './single-post.component.html',
+  styleUrls: ['./single-post.component.scss']
 })
-export class PostComponent implements OnInit {
-  @Input() post!: Post;
+export class SinglePostComponent implements OnInit {
+
+  post!: Post;
   buttonText!: string;
 
   constructor(private postService: PostsService,
-              private router: Router) {}
+              private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.buttonText = 'like';
+    const postId = +this.route.snapshot.params['id'];
+    this.post = this.postService.getPostById(postId);
   };
 
   onLike() {
@@ -29,7 +32,4 @@ export class PostComponent implements OnInit {
     }
   };
 
-  onViewPost() {
-    this.router.navigateByUrl(`posts/${this.post.id}`)
-  }
 }
