@@ -28,7 +28,7 @@ export class PostsService {
     return this.getPostById(postId).pipe(
       map(post => ({
         ...post,
-        likes: post.likes + likeType === 'like' ? 1 : -1
+        likes: post.likes + (likeType === 'like' ? 1 : -1)
       })),
       switchMap(updatedPost => this.http.put<Post>(`http://localhost:3000/posts/${postId}`, updatedPost))
     );

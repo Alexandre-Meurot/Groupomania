@@ -56,7 +56,7 @@ export class NewPostComponent implements OnInit {
 
   // méthode d'envoie du formulaire dans la liste de posts - prévoir envoie au serveur
   onSubmitForm(): void {
-    this.postsService.addPost(this.postForm.value);
+    // this.postsService.addPost(this.postForm.value);
     this.router.navigateByUrl('/posts');
   }
 

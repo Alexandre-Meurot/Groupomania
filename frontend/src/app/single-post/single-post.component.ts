@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Post} from "../models/post.model";
 import {PostsService} from "../services/posts.service";
 import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, tap} from "rxjs";
 
 @Component({
   selector: 'app-single-post',
@@ -25,11 +25,19 @@ export class SinglePostComponent implements OnInit {
 
   onLike(postId: number) {
     if (this.buttonText === 'like') {
-      this.postService.likePostById(postId, "like");
-      this.buttonText = 'disLike';
+      this.postService.likePostById(postId, "like").pipe(
+        tap(() => {
+          this.posts$ = this.postService.getPostById(postId);
+          this.buttonText = 'disLike';
+        })
+      ).subscribe();
     } else {
-      this.postService.likePostById(postId, 'disLike')
-      this.buttonText = 'like';
+      this.postService.likePostById(postId, 'disLike').pipe(
+        tap(() => {
+          this.posts$ = this.postService.getPostById(postId);
+          this.buttonText = 'like';
+        })
+      ).subscribe();
     }
   };
 
