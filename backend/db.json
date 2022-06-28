@@ -51,6 +51,15 @@
       "imageUrl": "https://wtop.com/wp-content/uploads/2020/06/HEALTHYFRESH.jpg",
       "createdDate": "new Date()",
       "likes": 101
+    },
+    {
+      "title": "noouveau post via http",
+      "imageUrl": "https://www.bellemartinique.com/wp-content/uploads/2018/07/CTE_Anse-figuier_053_20160111.jpg",
+      "description": "vacances",
+      "location": "Martinique",
+      "likes": 0,
+      "createdDate": "2022-06-28T13:52:29.521Z",
+      "id": 7
     }
   ]
 }

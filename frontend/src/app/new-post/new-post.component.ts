@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {Post} from "../models/post.model";
 import {PostsService} from "../services/posts.service";
 import {Router} from "@angular/router";
@@ -55,9 +55,10 @@ export class NewPostComponent implements OnInit {
   }
 
   // méthode d'envoie du formulaire dans la liste de posts - prévoir envoie au serveur
-  onSubmitForm(): void {
-    // this.postsService.addPost(this.postForm.value);
-    this.router.navigateByUrl('/posts');
+  onSubmitForm() {
+    this.postsService.addPost(this.postForm.value).pipe(
+      tap(() => this.router.navigateByUrl('/posts'))
+    ).subscribe();
   }
 
 }

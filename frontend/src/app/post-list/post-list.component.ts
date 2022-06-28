@@ -19,5 +19,4 @@ export class PostListComponent implements OnInit {
     // initialisation du service posts + appelle méthode de récupération des posts
     this.posts$ = this.postsService.getAllPosts();
   }
-
 }
