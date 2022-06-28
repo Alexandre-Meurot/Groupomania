@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {map, Observable} from "rxjs";
 import {Post} from "../models/post.model";
+import {PostsService} from "../services/posts.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-post',
@@ -17,8 +19,10 @@ export class NewPostComponent implements OnInit {
   // variable pattern pour validator de l'email de type RegExp
   urlRegex!: RegExp;
 
-  // injection de l'outil FormBuilder = création de formulaire réactif
-  constructor(private formBuilder: FormBuilder ) { }
+  // injection de l'outil FormBuilder = création de formulaire réactif + services de Posts + router
+  constructor(private formBuilder: FormBuilder,
+              private postsService: PostsService,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -50,9 +54,10 @@ export class NewPostComponent implements OnInit {
 
   }
 
-  // méthode d'envoie du formulaire - prévoir envoie au serveur
+  // méthode d'envoie du formulaire dans la liste de posts - prévoir envoie au serveur
   onSubmitForm(): void {
-    console.log(this.postForm.value);
+    this.postsService.addPost(this.postForm.value);
+    this.router.navigateByUrl('/posts');
   }
 
 }

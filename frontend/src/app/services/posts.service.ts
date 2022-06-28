@@ -35,10 +35,12 @@ export class PostsService {
     },
   ];
 
+  // méthode de récupération de tous les posts
   getAllPosts(): Post[] {
     return this.posts
   }
 
+  // méthode de récupération d'un post en fonction de son ID
   getPostById(postId: number): Post {
     const post = this.posts.find(post => post.id === postId);
     if (!post) {
@@ -48,9 +50,21 @@ export class PostsService {
     }
   }
 
+  // méthode de like de post en fonction de son ID
   likePostById(postId: number, likeType: 'like' | 'disLike'): void {
     const post = this.getPostById(postId)
     likeType === 'like' ? post.likes++ : post.likes--
+  }
+
+  // méthode d'ajout du nouveau post avec un ID valable
+  addPost(formValue: { title: string, description: string, imageUrl: string, location: string }): void {
+    const post: Post = {
+      ...formValue,
+      createdDate: new Date(),
+      likes: 0,
+      id: this.posts[this.posts.length - 1].id + 1
+    };
+    this.posts.push(post);
   }
 
 }
