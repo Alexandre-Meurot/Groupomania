@@ -11,7 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import {AppRoutingModule} from "./app-routing.module";
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { SinglePostComponent } from './single-post/single-post.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { NewPostComponent } from './new-post/new-post.component';
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import {FormsModule} from "@angular/forms";
     PostListComponent,
     HeaderComponent,
     LandingPageComponent,
-    SinglePostComponent
+    SinglePostComponent,
+    NewPostComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide:  LOCALE_ID, useValue: 'fr-FR' }
