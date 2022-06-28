@@ -19,16 +19,7 @@ export class PostComponent implements OnInit {
     this.buttonText = 'like';
   };
 
-  onLike() {
-    if (this.buttonText === 'like') {
-      this.postService.likePostById(this.post.id, "like");
-      this.buttonText = 'disLike';
-    } else {
-      this.postService.likePostById(this.post.id, 'disLike')
-      this.buttonText = 'like';
-    }
-  };
-
+  // méthode de renvoie vers l'url d'un seul post avec son ID
   onViewPost() {
     this.router.navigateByUrl(`posts/${this.post.id}`)
   }
