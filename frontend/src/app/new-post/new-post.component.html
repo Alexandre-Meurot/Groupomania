@@ -2,6 +2,7 @@
 
   <h2>NOUVEAU POST</h2>
 
+  <!-- formulaire de création d'un nouveau post -->
   <form [formGroup]="postForm">
 
     <div class="form-group">
@@ -21,13 +22,14 @@
       <textarea type="text" id="description" formControlName="description"></textarea>
     </div>
     <div class="action-buttons">
-      <button type="submit" (click)="onSubmitForm()">Enregistrer</button>
+      <button type="submit" (click)="onSubmitForm()" [disabled]="postForm.invalid">Enregistrer</button>
     </div>
 
   </form>
 
 </div>
 
+<!-- apperçue du nouveau post -->
 <div class="post-card" *ngIf="postPreview$ | async as post">
   <h2>{{ post.title | titlecase }}</h2>
   <p>Mis en ligne le {{ post.createdDate | date: 'd MMMM yyyy, à HH:mm' }}</p>
