@@ -15,9 +15,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // méthode de connexion => renvoi vers la page "posts"
   onLogin(): void {
     this.auth.login();
     this.router.navigateByUrl('/posts');
+  }
+
+  // méthode de renvoi vers la page "inscription"
+  onSignup(): void {
+    this.router.navigateByUrl('auth/signup');
   }
 
 }
