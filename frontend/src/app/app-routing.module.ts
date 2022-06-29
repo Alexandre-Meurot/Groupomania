@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
 import {PostListComponent} from "./posts/components/post-list/post-list.component";
-import {LandingPageComponent} from "./landing-page/landing-page.component";
+import {LandingPageComponent} from "./landing-page/components/landing-page/landing-page.component";
 import {SinglePostComponent} from "./posts/components/single-post/single-post.component";
 import {NewPostComponent} from "./posts/components/new-post/new-post.component";
 
