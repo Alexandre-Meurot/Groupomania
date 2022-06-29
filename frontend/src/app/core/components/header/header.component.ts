@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
 
   // méthode d'ajout d'un nouveau post - redirection vers le composant new-post
   onAddNewPost(): void {
-    this.router.navigateByUrl('/create')
+    this.router.navigateByUrl('posts/create')
   }
 
 }

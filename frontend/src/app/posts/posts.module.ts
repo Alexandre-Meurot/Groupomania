@@ -6,6 +6,7 @@ import {NewPostComponent} from "./components/new-post/new-post.component";
 import {SinglePostComponent} from "./components/single-post/single-post.component";
 import {ReactiveFormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
+import {PostsRoutingModule} from "./posts-routing.module";
 
 
 
@@ -19,7 +20,7 @@ import {RouterModule} from "@angular/router";
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule
+    PostsRoutingModule
   ],
   exports: [
     PostComponent,
