@@ -5,7 +5,7 @@
 ## **Depuis le sous-dossier *backend* :**
 
    * installer les dépendances : `npm install`
-   * lancer le serveur backend : npm run start
+   * lancer le serveur backend : `npm run start`
    
 
 ## **Depuis le sous-dossier *frontend* :**
