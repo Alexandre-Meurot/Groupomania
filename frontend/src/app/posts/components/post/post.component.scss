@@ -11,8 +11,46 @@
     margin-bottom: 0;
   }
   p {
-    font-weight: 300;
-    font-size: 16px;
+    font-size: 18px;
+  }
+  &__header {
+    display: flex;
+    flex-direction: column;
+
+    &__profil {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      img {
+        border: 1px solid black;
+        border-radius: 50px;
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+      }
+      h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+    }
+    &__date {
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+  &__content {
+    h3 {
+      font-size: 19px;
+      margin: 10px;
+    }
+    p {
+      margin: 15px;
+    }
+  }
+  &__footer {
+    margin: 15px;
   }
 }
 
