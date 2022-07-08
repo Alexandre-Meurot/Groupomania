@@ -3,10 +3,7 @@
   <p>Mis en ligne le {{ post.createdDate | date: 'd MMMM yyyy, à HH:mm' }}</p>
   <img [src]="post.imageUrl" [alt]="post.title">
   <p>{{ post.description }}</p>
-  <p>
-    <button (click)="onLike(post.id)">{{ buttonText }}</button>
-    ❤ {{ post.likes }}
-  </p>
   <button (click)="onViewPost()">VIEW</button>
+  ❤ {{ post.likes }}
 </div>
 
