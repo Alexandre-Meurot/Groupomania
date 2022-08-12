@@ -5,7 +5,7 @@
 ### Backend : 
 
 **Installer les dépendances :**
- - `npm run start`
+ - `npm install`
 
 **Définir les variables d'environnements :**
  - créer un fichier .env à la racine du backend
