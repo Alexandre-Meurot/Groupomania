@@ -9,16 +9,24 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       post_userId: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
       },
       content: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       media: {
         type: Sequelize.STRING
       },
       likes: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
