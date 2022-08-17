@@ -34,4 +34,8 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+sequelize.authenticate()
+    .then(() => console.log('Connexion à la BDD réussie :)'))
+    .catch(error => console.log(`Connexion à la BDD échouée :( ==> ${error}`))
+
 module.exports = db;

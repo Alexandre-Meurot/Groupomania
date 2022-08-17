@@ -7,6 +7,7 @@
 - Nodemon pour le développement
 - Base de données MariaDB
 - ORM Sequelize
+- CLI de Sequelize 
 - Sécurité : dotenv, helmet, bcrypt, jsonwebtoken ainsi que multer
 
 ### Backend : 
