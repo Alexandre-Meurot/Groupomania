@@ -1,6 +1,13 @@
-# Groupomania
+# Groupomania Social Network
 
 ## Projet n°7 du parcours Développeur Web OpenClassrooms
+
+**Création d'un backend sécurisé API REST NodeJs, outils :**
+- Framework Express
+- Nodemon pour le développement
+- Base de données MariaDB
+- ORM Sequelize
+- Sécurité : dotenv, helmet, bcrypt, jsonwebtoken ainsi que multer
 
 ### Backend : 
 
@@ -9,7 +16,10 @@
 
 **Définir les variables d'environnements :**
  - créer un fichier .env à la racine du backend
- - définir les variables : `JWT_SECRET_TOKEN`
+ - définir les variables : 
+   - `PORT` = Le port sur lequel l'application backend démarre
+   - `JWT_SECRET_TOKEN` = clé secrète du token
+   
 
 **Lancer le serveur :**
- - `nodemon server`
+ - `npm start` = lance le script 'start' défini dans le package.json
