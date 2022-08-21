@@ -44,11 +44,12 @@ exports.signup = async (req, res) => {
                 password: hash
             })
             const tokenObject = await token.issueJWT(newUser)
+            message = `Votre compte a bien été créé ${newUser.username} !`
             res.status(201).send({
                 user: newUser,
                 token: tokenObject.token,
                 expires : tokenObject.expiresIn,
-                message : `Votre compte a bien été créé ${newUser.username} !`
+                message : message
             })
         } else {
             const message = 'Votre Pseudo et/ou votre Email sont incorrect !'
@@ -60,7 +61,36 @@ exports.signup = async (req, res) => {
     }
 }
 
-exports.login = (req, res, next) => {}
+exports.login = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            where: { email: req.body.email }
+        })
+        if (user === null) {
+            message = 'Aucun compte ne correspond à cet email !'
+            return res.status(401).json({ error: message })
+        } else {
+            const hash = await bcrypt.compare(req.body.password, user.password)
+            if (!hash) {
+                message = 'Le mot de passe est incorrect !'
+                return res.status(401).json({ error: message })
+            } else {
+                const tokenObject = await token.issueJWT(user)
+                message = `Vous êtes bien connecté(e) ${user.username} :)`
+                res.status(200).send({
+                    user: user,
+                    token: tokenObject.token,
+                    sub: tokenObject.sub,
+                    expires: tokenObject.expiresIn,
+                    message: message
+                })
+            }
+        }
+    } catch (error) {
+        const message = 'Une erreur est survenue !'
+        return res.status(500).json({ error: message })
+    }
+}
 
 exports.getOneUser = (req, res, next) => {}
 
