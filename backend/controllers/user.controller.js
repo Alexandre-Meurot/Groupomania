@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
-const token = require('../middleware/token.middleware')
+const fs = require('fs');
+const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator')
 const db = require('../models');
 const User = db.User;
@@ -75,14 +76,16 @@ exports.login = async (req, res) => {
                 message = 'Le mot de passe est incorrect !'
                 return res.status(401).json({ error: message })
             } else {
-                const tokenObject = await token.issueJWT(user)
+                // const tokenObject = await token.issueJWT(user)
                 message = `Vous êtes bien connecté(e) ${user.username} :)`
                 res.status(200).send({
                     user: user,
-                    token: tokenObject.token,
-                    sub: tokenObject.sub,
-                    expires: tokenObject.expiresIn,
-                    message: message
+                    message: message,
+                    token: jwt.sign(
+                        {userId: user.id},
+                        process.env.JWT_SECRET_TOKEN,
+                        {expiresIn: '24h'}
+                    )
                 })
             }
         }
@@ -107,6 +110,36 @@ exports.getOneUser = async (req, res) => {
     }
 }
 
-exports.updateUser = (req, res, next) => {}
+exports.updateUser = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
+    const userId = decodedToken.userId;
+
+    req.body.user = userId
+    console.log('bodyUser', req.body.user);
+
+    const userObject = req.file ?
+        {
+            ...JSON.parse(req.body.user),
+            imageProfile: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        } : { ...req.body };
+
+    User.findOne({
+        where: { id: userId },
+    })
+        .then(userFound => {
+            if(userFound) {
+                User.update(userObject, {
+                    where: { id: userId}
+                })
+                    .then(user => res.status(200).json({ message: 'Votre profil a bien été modifié !' }))
+                    .catch(error => res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' }))
+            }
+            else {
+                res.status(404).json({ error: 'Utilisateur non trouvé' });
+            }
+        })
+        .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
+}
 
 exports.deleteUser = (req, res, next) => {}
