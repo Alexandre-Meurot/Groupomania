@@ -133,13 +133,30 @@ exports.updateUser = async (req, res) => {
                     where: { id: userId}
                 })
                     .then(user => res.status(200).json({ message: 'Votre profil a bien été modifié !' }))
-                    .catch(error => res.status(400).json({ error: '⚠ Oops, une erreur s\'est produite !' }))
+                    .catch(error => res.status(400).json({ error: 'Une erreur est survenue !' }))
             }
             else {
                 res.status(404).json({ error: 'Utilisateur non trouvé' });
             }
         })
-        .catch(error => res.status(500).json({ error: '⚠ Oops, une erreur s\'est produite !' }));
+        .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }));
 }
 
-exports.deleteUser = (req, res, next) => {}
+exports.deleteUser = (req, res, next) => {
+    const id = req.params.id;
+    User.findOne({
+        where: { id: id }
+    })
+        .then(user => {
+            if (user) {
+                User.destroy({
+                    where: { id: id }
+                })
+                    .then(() => res.status(200).json({ message: 'Votre compte a bien été supprimé !' }))
+                    .catch(() => res.status(500).json({ error: 'Une erreur est survenue !' }))
+            } else {
+                return res.status(404).json({ error: 'Utilisateur non trouvé !' })
+            }
+        })
+        .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }))
+}
