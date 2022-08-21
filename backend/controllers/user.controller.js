@@ -92,7 +92,20 @@ exports.login = async (req, res) => {
     }
 }
 
-exports.getOneUser = (req, res, next) => {}
+exports.getOneUser = async (req, res) => {
+    try {
+        const user = await User.findOne({
+            where: { id: req.params.id }
+        })
+        res.status(200).send({
+            user: user,
+            message: 'Le profil a bien été trouvé !'
+        })
+    } catch (error) {
+        const message = 'Une erreur est survenue !'
+        return res.status(500).json({ error: message })
+    }
+}
 
 exports.updateUser = (req, res, next) => {}
 
