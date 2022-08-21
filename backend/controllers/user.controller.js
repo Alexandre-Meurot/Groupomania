@@ -44,12 +44,9 @@ exports.signup = async (req, res) => {
                 email: req.body.email,
                 password: hash
             })
-            const tokenObject = await token.issueJWT(newUser)
             message = `Votre compte a bien été créé ${newUser.username} !`
             res.status(201).send({
                 user: newUser,
-                token: tokenObject.token,
-                expires : tokenObject.expiresIn,
                 message : message
             })
         } else {
@@ -76,7 +73,6 @@ exports.login = async (req, res) => {
                 message = 'Le mot de passe est incorrect !'
                 return res.status(401).json({ error: message })
             } else {
-                // const tokenObject = await token.issueJWT(user)
                 message = `Vous êtes bien connecté(e) ${user.username} :)`
                 res.status(200).send({
                     user: user,
@@ -111,26 +107,20 @@ exports.getOneUser = async (req, res) => {
 }
 
 exports.updateUser = async (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-    const userId = decodedToken.userId;
-
-    req.body.user = userId
-    console.log('bodyUser', req.body.user);
+    const id = req.params.id;
 
     const userObject = req.file ?
-        {
-            ...JSON.parse(req.body.user),
-            imageProfile: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+        { ...JSON.parse(req.body.user),
+            picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         } : { ...req.body };
 
     User.findOne({
-        where: { id: userId },
+        where: { id: id },
     })
         .then(userFound => {
             if(userFound) {
                 User.update(userObject, {
-                    where: { id: userId}
+                    where: { id: id }
                 })
                     .then(user => res.status(200).json({ message: 'Votre profil a bien été modifié !' }))
                     .catch(error => res.status(400).json({ error: 'Une erreur est survenue !' }))
