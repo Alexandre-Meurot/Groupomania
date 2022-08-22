@@ -4,6 +4,8 @@ const Post = db.Post;
 const Comment = db.Comment;
 
 
+// ---------- CREATION D'UN COMMENTAIRE -----------
+
 exports.createComment = (req, res) => {
 
     const token = req.headers.authorization.split(' ')[1];
@@ -41,6 +43,10 @@ exports.createComment = (req, res) => {
 
 }
 
-exports.getAllComments = (req, res, next) => {}
+// ---------- RECUPERATION DES COMMENTAIRES -----------
+
+exports.getAllComments = (req, res) => {}
+
+// ---------- SUPRESSION D'UN COMMENTAIRE -----------
 
 exports.deleteComments = (req, res, next) => {}
