@@ -9,13 +9,17 @@ const Comment = db.Comment;
 
 exports.createPost = (req, res) => {
 
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
+    const userId = decodedToken.userId;
+
     if (req.body.content === null || req.body.content.length <= 5) {
         const message = 'Le contenu de votre message doit être supérieur à 5 caractères !'
         return res.status(400).json({ error: message })
     }
 
     User.findOne({
-        where: { id : post_userId }
+        where: { id : userId }
     })
 
         .then(userFound => {
