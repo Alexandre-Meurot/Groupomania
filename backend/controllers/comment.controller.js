@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const User = db.User;
 const Post = db.Post;
 const Comment = db.Comment;
 
@@ -40,12 +41,33 @@ exports.createComment = (req, res) => {
             const message = "Une erreur s'est produite !"
             res.status(500).json({ error: message })
         })
-
 }
 
 // ---------- RECUPERATION DES COMMENTAIRES -----------
 
-exports.getAllComments = (req, res) => {}
+exports.getAllComments = (req, res) => {
+
+    Comment.findAll({
+        order: [['updatedAt', "ASC"], ['createdAt', "ASC"]],
+        where: { comment_postId: req.params.postId },
+        include: [{
+            model: User,
+            attributes: [ 'username', 'picture' ]
+        }]
+    })
+        .then(commentFound => {
+            if (commentFound) {
+                const message = 'Les commentaires ont bien été trouvés !'
+                res.status(200).json({ message: message, data: commentFound })
+            } else {
+                res.status(404).json({  })
+            }
+        })
+        .catch(error => {
+            const message = "Une erreur s'est produite !"
+            res.status(500).json({ error: message })
+        })
+}
 
 // ---------- SUPRESSION D'UN COMMENTAIRE -----------
 
