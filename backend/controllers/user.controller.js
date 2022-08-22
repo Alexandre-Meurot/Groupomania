@@ -132,7 +132,7 @@ exports.updateUser = async (req, res) => {
         .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }));
 }
 
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res) => {
     const id = req.params.id;
     User.findOne({
         where: { id: id }
