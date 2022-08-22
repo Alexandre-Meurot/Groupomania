@@ -14,6 +14,9 @@ schema
     .has().digits(2) /*** mot de passe doit contenir deux chiffres minimun ***/
     .has().not().spaces() /*** mot de passe ne doit pas avoir d'espace ***/
 
+
+// ---------- CREATION D'UN UTILISATEUR -----------
+
 exports.signup = async (req, res) => {
     try {
         const userMail = await User.findOne({
@@ -59,6 +62,8 @@ exports.signup = async (req, res) => {
     }
 }
 
+// ---------- CONNEXION D'UN UTILISATEUR -----------
+
 exports.login = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -91,6 +96,8 @@ exports.login = async (req, res) => {
     }
 }
 
+// ---------- RECUPERATION D'UN UTILISATEUR -----------
+
 exports.getOneUser = async (req, res) => {
     try {
         const user = await User.findOne({
@@ -105,6 +112,8 @@ exports.getOneUser = async (req, res) => {
         return res.status(500).json({ error: message })
     }
 }
+
+// ---------- MODIFICATON D'UN UTILISATEUR -----------
 
 exports.updateUser = async (req, res) => {
     const id = req.params.id;
@@ -131,6 +140,8 @@ exports.updateUser = async (req, res) => {
         })
         .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }));
 }
+
+// ---------- SUPPRESSION D'UN UTILISATEUR -----------
 
 exports.deleteUser = (req, res) => {
     const id = req.params.id;
