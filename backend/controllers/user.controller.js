@@ -44,7 +44,7 @@ exports.signup = async (req, res) => {
                 email: req.body.email,
                 password: hash
             })
-            message = `Votre compte a bien été créé ${newUser.username} !`
+            const message = `Votre compte a bien été créé ${newUser.username} !`
             res.status(201).send({
                 user: newUser,
                 message : message
@@ -65,15 +65,15 @@ exports.login = async (req, res) => {
             where: { email: req.body.email }
         })
         if (user === null) {
-            message = 'Aucun compte ne correspond à cet email !'
+            const message = 'Aucun compte ne correspond à cet email !'
             return res.status(401).json({ error: message })
         } else {
             const hash = await bcrypt.compare(req.body.password, user.password)
             if (!hash) {
-                message = 'Le mot de passe est incorrect !'
+                const message = 'Le mot de passe est incorrect !'
                 return res.status(401).json({ error: message })
             } else {
-                message = `Vous êtes bien connecté(e) ${user.username} :)`
+                const message = `Vous êtes bien connecté(e) ${user.username} :)`
                 res.status(200).send({
                     user: user,
                     message: message,
