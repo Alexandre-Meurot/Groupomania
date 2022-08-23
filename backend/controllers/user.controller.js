@@ -27,15 +27,15 @@ exports.signup = async (req, res) => {
         })
         if (userMail !== null) {
             const message = 'Un compte existe déjà avec cette adresse email !'
-            return res.status(400).json({ error: message })
+            return res.status(400).json({ message, error })
         }
         if (userName !== null) {
             const message = "Un compte existe déjà avec ce nom d'utilisateur"
-            return res.status(400).json({ error: message })
+            return res.status(400).json({ message, error })
         }
         if (!schema.validate(req.body.password)) {
             const message = "Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et ne doit pas contenir d'espace !"
-            return res.status(400).json({ error: message })
+            return res.status(400).json({ message, error })
         }
         const usernameRegex = /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z\s]{3,20})$/;
         const mailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -54,11 +54,11 @@ exports.signup = async (req, res) => {
             })
         } else {
             const message = 'Votre Pseudo et/ou votre Email sont incorrect !'
-            res.status(400).json({ error: message })
+            res.status(400).json({ message, error })
         }
     } catch (error) {
         const message = `Une erreur est survenue : ${error}`
-        return res.status(400).json({ error: message })
+        return res.status(400).json({ message, error })
     }
 }
 
@@ -71,12 +71,12 @@ exports.login = async (req, res) => {
         })
         if (user === null) {
             const message = 'Aucun compte ne correspond à cet email !'
-            return res.status(401).json({ error: message })
+            return res.status(401).json({ message, error })
         } else {
             const hash = await bcrypt.compare(req.body.password, user.password)
             if (!hash) {
                 const message = 'Le mot de passe est incorrect !'
-                return res.status(401).json({ error: message })
+                return res.status(401).json({ message, error })
             } else {
                 const message = `Vous êtes bien connecté(e) ${user.username} :)`
                 res.status(200).send({
@@ -92,7 +92,7 @@ exports.login = async (req, res) => {
         }
     } catch (error) {
         const message = 'Une erreur est survenue !'
-        return res.status(500).json({ error: message })
+        return res.status(500).json({ message, error })
     }
 }
 
@@ -109,7 +109,7 @@ exports.getOneUser = async (req, res) => {
         })
     } catch (error) {
         const message = 'Une erreur est survenue !'
-        return res.status(500).json({ error: message })
+        return res.status(500).json({ message, error })
     }
 }
 

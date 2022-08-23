@@ -20,8 +20,8 @@ exports.createComment = (req, res) => {
             if (postFound) {
                 const comment = Comment.build({
                     content: req.body.content,
-                    comment_userId: userId,
-                    comment_postId: postFound.id
+                    userId: userId,
+                    postId: postFound.id
                 })
                 comment.save()
                     .then(() => {
@@ -30,16 +30,16 @@ exports.createComment = (req, res) => {
                     })
                     .catch(() => {
                         const message = "Une erreur s'est produite lors de la création de votre commentaire !"
-                        res.status(400).json({ error: message })
+                        res.status(400).json({ message, error })
                     })
             } else {
                 const message = 'Publication non trouvé !'
-                return res.status(404).json({ error: message })
+                return res.status(404).json({ message, error })
             }
         })
         .catch(error => {
             const message = "Une erreur s'est produite !"
-            res.status(500).json({ error: message })
+            res.status(500).json({ message, error })
         })
 }
 
@@ -49,7 +49,7 @@ exports.getAllComments = (req, res) => {
 
     Comment.findAll({
         order: [['updatedAt', "ASC"], ['createdAt', "ASC"]],
-        where: { comment_postId: req.params.postId },
+        where: { postId: req.params.postId },
         include: [{
             model: User,
             attributes: [ 'username', 'picture' ]
@@ -65,10 +65,38 @@ exports.getAllComments = (req, res) => {
         })
         .catch(error => {
             const message = "Une erreur s'est produite !"
-            res.status(500).json({ error: message })
+            res.status(500).json({ message, error })
         })
 }
 
 // ---------- SUPRESSION D'UN COMMENTAIRE -----------
 
-exports.deleteComments = (req, res, next) => {}
+exports.deleteComments = (req, res) => {
+
+    Comment.findOne({
+        attributes: ['id'],
+        where: { id: req.params.commentId }
+    })
+        .then(commentFound => {
+            if (commentFound) {
+                Comment.destroy({
+                    where: { id: req.params.commentId }
+                })
+                    .then(() => {
+                        const message = 'Votre commentaire a bien été supprimé !'
+                        res.status(200).json({ message: message })
+                    })
+                    .catch(() => {
+                        const message = "Une erreur s'est produite lors de la suppression de votre commentaire !"
+                        res.status(500).json({ message, error })
+                    })
+            } else {
+                const message = 'Commentaire non trouvé !'
+                return res.status(404).json({ message, error })
+            }
+        })
+        .catch(error => {
+            const message = "Une erreur s'est produite !"
+            res.status(500).json({ message, error })
+        })
+}
