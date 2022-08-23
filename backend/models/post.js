@@ -15,9 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Post.hasMany(models.Like)
 
       models.Post.belongsTo(models.User, {
-        foreignKey: {
-          allowNull: false
-        }
+        foreignKey: 'post_userId'
       })
     }
   }
