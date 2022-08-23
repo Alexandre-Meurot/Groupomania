@@ -27,7 +27,7 @@ exports.createPost = (req, res) => {
                 const post = Post.build({
                     content: req.body.content,
                     media: req.file ? `${req.protocol}://${req.get('host')}/images/${req.file.filename}`: req.body.media,
-                    post_userId: userFound.id
+                    UserId: userFound.id
                 })
                 post.save()
                     .then(() => {
@@ -72,7 +72,7 @@ exports.getAllPosts = (req, res) => {
         })
         .catch(error => {
             const message = "Une erreur s'est produite !"
-            res.status(500).json({ error: message })
+            res.status(500).json({ error })
         })
 }
 

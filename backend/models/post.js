@@ -15,12 +15,12 @@ module.exports = (sequelize, DataTypes) => {
       models.Post.hasMany(models.Like)
 
       models.Post.belongsTo(models.User, {
-        foreignKey: 'post_userId'
+        foreignKey: 'userId'
       })
     }
   }
   Post.init({
-    post_userId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     content: DataTypes.STRING,
     media: DataTypes.STRING,
     likes: DataTypes.INTEGER

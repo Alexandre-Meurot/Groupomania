@@ -12,16 +12,16 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       models.Comment.belongsTo(models.User, {
-        foreignKey: 'comment_userId'
+        foreignKey: 'userId'
       })
       models.Comment.belongsTo(models.Post, {
-        foreignKey: 'comment_postId'
+        foreignKey: 'postId'
       })
     }
   }
   Comment.init({
-    comment_userId: DataTypes.INTEGER,
-    comment_postId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
+    postId: DataTypes.INTEGER,
     content: DataTypes.STRING
   }, {
     sequelize,
