@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../models');
 const Like = db.Like;
 const Post = db.Post;
+const User = db.User;
 
 
 // ---------- LIKER UN POST -----------
@@ -91,4 +92,27 @@ exports.likePost = (req, res) => {
 
 // ---------- RECUPERATION DES LIKES -----------
 
-exports.getAllLikes = (req, res, next) => {}
+exports.getAllLikes = (req, res) => {
+
+    Like.findAll({
+        where: { postId: req.params.postId },
+        include: {
+            model: User,
+            attributes: ['username']
+        }
+    })
+        .then(likePostFound => {
+            if (likePostFound) {
+                const message = 'Les likes de cette publication ont bien été trouvés !'
+                res.status(200).json({ message: message, data: likePostFound })
+            } else {
+                const message = "Aucun like(s) trouvé(s) !"
+                res.status(404).json({ message, error })
+            }
+
+        })
+        .catch(error => {
+            const message = "Une erreur s'est produite !"
+            res.status(500).json({ message, error })
+        })
+}
