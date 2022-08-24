@@ -57,7 +57,7 @@ exports.signup = async (req, res) => {
             res.status(400).json({ message, error })
         }
     } catch (error) {
-        const message = `Une erreur est survenue : ${error}`
+        const message = `Une erreur est survenue`
         return res.status(400).json({ message, error })
     }
 }

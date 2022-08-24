@@ -36,7 +36,7 @@ exports.createPost = (req, res) => {
                     })
                     .catch(error => {
                         const message = "Une erreur s'est produite, votre post n'a pas été publié !"
-                        res.status(400).json({ error: message })
+                        res.status(400).json({ message, error })
                     })
             } else {
                 const message = 'Utilisateur non trouvé !'
