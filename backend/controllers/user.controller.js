@@ -131,14 +131,24 @@ exports.updateUser = async (req, res) => {
                 User.update(userObject, {
                     where: { id: id }
                 })
-                    .then(user => res.status(200).json({ message: 'Votre profil a bien été modifié !' }))
-                    .catch(error => res.status(400).json({ error: 'Une erreur est survenue !' }))
+                    .then(user => {
+                        const message = 'Votre profil a bien été modifié !'
+                        res.status(200).json({ message: message })
+                    })
+                    .catch(error => {
+                        const message = 'Une erreur est survenue !'
+                        res.status(400).json({ message: message, error  })
+                    })
             }
             else {
-                res.status(404).json({ error: 'Utilisateur non trouvé' });
+                const message = 'Utilisateur non trouvé'
+                res.status(404).json({ message: message, error });
             }
         })
-        .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }));
+        .catch(error => {
+            const message = 'Une erreur est survenue !'
+            res.status(500).json({ message: message, error })
+        });
 }
 
 // ---------- SUPPRESSION D'UN UTILISATEUR -----------
@@ -153,11 +163,21 @@ exports.deleteUser = (req, res) => {
                 User.destroy({
                     where: { id: id }
                 })
-                    .then(() => res.status(200).json({ message: 'Votre compte a bien été supprimé !' }))
-                    .catch(() => res.status(500).json({ error: 'Une erreur est survenue !' }))
+                    .then(() => {
+                        const message = 'Votre compte a bien été supprimé !'
+                        res.status(200).json({ message: message })
+                    })
+                    .catch(() => {
+                        const message = 'Une erreur est survenue !'
+                        res.status(500).json({ message: message, error })
+                    })
             } else {
-                return res.status(404).json({ error: 'Utilisateur non trouvé !' })
+                const message = 'Utilisateur non trouvé !'
+                return res.status(404).json({ message: message, error })
             }
         })
-        .catch(error => res.status(500).json({ error: 'Une erreur est survenue !' }))
+        .catch(error => {
+            const message = 'Une erreur est survenue !'
+            res.status(500).json({ message: message, error })
+        })
 }
