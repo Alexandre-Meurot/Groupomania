@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator')
 const db = require('../models');
 const User = db.User;
+const getAuthUserId = require('../middleware/getAuthUserId.middleware')
 
 const schema = new passwordValidator();
 schema
@@ -109,7 +110,7 @@ exports.login = (req, res) => {
                             picture: userFound.picture,
                             isAdmin: userFound.isAdmin,
                             token: jwt.sign(
-                                { userId: userFound.id },
+                                { userId: userFound.id, isAdmin: userFound.isAdmin },
                                  process.env.JWT_SECRET_TOKEN,
                                 { expiresIn: '24h' }
                             )
@@ -140,7 +141,6 @@ exports.getOneUser = (req, res) => {
         attributes: [ 'id', 'username', 'email', 'picture', 'isAdmin' ],
         where: { id: id }
     })
-
         .then(userFound => {
             if (userFound) {
                 const message = 'Utilisateur trouvé !'
@@ -204,30 +204,43 @@ exports.updateUser = (req, res) => {
 // ---------- SUPPRESSION D'UN UTILISATEUR -----------
 
 exports.deleteUser = (req, res) => {
-    const id = req.params.id;
+
     User.findOne({
-        where: { id: id }
+        where: { id: req.params.id }
     })
-        .then(user => {
-            if (user) {
-                User.destroy({
-                    where: { id: id }
-                })
-                    .then(() => {
-                        const message = 'Votre compte a bien été supprimé !'
-                        res.status(200).json({ message: message })
-                    })
-                    .catch(() => {
-                        const message = 'Une erreur est survenue !'
-                        res.status(500).json({ message: message, error })
-                    })
-            } else {
-                const message = 'Utilisateur non trouvé !'
-                return res.status(404).json({ message: message, error })
+        .then(userFound => {
+
+            if (userFound.id !== getAuthUserId(req)) {
+                return res.status(401).json({ message: "Requête non authentifiée, seul l'administrateur peut supprimer un compte tiers !" })
             }
+
+            userFound.destroy({
+                where: { id: req.params.id }
+            })
+                .then(() => {
+                    res.status(200).json({ message: 'Votre profil a bien été supprimé !' })
+                })
+                .catch(error => {
+                    res.status(409).json({ error })
+                })
         })
         .catch(error => {
-            const message = 'Une erreur est survenue !'
-            res.status(500).json({ message: message, error })
+            res.status(500).json({ message: 'Une erreur est survenue !' })
         })
+}
+
+// ---------- SUPPRESSION D'UN UTILISATEUR DEPUIS UN COMPTE ADMIN -----------
+
+exports.adminDeleteUser = (req, res) => {
+
+    User.destroy({
+        where: { id: req.params.id }
+    })
+        .then(() => {
+            res.status(200).json({ message: 'Profil du user supprimé !' })
+        })
+        .catch(error => {
+            res.status(403).json({ error })
+        })
+    console.log(User.destroy)
 }
