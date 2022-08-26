@@ -21,6 +21,8 @@ schema
 
 exports.signup =  (req, res) => {
 
+    //TODO refaire la méthode car mauvaise vérif de l'username si il existe déjà + revoir usernameRegex car impossible avec les chiffres !
+
     let username = req.body.username
     let email = req.body.email
     let password = req.body.password
@@ -242,5 +244,4 @@ exports.adminDeleteUser = (req, res) => {
         .catch(error => {
             res.status(403).json({ error })
         })
-    console.log(User.destroy)
 }
