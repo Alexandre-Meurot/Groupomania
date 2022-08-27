@@ -19,76 +19,56 @@ schema
 
 // ---------- CREATION D'UN UTILISATEUR -----------
 
-exports.signup =  (req, res) => {
-
-    //TODO refaire la méthode car mauvaise vérif de l'username si il existe déjà + revoir usernameRegex car impossible avec les chiffres !
-
-    let username = req.body.username
-    let email = req.body.email
-    let password = req.body.password
+exports.signup = async (req, res) => {
 
     const usernameRegex = /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z\s]{3,20})$/;
     const mailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-    if (email == null || email === '' || username == null || username === '' || password == null || password === '') {
-        const message = 'Tous les champs doivent être renseignés (username, email, password)'
-        return res.status(400).json({ message: message, error })
-    }
+    try {
 
-    if (!usernameRegex.test(username)) {
-        const message = 'Votre pseudo ne respecte pas les règles de validation !'
-        return res.status(400).json({ message: message, error })
-    }
+        const userMail = await User.findOne({
+            where: {email: req.body.email}
+        })
+        const userUsername = await User.findOne({
+            where: {username: req.body.username}
+        })
 
-    if (!mailRegex.test(email)) {
-        const message = 'Votre email ne respecte pas les règles de validation !'
-        return res.status(400).json({ message: message, error })
-    }
-
-    if (!schema.validate(password)) {
-        const message = 'Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et ne doit pas contenir d\'espace !'
-        return res.status(400).json({ message: message, error })
-    }
-
-    User.findOne({
-        attributes: ['username' || 'email'],
-        where: {
-            username: username,
-            email: email
-        }
-    })
-        .then(userFound => {
-            if (!userFound) {
-                bcrypt.hash(password, 10)
-                    .then(hash => {
-                        const user = User.build({
-                            username: username,
-                            email: email,
-                            password: hash
-                        })
-                        user.save()
-                            .then(() => {
-                                const message = 'Votre compte a bien été créé !'
-                                res.status(201).json({ message: message })
-                            })
-                            .catch(error => {
-                                const message = 'Une erreur est survenue lors de la création de votre compte !'
-                                res.status(400).json({ message: message, error })
-                            })
-                    })
-                    .catch(error => {
-                        const message = 'Une erreur est survenue lors de la création de votre compte !'
-                        res.status(500).json({ message: message, error })
-                    })
-            } else {
-                const message = 'Cet utilisateur existe déjà !'
-                return res.status(404).json({ message: message, error })
+        if (userMail !== null) {
+            if (userMail.email === req.body.email) {
+                const message = "Cet adresse email est déjà utilisé !"
+                return res.status(400).json({error: message})
             }
-        })
-        .catch(error => {
-            const message = "Une erreur s'est produite !"
-            res.status(500).json({ message: message, error })
-        })
+
+        } else if (userUsername !== null) {
+            if (userUsername.username === req.body.username) {
+                const message = "Ce nom d'utilisateur est déjà utilisé !"
+                return res.status(400).json({error: message})
+            }
+
+        } else {
+
+            if (!schema.validate(req.body.password)) {
+                const message = 'Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et ne doit pas contenir d\'espace !'
+                return res.status(400).json({error: message})
+            }
+            if (!mailRegex.test(req.body.email)) {
+                const message = 'Votre email ne respecte pas les règles de validation !'
+                return res.status(400).json({error: message})
+            }
+            const hash = await bcrypt.hash(req.body.password, 10)
+            const newUser = await User.create({
+                username: req.body.username,
+                email: req.body.email,
+                password: hash
+            })
+            const message = 'Votre compte a bien été créé !'
+            return res.status(201).json({message: message, data: newUser})
+        }
+    } catch (error) {
+        const message = "Une erreur est survenue !"
+        return res.status(500).json({error: message})
+    }
+
 }
 
 // ---------- CONNEXION D'UN UTILISATEUR -----------
