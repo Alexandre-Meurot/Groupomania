@@ -19,6 +19,8 @@ schema
 
 // ---------- CREATION D'UN UTILISATEUR -----------
 
+//TODO redéfinir un regEx pour le username : avec chiffres autorisés + la mettre en place
+
 exports.signup = async (req, res) => {
 
     const usernameRegex = /^([A-Za-z]{3,20})?([-]{0,1})?([A-Za-z\s]{3,20})$/;
