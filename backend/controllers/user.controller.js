@@ -142,15 +142,9 @@ exports.getOneUser = (req, res) => {
 
 // ---------- MODIFICATON D'UN UTILISATEUR -----------
 
+// TODO a tester
+
 exports.updateUser = (req, res) => {
-
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-    const userId = decodedToken.userId;
-
-    req.body.user = userId
-
-    console.log('bodyUser', req.body.user);
 
     const userObject = req.file ?
         {
@@ -159,12 +153,20 @@ exports.updateUser = (req, res) => {
         } : { ...req.body };
 
     User.findOne({
-        where: { id: userId },
+        where: { id: req.params.id },
     })
+
         .then(userFound => {
+
+            if (userFound.id !== getAuthUserId(req)) {
+                const message = "Requête non authentifiée, seul l'auteur peut modifier son propre compte !"
+                return res.status(401).json({ error: message })
+            }
+
             if(userFound) {
+                
                 User.update(userObject, {
-                    where: { id: userId}
+                    where: { id: req.params.id}
                 })
                     .then(user => {
                         const message = 'Votre profil a bien été modifié !'
@@ -195,7 +197,8 @@ exports.deleteUser = (req, res) => {
         .then(userFound => {
 
             if (userFound.id !== getAuthUserId(req)) {
-                return res.status(401).json({ message: "Requête non authentifiée, seul l'administrateur peut supprimer un compte tiers !" })
+                const message = "Requête non authentifiée, seul l'administrateur peut supprimer un compte tiers !"
+                return res.status(401).json({ error: message })
             }
 
             userFound.destroy({

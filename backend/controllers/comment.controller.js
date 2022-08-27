@@ -7,6 +7,8 @@ const Comment = db.Comment;
 
 // ---------- CREATION D'UN COMMENTAIRE -----------
 
+//TODO à modifier
+
 exports.createComment = (req, res) => {
 
     const token = req.headers.authorization.split(' ')[1];
@@ -71,6 +73,8 @@ exports.getAllComments = (req, res) => {
 
 // ---------- SUPRESSION D'UN COMMENTAIRE -----------
 
+//TODO à modifier
+
 exports.deleteComments = (req, res) => {
 
     Comment.findOne({
@@ -100,3 +104,7 @@ exports.deleteComments = (req, res) => {
             res.status(500).json({ message, error })
         })
 }
+
+// ---------- SUPRESSION D'UN COMMENTAIRE AVEC COMPTE ADMIN -----------
+
+//TODO à faire

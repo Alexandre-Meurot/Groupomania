@@ -7,6 +7,8 @@ const User = db.User;
 
 // ---------- LIKER UN POST -----------
 
+//TODO à modifier
+
 exports.likePost = (req, res) => {
 
     const token = req.headers.authorization.split(' ')[1];
