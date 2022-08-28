@@ -3,17 +3,12 @@ const db = require('../models');
 const Like = db.Like;
 const Post = db.Post;
 const User = db.User;
+const getAuthUserId = require('../middleware/getAuthUserId.middleware')
 
 
 // ---------- LIKER UN POST -----------
 
-//TODO à modifier
-
 exports.likePost = (req, res) => {
-
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-    const userId = decodedToken.userId;
 
     const isLiked = req.body.like;
 
@@ -31,7 +26,7 @@ exports.likePost = (req, res) => {
             } else if (isLiked === false) {
 
                 Like.create({
-                    userId: userId,
+                    userId: getAuthUserId(req),
                     postId: req.params.postId
                 })
                     .then(response => {
@@ -59,7 +54,7 @@ exports.likePost = (req, res) => {
 
                 Like.destroy({
                     where: {
-                        userId: userId,
+                        userId: getAuthUserId(req),
                         postId: req.params.postId
                     }
                 })

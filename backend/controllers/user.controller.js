@@ -164,7 +164,7 @@ exports.updateUser = (req, res) => {
             }
 
             if(userFound) {
-                
+
                 User.update(userObject, {
                     where: { id: req.params.id}
                 })

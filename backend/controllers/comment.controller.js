@@ -1,19 +1,15 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const fs = require('fs');
 const User = db.User;
 const Post = db.Post;
 const Comment = db.Comment;
+const getAuthUserId = require('../middleware/getAuthUserId.middleware');
 
 
 // ---------- CREATION D'UN COMMENTAIRE -----------
 
-//TODO à modifier
-
 exports.createComment = (req, res) => {
-
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET_TOKEN);
-    const userId = decodedToken.userId;
 
     Post.findOne({
         where: { id: req.params.postId }
@@ -22,7 +18,7 @@ exports.createComment = (req, res) => {
             if (postFound) {
                 const comment = Comment.build({
                     content: req.body.content,
-                    userId: userId,
+                    userId: getAuthUserId(req),
                     postId: postFound.id
                 })
                 comment.save()
@@ -73,38 +69,54 @@ exports.getAllComments = (req, res) => {
 
 // ---------- SUPRESSION D'UN COMMENTAIRE -----------
 
-//TODO à modifier
-
 exports.deleteComments = (req, res) => {
 
     Comment.findOne({
-        attributes: ['id'],
         where: { id: req.params.commentId }
     })
         .then(commentFound => {
-            if (commentFound) {
-                Comment.destroy({
-                    where: { id: req.params.commentId }
-                })
-                    .then(() => {
-                        const message = 'Votre commentaire a bien été supprimé !'
-                        res.status(200).json({ message: message })
-                    })
-                    .catch(() => {
-                        const message = "Une erreur s'est produite lors de la suppression de votre commentaire !"
-                        res.status(500).json({ message, error })
-                    })
-            } else {
-                const message = 'Commentaire non trouvé !'
-                return res.status(404).json({ message, error })
+            if (commentFound.userId !== getAuthUserId(req)) {
+                const message = "Requête non authentifiée, seul l'administrateur peut supprimer le commentaire d'un tiers !"
+                return res.status(401).json({ error: message })
             }
+            commentFound.destroy()
+                .then(() => {
+                    const message = 'Le commetaire a bien été supprimé !'
+                    res.status(200).json({ message: message, data: commentFound })
+                })
+                .catch(error => {
+                    const message = 'Une erreur est survenue lors de la suppression de votre commentaire !'
+                    res.status(500).json({ error: message })
+                })
         })
         .catch(error => {
-            const message = "Une erreur s'est produite !"
-            res.status(500).json({ message, error })
+            const message = 'Une erreur est survenue, le commentaire est introuvable !'
+            res.status(404).json({ error: message })
         })
 }
 
 // ---------- SUPRESSION D'UN COMMENTAIRE AVEC COMPTE ADMIN -----------
 
-//TODO à faire
+exports.adminDeleteComment = (req, res) => {
+
+    Comment.findOne({
+        where: { id: req.params.commentId }
+    })
+        .then(commentFound => {
+            commentFound.destroy({
+                where: { id: req.params.commentId }
+            })
+                .then(() => {
+                    const message = 'Le commentaire a bien été supprimé !'
+                    res.status(200).json({ message: message })
+                })
+                .catch(error => {
+                    const message = 'Une erreur est survenue lors de la suppression du commentaire !'
+                    res.status(400).json({ error: message })
+                })
+        })
+        .catch(error => {
+            const message = "Une erreur est survenue, le commentaire n'a pas été trouvé !"
+            res.status(500).json({ error: message })
+        })
+}
