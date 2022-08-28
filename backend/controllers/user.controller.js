@@ -19,7 +19,7 @@ schema
 
 // ---------- CREATION D'UN UTILISATEUR -----------
 
-//TODO redéfinir un regEx pour le username : avec chiffres autorisés + la mettre en place
+// TODO redéfinir un regEx pour le username : avec chiffres autorisés + la mettre en place
 
 exports.signup = async (req, res) => {
 
@@ -141,8 +141,6 @@ exports.getOneUser = (req, res) => {
 }
 
 // ---------- MODIFICATON D'UN UTILISATEUR -----------
-
-// TODO a tester
 
 exports.updateUser = (req, res) => {
 
