@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator')
 const db = require('../models');
 const User = db.User;
-const getAuthUserId = require('../middleware/getAuthUserId.middleware')
+const getAuthUserId = require('../middleware/getAuthUserId.middleware');
 
 const schema = new passwordValidator();
 schema
@@ -194,11 +194,6 @@ exports.deleteUser = (req, res) => {
     })
         .then(userFound => {
 
-            if (userFound.id !== getAuthUserId(req)) {
-                const message = "Requête non authentifiée, seul l'administrateur peut supprimer un compte tiers !"
-                return res.status(401).json({ error: message })
-            }
-
             userFound.destroy({
                 where: { id: req.params.id }
             })
@@ -214,17 +209,3 @@ exports.deleteUser = (req, res) => {
         })
 }
 
-// ---------- SUPPRESSION D'UN UTILISATEUR DEPUIS UN COMPTE ADMIN -----------
-
-exports.adminDeleteUser = (req, res) => {
-
-    User.destroy({
-        where: { id: req.params.id }
-    })
-        .then(() => {
-            res.status(200).json({ message: 'Profil du user supprimé !' })
-        })
-        .catch(error => {
-            res.status(403).json({ error })
-        })
-}

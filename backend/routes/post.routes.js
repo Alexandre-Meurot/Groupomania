@@ -7,7 +7,7 @@ const likeCtrl = require('../controllers/like.controller');
 
 // IMPORTS MIDDLEWARE
 const auth = require('../middleware/auth.middleware');
-const authAdmin = require('../middleware/authAdmin.middleware')
+const checkAuth = require('../middleware/checkAuth.middleware');
 const multer = require('../middleware/multer-config');
 
 // ROUTES POST
@@ -16,11 +16,8 @@ router.get('', auth, postCtrl.getAllPosts);
 router.put('/:postId', auth, multer, postCtrl.updatePost);
 router.delete('/:postId', auth, postCtrl.deletePost);
 
-// ROUTE ADMIN
-router.delete('/admin/delete/:postId', authAdmin, multer, postCtrl.adminDeletePost)
-
 // ROUTES LIKE POST
 router.post('/:postId/like', auth, likeCtrl.likePost);
-router.get('/:postId/like', auth, likeCtrl.getAllLikes);
+router.get('/:postId/like', checkAuth, likeCtrl.getAllLikes);
 
 module.exports = router;

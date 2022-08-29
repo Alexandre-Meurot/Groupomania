@@ -171,46 +171,5 @@ exports.deletePost = (req, res) => {
         })
 }
 
-// ---------- SUPPRESSION D'UN UTILISATEUR DEPUIS UN COMPTE ADMIN -----------
 
-exports.adminDeletePost = (req, res) => {
-
-    Post.findOne({
-        where: { id: req.params.postId }
-    })
-        .then(post => {
-            if (req.file) {
-                const filename = post.media.split('/images/')[1]
-                fs.unlink(`images/${filename}`, () => {
-                    post.destroy({
-                        where: { id: req.params.postId }
-                    })
-                        .then(() => {
-                            const message = 'La publication et son média ont bien été supprimé !'
-                            res.status(200).json({ message: message })
-                        })
-                        .catch(error => {
-                            const message = 'Une erreur est survenue lors de la suppression de la publication et son media !'
-                            res.status(400).json({ error: message })
-                        })
-                })
-            } else {
-                post.destroy({
-                    where: { id: req.params.postId }
-                })
-                    .then(() => {
-                        const message = 'La publication a bien été supprimé !'
-                        res.status(200).json({ message: message })
-                    })
-                    .catch(error => {
-                        const message = 'Une erreur est survenue lors de la suppression de la publication !'
-                        res.status(400).json({ error: message })
-                    })
-            }
-        })
-        .catch(error => {
-            const message = 'Une erreur est survenue !'
-            res.status(500).json({ error: message })
-        })
-}
 

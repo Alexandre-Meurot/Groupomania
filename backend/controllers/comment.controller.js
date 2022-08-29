@@ -94,29 +94,3 @@ exports.deleteComments = (req, res) => {
             res.status(404).json({ error: message })
         })
 }
-
-// ---------- SUPRESSION D'UN COMMENTAIRE AVEC COMPTE ADMIN -----------
-
-exports.adminDeleteComment = (req, res) => {
-
-    Comment.findOne({
-        where: { id: req.params.commentId }
-    })
-        .then(commentFound => {
-            commentFound.destroy({
-                where: { id: req.params.commentId }
-            })
-                .then(() => {
-                    const message = 'Le commentaire a bien été supprimé !'
-                    res.status(200).json({ message: message })
-                })
-                .catch(error => {
-                    const message = 'Une erreur est survenue lors de la suppression du commentaire !'
-                    res.status(400).json({ error: message })
-                })
-        })
-        .catch(error => {
-            const message = "Une erreur est survenue, le commentaire n'a pas été trouvé !"
-            res.status(500).json({ error: message })
-        })
-}
