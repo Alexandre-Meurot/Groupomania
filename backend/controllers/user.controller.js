@@ -140,6 +140,24 @@ exports.getOneUser = (req, res) => {
         })
 }
 
+// ---------- RECUPERATION D'UN UTILISATEUR -----------
+
+exports.getAllUsers = (req, res) => {
+
+    User.findAll({
+        attributes: ['id', 'username', 'picture', 'bio', 'isAdmin']
+    })
+        .then(users => {
+            const message = 'Les utilisateurs ont été trouvé !'
+            res.status(200).json({ message: message, data: users })
+        })
+        .catch(error => {
+            const message = 'Une erreur est survenue lors de la récupération des utilisateurs'
+            res.status(404).json({ error: message })
+        })
+
+}
+
 // ---------- MODIFICATON D'UN UTILISATEUR -----------
 
 exports.updateUser = (req, res) => {
