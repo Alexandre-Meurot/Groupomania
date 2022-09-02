@@ -122,7 +122,7 @@ exports.getOneUser = (req, res) => {
     const id = req.params.id
 
     User.findOne({
-        attributes: [ 'id', 'username', 'email', 'picture', 'isAdmin' ],
+        attributes: [ 'id', 'username', 'email', 'picture','bio', 'isAdmin' ],
         where: { id: id }
     })
         .then(userFound => {
