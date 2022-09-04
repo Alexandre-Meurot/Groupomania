@@ -140,7 +140,7 @@ exports.getOneUser = (req, res) => {
         })
 }
 
-// ---------- RECUPERATION D'UN UTILISATEUR -----------
+// ---------- RECUPERATION DE TOUS LES UTILISATEURS -----------
 
 exports.getAllUsers = (req, res) => {
 
@@ -153,7 +153,7 @@ exports.getAllUsers = (req, res) => {
         })
         .catch(error => {
             const message = 'Une erreur est survenue lors de la récupération des utilisateurs'
-            res.status(404).json({ error: message })
+            res.status(404).json({ error: error, message: message })
         })
 
 }
