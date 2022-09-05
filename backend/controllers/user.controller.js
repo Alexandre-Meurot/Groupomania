@@ -174,7 +174,7 @@ exports.updateUser = (req, res) => {
 
         .then(userFound => {
 
-            if (userFound.id !== getAuthUserId(req)) {
+            if (userFound.id !== getAuthUserId(req).userId) {
                 const message = "Requête non authentifiée, seul l'auteur peut modifier son propre compte !"
                 return res.status(401).json({ error: message })
             }
@@ -212,17 +212,29 @@ exports.deleteUser = (req, res) => {
     })
         .then(userFound => {
 
-            userFound.destroy({
-                where: { id: req.params.id }
-            })
-                .then(() => {
-                    res.status(200).json({ message: 'Votre profil a bien été supprimé !' })
+            console.log(getAuthUserId(req).isAdmin)
+            console.log(getAuthUserId(req).userId)
+
+            if ((userFound.id === getAuthUserId(req).userId) || getAuthUserId(req).isAdmin === true) {
+
+                userFound.destroy({
+                    where: { id: req.params.id }
                 })
-                .catch(error => {
-                    res.status(409).json({ error })
-                })
+                    .then(() => {
+                        res.status(200).json({ message: 'Le profil a bien été supprimé !' })
+                    })
+                    .catch(error => {
+                        res.status(409).json({ error })
+                    })
+
+            } else {
+                const message = "Requête non authentifiée, seul l'auteur peut supprimer son propre compte !"
+                return res.status(401).json({ error: message })
+            }
+
         })
         .catch(error => {
+            console.log(error)
             res.status(500).json({ message: 'Une erreur est survenue !' })
         })
 }

@@ -12,8 +12,9 @@ const getAuthUserId = (req) => {
     /*** décodage du userId ***/
 
     const userId = decodedToken.userId;
+    const isAdmin = decodedToken.isAdmin;
 
-    return userId;
+    return {userId, isAdmin};
 }
 
 module.exports = getAuthUserId;

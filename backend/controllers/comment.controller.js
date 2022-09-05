@@ -18,7 +18,7 @@ exports.createComment = (req, res) => {
             if (postFound) {
                 const comment = Comment.build({
                     content: req.body.content,
-                    userId: getAuthUserId(req),
+                    userId: getAuthUserId(req).userId,
                     postId: postFound.id
                 })
                 comment.save()
@@ -76,19 +76,23 @@ exports.deleteComments = (req, res) => {
         where: { id: req.params.commentId }
     })
         .then(commentFound => {
-            if (commentFound.userId !== getAuthUserId(req)) {
+
+            if ((commentFound.userId === getAuthUserId(req).userId) || getAuthUserId(req).isAdmin === true) {
+
+                commentFound.destroy()
+                    .then(() => {
+                        const message = 'Le commetaire a bien été supprimé !'
+                        res.status(200).json({ message: message, data: commentFound })
+                    })
+                    .catch(error => {
+                        const message = 'Une erreur est survenue lors de la suppression de votre commentaire !'
+                        res.status(500).json({ error: message })
+                    })
+
+            } else {
                 const message = "Requête non authentifiée, seul l'administrateur peut supprimer le commentaire d'un tiers !"
                 return res.status(401).json({ error: message })
             }
-            commentFound.destroy()
-                .then(() => {
-                    const message = 'Le commetaire a bien été supprimé !'
-                    res.status(200).json({ message: message, data: commentFound })
-                })
-                .catch(error => {
-                    const message = 'Une erreur est survenue lors de la suppression de votre commentaire !'
-                    res.status(500).json({ error: message })
-                })
         })
         .catch(error => {
             const message = 'Une erreur est survenue, le commentaire est introuvable !'

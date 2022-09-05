@@ -3,6 +3,7 @@ const fs = require('fs');
 const db = require('../models');
 const User = db.User;
 const Post = db.Post;
+const Like = db.Like;
 const Comment = db.Comment;
 const getAuthUserId = require('../middleware/getAuthUserId.middleware');
 
@@ -18,7 +19,7 @@ exports.createPost = (req, res) => {
 
     if (req.file) {
         Post.create({
-            userId: getAuthUserId(req),
+            userId: getAuthUserId(req).userId,
             content: req.body.content,
             media: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         })
@@ -32,7 +33,7 @@ exports.createPost = (req, res) => {
             })
     } else {
         Post.create({
-            userId: getAuthUserId(req),
+            userId: getAuthUserId(req).userId,
             content: req.body.content
         })
             .then(() => {
@@ -126,15 +127,38 @@ exports.deletePost = (req, res) => {
     })
         .then(post => {
 
-            if (post.userId !== getAuthUserId(req)) {
-                const message = "Requête non authentifiée, seul l'administrateur peut supprimer une publication tierse !"
-                return res.status(404).json({ error: message })
-            }
+            if ((post.userId === getAuthUserId(req).userId) || getAuthUserId(req).isAdmin === true) {
 
-            if (post) {
-                if (post.media != null) {
-                    const filename = post.media.split('/images/')[1]
-                    fs.unlink(`images/${filename}`, () => {
+                if (post) {
+                    if (post.media != null) {
+                        const filename = post.media.split('/images/')[1]
+                        fs.unlink(`images/${filename}`, () => {
+
+                            Comment.destroy({
+                                where: { postId: req.params.postId }
+                            })
+                            Like.destroy({
+                                where: { postId: req.params.postId }
+                            })
+                            Post.destroy({
+                                where: { id: req.params.postId }
+                            })
+                                .then(() => {
+                                    const message = 'La publication a bien été supprimé !'
+                                    res.status(200).json({ message: message })
+                                })
+                                .catch((error) => {
+                                    const message = "Une erreur s'est produite lors de la supression de votre publication"
+                                    res.status(500).json({ message, error })
+                                })
+                        })
+                    } else {
+                        Comment.destroy({
+                            where: { postId: req.params.postId }
+                        })
+                        Like.destroy({
+                            where: { postId: req.params.postId }
+                        })
                         Post.destroy({
                             where: { id: req.params.postId }
                         })
@@ -142,32 +166,24 @@ exports.deletePost = (req, res) => {
                                 const message = 'Votre publication a bien été supprimé !'
                                 res.status(200).json({ message: message })
                             })
-                            .catch(() => {
+                            .catch((error) => {
                                 const message = "Une erreur s'est produite lors de la supression de votre publication"
                                 res.status(500).json({ message, error })
                             })
-                    })
+                    }
                 } else {
-                    Post.destroy({
-                        where: { id: req.params.postId }
-                    })
-                        .then(() => {
-                            const message = 'Votre publication a bien été supprimé !'
-                            res.status(200).json({ message: message })
-                        })
-                        .catch(() => {
-                            const message = "Une erreur s'est produite lors de la supression de votre publication"
-                            res.status(500).json({ message, error })
-                        })
+                    const message = 'Publication non trouvé !'
+                    return res.status(404).json({ message, error })
                 }
             } else {
-                const message = 'Publication non trouvé !'
-                return res.status(404).json({ message, error })
+                const message = "Requête non authentifiée, seul l'administrateur peut supprimer une publication tierse !"
+                return res.status(404).json({ error: message })
             }
+
         })
         .catch(error => {
             const message = "Une erreur s'est produite !"
-            res.status(500).json({ message, error })
+            res.status(500).json({ message })
         })
 }
 

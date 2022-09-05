@@ -6,11 +6,10 @@ const commentCtrl = require('../controllers/comment.controller')
 
 // IMPORTS MIDDLEWARE
 const auth = require('../middleware/auth.middleware');
-const checkAuth = require('../middleware/checkAuth.middleware');
 
 // ROUTES
 router.post('/:postId', auth, commentCtrl.createComment);
 router.get('/:postId', auth, commentCtrl.getAllComments);
-router.delete('/:commentId', checkAuth, commentCtrl.deleteComments);
+router.delete('/:commentId', auth, commentCtrl.deleteComments);
 
 module.exports = router;

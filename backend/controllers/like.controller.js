@@ -26,7 +26,7 @@ exports.likePost = (req, res) => {
             } else if (isLiked === false) {
 
                 Like.create({
-                    userId: getAuthUserId(req),
+                    userId: getAuthUserId(req).userId,
                     postId: req.params.postId
                 })
                     .then(response => {
@@ -54,7 +54,7 @@ exports.likePost = (req, res) => {
 
                 Like.destroy({
                     where: {
-                        userId: getAuthUserId(req),
+                        userId: getAuthUserId(req).userId,
                         postId: req.params.postId
                     }
                 })

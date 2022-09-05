@@ -2,7 +2,6 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const dotenv = require('dotenv').config();
-const sequelize = require('./models/index');
 
 // IMPORTS ROUTES
 const userRoutes = require('./routes/user.routes');
