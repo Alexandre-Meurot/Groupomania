@@ -1,0 +1,33 @@
+
+<mat-card>
+
+  <mat-card-actions>
+    <form [formGroup]="loginForm" class="login-container" (ngSubmit)="onLogin()">
+      <mat-form-field appearance="outline">
+        <mat-label>Adresse email</mat-label>
+        <input matInput type="email" placeholder="Email" formControlName="email">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" type="password" placeholder="Password" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit" color="primary">Connexion</button>
+
+    </form>
+  </mat-card-actions>
+  <mat-card-footer>
+    <button mat-button
+            color="primary"
+            (click)="openDialog()"
+    >
+      S'inscrire
+    </button>
+  </mat-card-footer>
+
+
+</mat-card>
