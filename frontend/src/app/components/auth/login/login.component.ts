@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              public dialog: MatDialog) {}
+              public dialog: MatDialog,) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -27,18 +27,15 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  get formControls() { return this.loginForm.controls; }
-
   onLogin(){
     console.log(this.loginForm.value);
     const email = this.loginForm.value.email
     const password = this.loginForm.value.password
     this.userService.loginUser(email, password)
-      .subscribe()
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(SignupComponent);
+    this.dialog.open(SignupComponent);
   }
 
 }

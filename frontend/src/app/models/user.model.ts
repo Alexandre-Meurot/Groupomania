@@ -8,4 +8,5 @@ export class User {
   isAdmin!: boolean;
   createdAt!: string;
   updatedAt!: string;
+  token!: string;
 }

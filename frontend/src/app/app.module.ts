@@ -14,12 +14,14 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import { SignupComponent } from './components/auth/signup/signup.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

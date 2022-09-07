@@ -6,6 +6,10 @@ mat-card {
     flex-direction: column;
   }
 
+  mat-form-field {
+    margin: 5px;
+  }
+
   mat-card-footer {
     text-align: center;
   }
