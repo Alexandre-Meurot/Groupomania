@@ -1,5 +1,15 @@
+.login-container {
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
 mat-card {
   max-width: 300px;
+  max-height: 300px;
+  padding: 30px;
 
   .login-container{
     display: flex;

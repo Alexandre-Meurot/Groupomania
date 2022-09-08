@@ -15,6 +15,8 @@ import {MatCardModule} from "@angular/material/card";
 import { SignupComponent } from './components/auth/signup/signup.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { HomeComponent } from './components/home/home.component';
+import { HeaderComponent } from './components/header/header.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { HomeComponent } from './components/home/home.component';
     LoginComponent,
     SignupComponent,
     HomeComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { HomeComponent } from './components/home/home.component';
     MatIconModule,
     HttpClientModule,
     MatCardModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
