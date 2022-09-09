@@ -18,6 +18,9 @@ import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {httpInterceptorProviders} from "./interceptors";
+import { PostComponent } from './components/post/post.component';
+import { PostListComponent } from './components/post-list/post-list.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import {httpInterceptorProviders} from "./interceptors";
     SignupComponent,
     HomeComponent,
     HeaderComponent,
+    PostComponent,
+    PostListComponent,
+    AccountComponent,
   ],
   imports: [
     BrowserModule,
