@@ -17,6 +17,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
+import {httpInterceptorProviders} from "./interceptors";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,9 @@ import {MatToolbarModule} from "@angular/material/toolbar";
     MatDialogModule,
     MatToolbarModule
   ],
-  providers: [],
+  providers: [
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
