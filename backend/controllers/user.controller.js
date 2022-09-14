@@ -101,7 +101,7 @@ exports.login = (req, res) => {
                         })
                     })
                     .catch(error => {
-                        const message = 'Une erreur est survenue !'
+                        const message = 'Le mot de passe est incorrect !'
                         res.status(500).json({ message: message, error })
                     })
             } else {
@@ -110,7 +110,7 @@ exports.login = (req, res) => {
             }
         })
         .catch(error => {
-            const message = 'Une erreur est survenue !'
+            const message = 'Cet email ne correspond à aucun utilisateur, veuillez créer un compte'
             res.status(404).json({ message: message, error })
         })
 }
