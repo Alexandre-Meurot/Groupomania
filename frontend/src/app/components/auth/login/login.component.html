@@ -22,14 +22,16 @@
           </button>
         </mat-form-field>
 
-        <button mat-raised-button type="submit" color="primary">Connexion</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.valid===false">
+          Connexion
+        </button>
 
       </form>
 
     </mat-card-actions>
 
     <mat-card-footer>
-      <mat-error *ngIf="loginForm.invalid">Veuillez remplir le formulaire correctement</mat-error>
+      <mat-error *ngIf="loginForm.invalid">{{getErrorMessages()}}</mat-error>
       <button mat-button
               color="primary"
               (click)="openDialog()"
