@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SignupComponent} from "../signup/signup.component";
-import {HttpClient} from "@angular/common/http";
 
 
 @Component({
@@ -19,7 +18,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private http: HttpClient,
               public dialog: MatDialog,) {}
 
   ngOnInit() {
@@ -34,9 +32,6 @@ export class LoginComponent implements OnInit {
     const email = this.loginForm.value.email
     const password = this.loginForm.value.password
     this.userService.loginUser(email, password)
-  }
-
-  getErrorMessages() {
   }
 
   openDialog(): void {

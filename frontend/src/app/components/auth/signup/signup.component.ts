@@ -10,6 +10,7 @@ import {UserService} from "../../../services/user.service";
 export class SignupComponent implements OnInit {
 
   hide = true;
+  hide2 = true;
   signUpForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,

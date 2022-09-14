@@ -8,14 +8,14 @@
 
         <mat-form-field appearance="outline">
           <mat-label>Adresse email</mat-label>
-          <input matInput type="email" placeholder="Email" formControlName="email">
+          <input matInput type="email" placeholder="Email" formControlName="email" autocomplete="on">
           <mat-error *ngIf=" loginForm.get('email')?.hasError('email')">Format email incorrect</mat-error>
           <mat-error *ngIf=" loginForm.get('email')?.hasError('required')">Ce champ est requis</mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Mot de passe</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" type="password" placeholder="Password" formControlName="password">
+          <input matInput [type]="hide ? 'password' : 'text'" type="password" placeholder="Password" formControlName="password" autocomplete="on">
           <mat-error *ngIf=" loginForm.get('password')?.hasError('required')">Ce champ est requis</mat-error>
           <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
@@ -31,7 +31,7 @@
     </mat-card-actions>
 
     <mat-card-footer>
-      <mat-error *ngIf="loginForm.invalid">{{getErrorMessages()}}</mat-error>
+      <mat-error *ngIf="loginForm.invalid">Veuillez remplir le formulaire correctement</mat-error>
       <button mat-button
               color="primary"
               (click)="openDialog()"
