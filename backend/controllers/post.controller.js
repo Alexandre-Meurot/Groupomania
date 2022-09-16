@@ -56,13 +56,13 @@ exports.getAllPosts = (req, res) => {
             model: User,
             attributes: ['username', 'picture']
         },{
-            model: Comment
+            model: Comment,
         }]
     })
         .then(postFound => {
             if (postFound) {
                 const message = 'Récupérations des posts réusssi !'
-                res.status(200).json({ message: message, data: postFound })
+                res.status(200).json(postFound)
             } else {
                 const message = 'Une erreur est survenue lors de la récupération des posts !'
                 res.status(404).json({ message: message })
