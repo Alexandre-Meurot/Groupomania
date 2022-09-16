@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
-import {Observable, Subscription} from "rxjs";
+import {catchError, Observable, of, Subscription, tap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,16 @@ export class UserService {
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token')
     return !!token;
+  }
+
+  getUserById(userId: number): Observable<User | undefined> {
+    return this.http.get<User>(`http://localhost:3000/api/user/${userId}`).pipe(
+      tap((user) => console.log(user)),
+      catchError((error) => {
+        console.log(error);
+        return of(undefined)
+      })
+    )
   }
 
 }
