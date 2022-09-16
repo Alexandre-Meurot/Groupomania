@@ -1,1 +1,33 @@
-<p>post works!</p>
+<mat-card class="post-card">
+
+  <mat-card-header>
+    <img *ngIf="post.User.picture" mat-card-avatar [src]="post.User.picture" [alt]="post.User.username">
+    <img *ngIf="!post.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut">
+    <mat-card-title>{{ post.User.username }}</mat-card-title>
+    <mat-card-subtitle>{{ post.createdAt | date }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <img *ngIf="post.media" mat-card-image [src]="post.media" [alt]="post.User.username">
+
+  <mat-card-content>
+    <div class="post-content-text">
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="post-content-info">
+      <span class="post-content-info__like">
+        <mat-icon class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>
+        {{ post.likes }}
+      </span>
+      <span>{{ post.Comments.length }} commentaire(s)</span>
+    </div>
+  </mat-card-content>
+
+  <mat-divider inset></mat-divider>
+
+  <mat-card-actions class="post-action-btn">
+    <button mat-raised-button color="primary">J'aime</button>
+    <button mat-raised-button color="primary">Commenter</button>
+  </mat-card-actions>
+
+</mat-card>
+
