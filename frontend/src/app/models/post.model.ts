@@ -7,7 +7,8 @@ export class Post {
   content!: string;
   media!: string;
   likes!: Likes[];
-  comment!: Comment[];
+  Comments!: Comment[];
+  User!: { username: string, picture: string }
   createdAt!: string;
   updatedAt!: string
 }
