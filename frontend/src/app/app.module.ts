@@ -21,6 +21,7 @@ import {httpInterceptorProviders} from "./interceptors";
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { AccountComponent } from './components/account/account.component';
+import {MatDividerModule} from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AccountComponent } from './components/account/account.component';
     HttpClientModule,
     MatCardModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule,
   ],
   providers: [
     httpInterceptorProviders

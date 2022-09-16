@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
+import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +16,9 @@ export class SignupComponent implements OnInit {
   signUpForm!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService) { }
+              private userService: UserService,
+              private router: Router,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -35,7 +39,8 @@ export class SignupComponent implements OnInit {
   onSignUp() {
     console.log(this.signUpForm.value)
     this.userService.createUser(this.signUpForm.value)
-      .subscribe()
+    this.router.navigate(['authentification'])
+    this.dialog.closeAll()
   }
 
   get f() {
