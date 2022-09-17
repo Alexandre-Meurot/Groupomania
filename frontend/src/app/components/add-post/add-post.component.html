@@ -1,0 +1,27 @@
+<mat-card class="add-post-card">
+
+  <mat-card-content>
+
+    <form [formGroup]="addPostForm" (ngSubmit)="onAddPost()">
+
+      <span>
+        <mat-form-field appearance="outline">
+          <mat-label>Exprimez-vous</mat-label>
+          <textarea formControlName="content" matInput></textarea>
+        </mat-form-field>
+      </span>
+
+      <span>
+        <mat-form-field appearance="outline">
+          <mat-label>Sélectionner une image</mat-label>
+          <ngx-mat-file-input formControlName="media"></ngx-mat-file-input>
+        </mat-form-field>
+      </span>
+
+      <button type="submit" mat-raised-button>Publier</button>
+
+    </form>
+
+  </mat-card-content>
+
+</mat-card>
