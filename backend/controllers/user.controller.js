@@ -122,13 +122,13 @@ exports.getOneUser = (req, res) => {
     const id = req.params.id
 
     User.findOne({
-        attributes: [ 'id', 'username', 'email', 'picture','bio', 'isAdmin' ],
+        attributes: [ 'id', 'username', 'email', 'picture','bio', 'isAdmin', 'createdAt', 'updatedAt' ],
         where: { id: id }
     })
         .then(userFound => {
             if (userFound) {
                 const message = 'Utilisateur trouvé !'
-                res.status(200).json({ message: message, data: userFound })
+                res.status(200).json( userFound )
             } else {
                 const message = 'Utilisateur non trouvé !'
                 res.status(404).json({ message: message, error })
