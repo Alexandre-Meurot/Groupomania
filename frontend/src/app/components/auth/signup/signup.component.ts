@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
 
   onSignUp() {
     console.log(this.signUpForm.value)
-    this.userService.createUser(this.signUpForm.value)
+    this.userService.createUser(this.signUpForm.value).subscribe()
     this.router.navigate(['authentification'])
     this.dialog.closeAll()
   }
