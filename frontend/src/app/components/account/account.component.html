@@ -1,4 +1,25 @@
-<p>account works!</p>
+<mat-card *ngIf="user" class="user-card">
+
+  <mat-card-title>
+    {{ user.username }}
+  </mat-card-title>
+
+  <img *ngIf="user.picture" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
+  <img *ngIf="!user.picture" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+
+  <mat-card-subtitle>
+    Compte créé le {{ user.createdAt | date }}
+  </mat-card-subtitle>
+
+  <mat-card-content>
+    <p>Adresse email : {{ user.email }}</p>
+    <p>Bio : {{ user.bio }}</p>
+    <p *ngIf="user.isAdmin === true">Vous êtes modérateur</p>
+  </mat-card-content>
 
 
-<!--TODO: récupérer l'id de l'utilisateur connecté pour afficher ses informations et qu'il puisse les modifier-->
+</mat-card>
+
+
+
+
