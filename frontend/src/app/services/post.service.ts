@@ -21,5 +21,15 @@ export class PostService {
     )
   }
 
+  createPost(newPost: Post): Observable<Object|null> {
+    return this.http.post('http://localhost:3000/api/post', newPost).pipe(
+      tap((response) => console.table(response)),
+      catchError((error) => {
+        console.log(error)
+        return of(null)
+      })
+    )
+  }
+
 
 }
