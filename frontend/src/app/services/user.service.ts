@@ -22,7 +22,9 @@ export class UserService {
     return this.http.post<User>('http://localhost:3000/api/user/login', { email, password })
       .subscribe(
         (response) => {
+          let userId = response.userId.toString()
           localStorage.setItem('token', response.token)
+          localStorage.setItem('userId', userId)
           this.router.navigate(['home'])
         }
       )
@@ -33,9 +35,18 @@ export class UserService {
     return !!token;
   }
 
-  getUserById(userId: number): Observable<User | undefined> {
+  getUserId() {
+    const userId = localStorage.getItem('userId')
+    if (userId) {
+      return userId
+    } else {
+      return null
+    }
+  }
+
+  getUserById(userId: number | null): Observable<User | undefined> {
     return this.http.get<User>(`http://localhost:3000/api/user/${userId}`).pipe(
-      tap((user) => console.log(user)),
+      tap((user) => console.table(user)),
       catchError((error) => {
         console.log(error);
         return of(undefined)
