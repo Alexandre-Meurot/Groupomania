@@ -22,6 +22,8 @@ import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
 import { AccountComponent } from './components/account/account.component';
 import {MatDividerModule} from "@angular/material/divider";
+import { AddPostComponent } from './components/add-post/add-post.component';
+import {MaterialFileInputModule} from "ngx-material-file-input";
 
 @NgModule({
   declarations: [
@@ -33,23 +35,25 @@ import {MatDividerModule} from "@angular/material/divider";
     PostComponent,
     PostListComponent,
     AccountComponent,
+    AddPostComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule,
-    MatCardModule,
-    MatDialogModule,
-    MatToolbarModule,
-    MatDividerModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        MatCardModule,
+        MatDialogModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MaterialFileInputModule,
+    ],
   providers: [
     httpInterceptorProviders
   ],
