@@ -18,16 +18,20 @@
         <mat-icon class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>
         {{ post.likes }}
       </span>
-      <span>{{ post.Comments.length }} commentaire(s)</span>
+      <span><a (click)="onComments()">{{ post.Comments.length }} commentaire(s)</a></span>
     </div>
   </mat-card-content>
 
   <mat-divider inset></mat-divider>
 
   <mat-card-actions class="post-action-btn">
-    <button mat-button>J'aime</button>
+    <button (click)="onLike(post.id)" mat-button>J'aime</button>
     <button mat-button>Commenter</button>
   </mat-card-actions>
+
+  <mat-card-footer *ngIf="showComments === true">
+    les commentaires
+  </mat-card-footer>
 
 </mat-card>
 

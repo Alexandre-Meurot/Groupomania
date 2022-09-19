@@ -54,4 +54,8 @@ export class UserService {
     )
   }
 
+  // updateUser(user: User): Observable<any> {
+  //   return this.http.put<User>(`http://localhost:3000/api/user/${user.userId}`).pipe()
+  // }
+
 }
