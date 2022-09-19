@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-post-list',
@@ -9,14 +10,13 @@ import {Post} from "../../models/post.model";
 })
 export class PostListComponent implements OnInit {
 
-  postList!: Post[];
+  posts$!: Observable<Post[]>
 
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
 
-    this.postService.getAllPosts()
-      .subscribe(postList => this.postList = postList)
+    this.posts$ = this.postService.getAllPosts();
   }
 
 }
