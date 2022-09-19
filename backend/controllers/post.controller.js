@@ -73,6 +73,27 @@ exports.getAllPosts = (req, res) => {
             res.status(500).json({ error })
         })
 }
+// ---------- RECUPERATION D'UN POST -----------3
+
+
+exports.getOnePost = (req, res) => {
+
+    Post.findOne({
+        where: { id: req.params.postId }
+    })
+        .then(postFound => {
+            if (postFound) {
+                res.status(200).json( postFound )
+            } else {
+                const message = 'Post non trouvé !'
+                res.status(404).json({ message: message, error })
+            }
+        })
+        .catch(error => {
+            const message = 'Une erreur est survenue !'
+            res.status(404).json({ message: message, error })
+        })
+}
 
 // ---------- MODIFICATION D'UN POST -----------
 
