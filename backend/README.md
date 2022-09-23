@@ -20,6 +20,12 @@
  - définir les variables : 
    - `PORT` = Le port sur lequel l'application backend démarre
    - `JWT_SECRET_TOKEN` = clé secrète du token
+
+**Créer la base de données SQL :**
+ - installer XAMPP
+ - lancer le serveur Apache et MySql
+ - ouvrir phpmyadmin via Xampp puis créer la BDD 'groupomania'
+ - `sequelize db:migrate` = pour intégrer les modèles vers la base de données groupomania
    
 
 **Lancer le serveur :**

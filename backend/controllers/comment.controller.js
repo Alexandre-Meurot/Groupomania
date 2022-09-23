@@ -55,8 +55,7 @@ exports.getAllComments = (req, res) => {
     })
         .then(commentFound => {
             if (commentFound) {
-                const message = 'Les commentaires ont bien été trouvés !'
-                res.status(200).json({ message: message, data: commentFound })
+                res.status(200).json(commentFound)
             } else {
                 const message = 'Une erreur est survernue lors de la récupération des commentaires'
                 res.status(404).json({ error: message })

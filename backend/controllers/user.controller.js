@@ -61,10 +61,9 @@ exports.signup = async (req, res) => {
             const newUser = await User.create({
                 username: req.body.username,
                 email: req.body.email,
-                password: hash
+                password: hash,
             })
-            const message = 'Votre compte a bien été créé !'
-            return res.status(201).json({message: message, data: newUser})
+            return res.status(201).json( newUser )
         }
     } catch (error) {
         const message = "Une erreur est survenue !"
@@ -127,7 +126,6 @@ exports.getOneUser = (req, res) => {
     })
         .then(userFound => {
             if (userFound) {
-                const message = 'Utilisateur trouvé !'
                 res.status(200).json( userFound )
             } else {
                 const message = 'Utilisateur non trouvé !'
@@ -148,8 +146,7 @@ exports.getAllUsers = (req, res) => {
         attributes: ['id', 'username', 'picture', 'bio', 'isAdmin']
     })
         .then(users => {
-            const message = 'Les utilisateurs ont été trouvé !'
-            res.status(200).json({ message: message, data: users })
+            res.status(200).json( users )
         })
         .catch(error => {
             const message = 'Une erreur est survenue lors de la récupération des utilisateurs'
@@ -185,8 +182,7 @@ exports.updateUser = (req, res) => {
                     where: { id: req.params.id}
                 })
                     .then(user => {
-                        const message = 'Votre profil a bien été modifié !'
-                        res.status(200).json({ message: message })
+                        res.status(200).json( user )
                     })
                     .catch(error => {
                         const message = 'Une erreur est survenue !'

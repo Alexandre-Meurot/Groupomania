@@ -61,7 +61,6 @@ exports.getAllPosts = (req, res) => {
     })
         .then(postFound => {
             if (postFound) {
-                const message = 'Récupérations des posts réusssi !'
                 res.status(200).json(postFound)
             } else {
                 const message = 'Une erreur est survenue lors de la récupération des posts !'
@@ -121,8 +120,7 @@ exports.updatePost = (req, res) => {
                     where: { id: req.params.postId }
                 })
                     .then(post => {
-                        const message = 'Votre post a bien été modifié !'
-                        res.status(200).json({ message: message, data: post })
+                        res.status(200).json(post)
                     })
                     .catch(error =>{
                         const message= "Une erreur s'est produite lors de la modification de votre post !"

@@ -101,7 +101,7 @@ exports.getAllLikes = (req, res) => {
         .then(likePostFound => {
             if (likePostFound) {
                 const message = 'Les likes de cette publication ont bien été trouvés !'
-                res.status(200).json({ message: message, data: likePostFound })
+                res.status(200).json(likePostFound )
             } else {
                 const message = "Aucun like(s) trouvé(s) !"
                 res.status(404).json({ message, error })
