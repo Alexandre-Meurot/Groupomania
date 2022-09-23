@@ -1,22 +1,65 @@
 <mat-card *ngIf="user" class="user-card">
 
-  <mat-card-title>
-    {{ user.username }}
-  </mat-card-title>
-
-  <img *ngIf="user.picture" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
-  <img *ngIf="!user.picture" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
-
   <mat-card-subtitle>
-    Compte créé le {{ user.createdAt | date }}
+    <p>Compte créé le {{ user.createdAt | date }}</p>
+    <p *ngIf="user.createdAt != user.updatedAt">Compte modifié le {{ user.updatedAt | date }}</p>
   </mat-card-subtitle>
 
-  <mat-card-content>
-    <p>Adresse email : {{ user.email }}</p>
-    <p>Bio : {{ user.bio }}</p>
-    <p *ngIf="user.isAdmin === true">Vous êtes modérateur</p>
-  </mat-card-content>
+  <form [formGroup]="updateForm">
 
+    <mat-card-content>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Pseudo</mat-label>
+        <input formControlName="username" matInput type="text" [(ngModel)]="user.username">
+        <mat-error *ngIf="updateForm.get('username')?.hasError('maxLength')">Le pseudo doit faire entre 3 et 20 caractères</mat-error>
+      </mat-form-field>
+
+      <span class="picture">
+        <p>
+          <img *ngIf="user.picture" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
+          <img *ngIf="!user.picture" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+        </p>
+
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Url de la photo</mat-label>
+            <input formControlName="picture" matInput type="text" [(ngModel)]="user.picture">
+            <mat-error *ngIf="updateForm.get('picture')?.hasError('pattern')">L'URL n'est pas conforme</mat-error>
+          </mat-form-field>
+        </p>
+
+      </span>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput type="email" [(ngModel)]="user.email">
+        <mat-error *ngIf=" updateForm.get('email')?.hasError('email')">Format email incorrect</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Modifier bio</mat-label>
+        <input formControlName="bio" matInput type="email" [(ngModel)]="user.bio">
+        <mat-error *ngIf="updateForm.get('bio')?.hasError('minLength')">La bio doit faire entre 10 et 200 caractères</mat-error>
+      </mat-form-field>
+
+      <p *ngIf="user.isAdmin === true">Vous êtes modérateur</p>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+
+      <button (click)="onUpdate()" mat-raised-button type="submit" color="primary" [disabled]="updateForm.valid===false">
+        Modifier profil
+      </button>
+      <button (click)="onDelete()" mat-raised-button color="primary">
+        Supprimer compte
+      </button>
+
+    </mat-card-actions>
+
+  </form>
 
 </mat-card>
 

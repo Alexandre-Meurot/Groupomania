@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
 import {catchError, Observable, of, Subscription, tap} from "rxjs";
@@ -23,7 +23,9 @@ export class UserService {
       .subscribe(
         (response) => {
           let userId = response.userId.toString()
+          let isAdmin = response.isAdmin.toString()
           localStorage.setItem('token', response.token)
+          localStorage.setItem('isAdmin', isAdmin)
           localStorage.setItem('userId', userId)
           this.router.navigate(['home'])
         }
@@ -44,7 +46,7 @@ export class UserService {
     }
   }
 
-  getUserById(userId: number | null): Observable<User | undefined> {
+  getUserById(userId: number): Observable<User|any> {
     return this.http.get<User>(`http://localhost:3000/api/user/${userId}`).pipe(
       tap((user) => console.table(user)),
       catchError((error) => {
@@ -54,8 +56,27 @@ export class UserService {
     )
   }
 
-  // updateUser(user: User): Observable<any> {
-  //   return this.http.put<User>(`http://localhost:3000/api/user/${user.userId}`).pipe()
-  // }
+  logout(): void {
+    localStorage.clear()
+    this.router.navigate(['authentification'])
+    window.location.reload()
+  }
+
+  deleteUser(userId: number): Observable<User> {
+    return this.http.delete<User>(`http://localhost:3000/api/user/${userId}`)
+  }
+
+  updateUser(user: User): Observable<User | any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    return this.http.put(`http://localhost:3000/api/user/${this.getUserId()}`, user, httpOptions).pipe(
+      tap((response) => console.log(response)),
+      catchError((error) => {
+        console.log(error);
+        return of(undefined)
+      })
+    )
+  }
 
 }
