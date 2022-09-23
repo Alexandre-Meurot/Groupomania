@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Post} from "../../models/post.model";
 import {PostService} from "../../services/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-post',
@@ -11,13 +12,13 @@ import {map, Observable} from "rxjs";
 })
 export class AddPostComponent implements OnInit {
 
-  newPost!: Post;
   postForm!: FormGroup;
   postPreview$!: Observable<Post>;
   urlRegex!: RegExp;
 
   constructor(private postService: PostService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
 
@@ -34,14 +35,15 @@ export class AddPostComponent implements OnInit {
       map(formValue => ({
         ...formValue,
       }))
-    )
+    );
 
   }
 
   onAddPost(): void {
     console.log(this.postForm.value)
-    // this.postService.createPost(this.addPostForm.value)
-    //   .subscribe()
+    this.postService.createPost(this.postForm.value).pipe(
+      tap(() => this.router.navigateByUrl('/home'))
+    ).subscribe();
   }
 
 }

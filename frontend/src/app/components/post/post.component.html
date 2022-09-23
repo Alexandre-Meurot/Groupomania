@@ -5,6 +5,8 @@
     <img *ngIf="!post.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut">
     <mat-card-title>{{ post.User.username }}</mat-card-title>
     <mat-card-subtitle>{{ post.createdAt | date }}</mat-card-subtitle>
+    <button (click)="onDelete(post.id)">Supprimer</button>
+    <button>Modifier</button>
   </mat-card-header>
 
   <img *ngIf="post.media" mat-card-image [src]="post.media" [alt]="post.User.username">

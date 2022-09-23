@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              public dialog: MatDialog,) {}
+              public dialog: MatDialog) {}
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

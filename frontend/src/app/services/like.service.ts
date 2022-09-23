@@ -1,7 +1,8 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {Likes} from "../models/likes.model";
+import {PostService} from "./post.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,18 +10,15 @@ import {Likes} from "../models/likes.model";
 
 export class LikeService {
 
-  constructor(private http: HttpClient,) {}
+  constructor(private http: HttpClient,
+              private postService: PostService) {}
 
+  likePost(postId: number, like: Object): Observable<Likes> {
+    return this.postService.getAllPosts().pipe(
+      switchMap(postUpdated => this.http.post<Likes>(`http://localhost:3000/api/post/${postId}/like`, like ))
+    )
 
-  likePost(postId: number, isLiked: Object): Observable<Likes> {
-    console.log("C'est liké !")
-    new Likes()
-    return this.http.post<Likes>(`http://localhost:3000/api/post/${postId}/like`, isLiked )
   }
 
-  unLikePost(postId: number, isLiked: Object): Observable<Likes> {
-    console.log("C'est disLiké !")
-    return this.http.post<Likes>(`http://localhost:3000/api/post/${postId}/like`, isLiked)
-  }
 
 }

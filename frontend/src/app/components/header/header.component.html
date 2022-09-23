@@ -1,4 +1,4 @@
-<mat-toolbar class="header" color="primary">
+<mat-toolbar *ngIf="isAdmin() == false" class="header" color="primary">
 
   <span class="header-logo-container">
     <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
@@ -7,6 +7,21 @@
   <span class="header-icon-container">
     <mat-icon (click)="toAccount()" class="icon-account" aria-hidden="false" fontIcon="account_circle"></mat-icon>
     <mat-icon (click)="toHome()" class="icon-home" aria-hidden="false" fontIcon="home"></mat-icon>
+    <mat-icon *ngIf="isConnected()" (click)="onLogout()" class="icon-output" aria-hidden="false" fontIcon="output"></mat-icon>
+  </span>
+
+</mat-toolbar>
+
+<mat-toolbar *ngIf="isAdmin() == true" class="header" color="warn">
+
+  <span class="header-logo-container">
+    <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
+  </span>
+
+  <span class="header-icon-container">
+    <mat-icon (click)="toAccount()" class="icon-account" aria-hidden="false" fontIcon="account_circle"></mat-icon>
+    <mat-icon (click)="toHome()" class="icon-home" aria-hidden="false" fontIcon="home"></mat-icon>
+    <mat-icon *ngIf="isConnected()" (click)="onLogout()" class="icon-output" aria-hidden="false" fontIcon="output"></mat-icon>
   </span>
 
 </mat-toolbar>
