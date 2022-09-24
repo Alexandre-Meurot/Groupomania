@@ -1,1 +1,13 @@
-<p>comment works!</p>
+<mat-card>
+  <mat-card-header>
+    <img *ngIf="comment.User.picture" mat-card-avatar [src]="comment.User.picture" [alt]="comment.User.username">
+    <img *ngIf="!comment.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut">
+    <mat-card-title>
+      {{ comment.User.username }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ comment.content }}
+    </mat-card-subtitle>
+  </mat-card-header>
+</mat-card>
+

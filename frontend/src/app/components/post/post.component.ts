@@ -24,6 +24,7 @@ export class PostComponent implements OnInit {
 
   onComments():void {
     this.showComments = !this.showComments;
+    console.log(this.post.Comments)
   }
 
   onLike(postId: number) {

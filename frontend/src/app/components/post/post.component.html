@@ -31,9 +31,9 @@
     <button mat-button>Commenter</button>
   </mat-card-actions>
 
-  <mat-card-footer *ngIf="showComments === true">
-    les commentaires
-  </mat-card-footer>
+  <div *ngIf="showComments === true">
+    <app-comment-list [post]="post"></app-comment-list>
+  </div>
 
 </mat-card>
 

@@ -25,8 +25,8 @@ import {MatDividerModule} from "@angular/material/divider";
 import { AddPostComponent } from './components/add-post/add-post.component';
 import {MaterialFileInputModule} from "ngx-material-file-input";
 import { CommentComponent } from './components/comment/comment.component';
-import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
+import { CommentListComponent } from './components/comment-list/comment-list.component';
 
 @NgModule({
   declarations: [
@@ -40,8 +40,8 @@ import { AddCommentComponent } from './components/add-comment/add-comment.compon
     AccountComponent,
     AddPostComponent,
     CommentComponent,
-    CommentListComponent,
     AddCommentComponent,
+    CommentListComponent,
   ],
   imports: [
     BrowserModule,

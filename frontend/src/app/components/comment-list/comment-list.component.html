@@ -1,1 +1,1 @@
-<p>comment-list works!</p>
+<app-comment *ngFor="let comment of comments$ | async" [comment]="comment"></app-comment>
