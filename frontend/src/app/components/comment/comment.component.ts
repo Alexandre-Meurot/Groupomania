@@ -9,13 +9,22 @@ import {CommentService} from "../../services/comment.service";
 export class CommentComponent implements OnInit {
 
   @Input() comment!: Comment | any
+  userId!: string | null
 
   constructor(private commentService: CommentService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userId = localStorage.getItem('userId')
+  }
 
   onDelete() {
-    this.commentService.deleteComment(this.comment.id).subscribe()
+    if (this.myOwnComment()) {
+      this.commentService.deleteComment(this.comment.id).subscribe()
+    }
+  }
+
+  myOwnComment(): boolean {
+    return this.userId == this.comment.userId;
   }
 
 }

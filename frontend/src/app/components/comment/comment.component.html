@@ -9,7 +9,7 @@
       {{ comment.content }}
     </mat-card-subtitle>
   </mat-card-header>
-  <mat-card-actions>
+  <mat-card-actions *ngIf="myOwnComment()">
     <button (click)="onDelete()">Supprimer</button>
   </mat-card-actions>
 </mat-card>
