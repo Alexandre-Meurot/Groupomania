@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {CommentService} from "../../services/comment.service";
 
 @Component({
   selector: 'app-add-comment',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCommentComponent implements OnInit {
 
-  constructor() { }
+  commentForm!: FormGroup
+  @Input() postId!: number
+
+  constructor(private formBuilder: FormBuilder,
+              private commentService: CommentService) { }
 
   ngOnInit(): void {
+    this.commentForm = this.formBuilder.group({
+      content: [null, [Validators.minLength(3), Validators.maxLength(50), Validators.required]]
+    })
+
+  }
+
+  onAddComment() {
+    console.log(this.commentForm.value)
+    this.commentService.createComment(this.commentForm.value, this.postId).subscribe()
   }
 
 }

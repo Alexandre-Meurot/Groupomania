@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {CommentService} from "../../services/comment.service";
 
 @Component({
   selector: 'app-comment',
@@ -9,10 +10,12 @@ export class CommentComponent implements OnInit {
 
   @Input() comment!: Comment | any
 
-  constructor() { }
+  constructor(private commentService: CommentService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  onDelete() {
+    this.commentService.deleteComment(this.comment.id).subscribe()
   }
 
 }

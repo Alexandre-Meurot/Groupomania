@@ -32,6 +32,7 @@
   </mat-card-actions>
 
   <div *ngIf="showComments === true">
+    <app-add-comment [postId]="post.id"></app-add-comment>
     <app-comment-list [post]="post"></app-comment-list>
   </div>
 

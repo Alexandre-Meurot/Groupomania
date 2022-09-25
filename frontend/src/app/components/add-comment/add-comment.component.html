@@ -1,1 +1,10 @@
-<p>add-comment works!</p>
+<form [formGroup]="commentForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Nouveau commentaire</mat-label>
+    <input formControlName="content" matInput type="text" placeholder="Ecrivez un commentaire">
+    <button (click)="onAddComment()" [disabled]="commentForm.valid===false" mat-icon-button matSuffix>
+      <mat-icon fontIcon="comment"></mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+

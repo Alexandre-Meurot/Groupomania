@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {PostService} from "./post.service";
-import {Observable, tap} from "rxjs";
+import {Observable, switchMap, tap} from "rxjs";
 import {Comment} from "../models/comment.model";
 import {Post} from "../models/post.model";
 import {HttpClient} from "@angular/common/http";
@@ -20,12 +20,14 @@ export class CommentService {
     )
   }
 
-  createComment() {
-
+  createComment(newComment: Comment, postId: number): Observable<Comment> {
+    return this.getAllComments(postId).pipe(
+      switchMap(comment => this.http.post<Comment>(`http://localhost:3000/api/comment/${postId}`, newComment))
+    )
   }
 
-  deleteComment() {
-
+  deleteComment(commentId: number): Observable<Comment> {
+    return this.http.delete<Comment>(`http://localhost:3000/api/comment/${commentId}`)
   }
 
 }
