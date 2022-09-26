@@ -1,1 +1,1 @@
-<app-comment *ngFor="let comment of comments$ | async" [comment]="comment"></app-comment>
+<app-comment *ngFor="let comment of comments$ | async" [comment]="comment" (refresh)="getComments()"></app-comment>

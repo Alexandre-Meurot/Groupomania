@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CommentService} from "../../services/comment.service";
 
 @Component({
@@ -8,6 +8,7 @@ import {CommentService} from "../../services/comment.service";
 })
 export class CommentComponent implements OnInit {
 
+  @Output() refresh =new EventEmitter<void>()
   @Input() comment!: Comment | any;
   userId!: string | null;
 
@@ -19,7 +20,9 @@ export class CommentComponent implements OnInit {
 
   onDelete() {
     if (this.myOwnComment()) {
-      this.commentService.deleteComment(this.comment.id).subscribe()
+      this.commentService.deleteComment(this.comment.id).subscribe(() => {
+        this.refresh.emit()
+      })
     }
   }
 
