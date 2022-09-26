@@ -17,7 +17,10 @@ export class CommentListComponent implements OnInit {
   constructor(private commentService: CommentService) { }
 
   ngOnInit(): void {
+    this.getComments()
+  }
 
+  getComments() {
     this.comments$ = this.commentService.getAllComments(this.post.id)
   }
 

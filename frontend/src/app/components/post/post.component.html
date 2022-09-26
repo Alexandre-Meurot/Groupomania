@@ -5,8 +5,6 @@
     <img *ngIf="!post.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut">
     <mat-card-title>{{ post.User.username }}</mat-card-title>
     <mat-card-subtitle>{{ post.createdAt | date }}</mat-card-subtitle>
-    <button (click)="onDelete(post.id)">Supprimer</button>
-    <button>Modifier</button>
   </mat-card-header>
 
   <img *ngIf="post.media" mat-card-image [src]="post.media" [alt]="post.User.username">
@@ -24,6 +22,9 @@
     </div>
   </mat-card-content>
 
+  <button *ngIf="myOwnPost()" (click)="onDelete(post.id)" mat-raised-button>Supprimer</button>
+  <button *ngIf="myOwnPost()" (click)="onUpdate(post.id)" mat-raised-button>Modifier</button>
+
   <mat-divider inset></mat-divider>
 
   <mat-card-actions class="post-action-btn">
@@ -32,8 +33,8 @@
   </mat-card-actions>
 
   <div *ngIf="showComments === true">
-    <app-add-comment [postId]="post.id"></app-add-comment>
-    <app-comment-list [post]="post"></app-comment-list>
+    <app-add-comment [postId]="post.id" (refresh)="list.getComments()"></app-add-comment>
+    <app-comment-list #list [post]="post"></app-comment-list>
   </div>
 
 </mat-card>

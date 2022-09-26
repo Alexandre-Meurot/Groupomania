@@ -8,8 +8,8 @@ import {CommentService} from "../../services/comment.service";
 })
 export class CommentComponent implements OnInit {
 
-  @Input() comment!: Comment | any
-  userId!: string | null
+  @Input() comment!: Comment | any;
+  userId!: string | null;
 
   constructor(private commentService: CommentService) { }
 

@@ -27,6 +27,7 @@ import {MaterialFileInputModule} from "ngx-material-file-input";
 import { CommentComponent } from './components/comment/comment.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
+import { UpdatePostComponent } from './components/update-post/update-post.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CommentListComponent } from './components/comment-list/comment-list.com
     CommentComponent,
     AddCommentComponent,
     CommentListComponent,
+    UpdatePostComponent,
   ],
   imports: [
     BrowserModule,

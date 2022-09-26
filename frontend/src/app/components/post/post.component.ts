@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post.model";
 import {LikeService} from "../../services/like.service";
 import {PostService} from "../../services/post.service";
-import {switchMap, tap} from "rxjs";
+import {tap} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-post',
@@ -12,14 +13,18 @@ import {switchMap, tap} from "rxjs";
 export class PostComponent implements OnInit {
 
   @Input() post!: Post;
+  @Output() refresh =new EventEmitter<void>()
   showComments!: boolean;
   isLiked: number = 0;
+  userId!: string | null;
 
   constructor(private likeService: LikeService,
-              private postService: PostService) { }
+              private postService: PostService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.showComments = false
+    this.userId = localStorage.getItem('userId')
   }
 
   onComments():void {
@@ -48,13 +53,18 @@ export class PostComponent implements OnInit {
   }
 
   onDelete(postId: number) {
-    this.postService.getAllPosts().pipe(
-      switchMap(post => this.postService.deletePost(postId))
-    ).subscribe()
+    this.postService.deletePost(postId).subscribe(() => {
+      this.refresh.emit()
+    })
   }
 
   onUpdate(postId: number) {
-    this.postService.updatePost(postId).subscribe()
+    localStorage.setItem('postId', postId.toString())
+    this.router.navigate(['update'])
+  }
+
+  myOwnPost(): boolean {
+    return this.userId == this.post.userId.toString()
   }
 
 }

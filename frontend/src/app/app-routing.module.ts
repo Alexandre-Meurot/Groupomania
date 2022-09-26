@@ -5,12 +5,14 @@ import {AuthGuard} from "./guards/auth.guard";
 import {HomeComponent} from "./components/home/home.component";
 import {AccountComponent} from "./components/account/account.component";
 import {AddPostComponent} from "./components/add-post/add-post.component";
+import {UpdatePostComponent} from "./components/update-post/update-post.component";
 
 const routes: Routes = [
   { path: 'authentification', component: LoginComponent },
   { path: 'account', canActivate: [AuthGuard], component: AccountComponent },
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
   { path: 'create', canActivate: [AuthGuard], component: AddPostComponent },
+  { path: 'update', canActivate: [AuthGuard], component: UpdatePostComponent },
   { path: '', pathMatch: "full", component: LoginComponent },
   { path: '**', redirectTo: '' },
 ];
