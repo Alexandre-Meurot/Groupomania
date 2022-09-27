@@ -22,8 +22,8 @@
     </div>
   </mat-card-content>
 
-  <button *ngIf="myOwnPost()" (click)="onDelete(post.id)" mat-raised-button>Supprimer</button>
-  <button *ngIf="myOwnPost()" (click)="onUpdate(post.id)" mat-raised-button>Modifier</button>
+  <mat-icon *ngIf="myOwnPost()" (click)="onDelete(post.id)" color="primary">delete</mat-icon>
+  <mat-icon *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
 
   <mat-divider inset></mat-divider>
 
