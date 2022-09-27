@@ -1,6 +1,34 @@
 .user-card {
   max-width: 500px;
-  margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 50px auto;
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .picture-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .pseudo-email-container {
+      display: flex;
+      justify-content: space-between;
+
+      .pseudo-input {
+        margin-right: 20px;
+      }
+    }
+  }
+
+  .bio-input {
+    width: 100%;
+  }
 }
+
+
+
