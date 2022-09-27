@@ -26,10 +26,10 @@ export class AccountComponent implements OnInit {
     this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
 
     this.updateForm = this.formBuilder.group({
-      email: [this.user?.email, Validators.email],
-      username: [this.user?.username, [Validators.minLength(3), Validators.maxLength(20)]],
-      bio: [this.user?.bio, [Validators.minLength(10), Validators.maxLength(200)]],
-      picture: [this.user?.picture, Validators.pattern(this.urlRegex)]
+      email: [null, Validators.email],
+      username: [null, [Validators.minLength(3), Validators.maxLength(20)]],
+      bio: [null, [Validators.minLength(10), Validators.maxLength(200)]],
+      picture: [null, Validators.pattern(this.urlRegex)]
     })
 
     this.userService.getUserById(this.userId)

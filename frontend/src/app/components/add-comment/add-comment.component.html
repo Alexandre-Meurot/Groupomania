@@ -1,10 +1,14 @@
 <form [formGroup]="commentForm">
-  <mat-form-field appearance="outline">
+
+  <mat-form-field class="comment-input" appearance="outline">
     <mat-label>Nouveau commentaire</mat-label>
     <input formControlName="content" matInput type="text" placeholder="Ecrivez un commentaire">
+    <mat-error *ngIf="commentForm.invalid">Votre commentaire doit faire entre 3 et 50 caractères</mat-error>
+
     <button (click)="onAddComment()" [disabled]="commentForm.valid===false" mat-icon-button matSuffix>
       <mat-icon fontIcon="comment"></mat-icon>
     </button>
   </mat-form-field>
+
 </form>
 
