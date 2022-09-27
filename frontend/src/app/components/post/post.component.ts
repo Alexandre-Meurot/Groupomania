@@ -2,8 +2,9 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from "../../models/post.model";
 import {LikeService} from "../../services/like.service";
 import {PostService} from "../../services/post.service";
-import {tap} from "rxjs";
 import {Router} from "@angular/router";
+import {Likes} from "../../models/likes.model";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-post',
@@ -17,6 +18,7 @@ export class PostComponent implements OnInit {
   showComments!: boolean;
   isLiked: number = 0;
   userId!: string | null;
+  like!: Observable<Likes[]>
 
   constructor(private likeService: LikeService,
               private postService: PostService,
@@ -25,6 +27,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.showComments = false
     this.userId = localStorage.getItem('userId')
+    this.like = this.likeService.getAllLikes(this.post.id)
   }
 
   onComments():void {
@@ -34,21 +37,21 @@ export class PostComponent implements OnInit {
 
   onLike(postId: number) {
     if (this.isLiked == 0) {
-      console.log(this.isLiked)
-      this.likeService.likePost(postId, {like: false}).pipe(
-        tap(() => {
-          this.postService.getAllPosts()
-          this.isLiked ++
+      this.likeService.likePost(postId, {like: false})
+        .subscribe(() => {
+          this.isLiked++
+          this.refresh.emit()
+
+          console.log(this.isLiked)
         })
-      ).subscribe()
     } else if (this.isLiked == 1) {
-      console.log(this.isLiked)
-      this.likeService.likePost(postId, {like: true}).pipe(
-        tap(() => {
-          this.postService.getAllPosts()
-          this.isLiked --
+      this.likeService.likePost(postId, {like: true})
+        .subscribe(() => {
+          this.isLiked--
+          this.refresh.emit()
+
+          console.log(this.isLiked)
         })
-      ).subscribe()
     }
   }
 

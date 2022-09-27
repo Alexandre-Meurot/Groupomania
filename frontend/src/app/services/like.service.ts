@@ -14,11 +14,13 @@ export class LikeService {
               private postService: PostService) {}
 
   likePost(postId: number, like: Object): Observable<Likes> {
-    return this.postService.getAllPosts().pipe(
-      switchMap(postUpdated => this.http.post<Likes>(`http://localhost:3000/api/post/${postId}/like`, like ))
-    )
-
+    return this.http.post<Likes>(`http://localhost:3000/api/post/${postId}/like`, like )
   }
+
+  getAllLikes(postId: number): Observable<Likes[]> {
+    return this.http.get<Likes[]>(`http://localhost:3000/api/post/${postId}/like`)
+  }
+
 
 
 }

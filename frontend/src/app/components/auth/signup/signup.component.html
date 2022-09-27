@@ -1,48 +1,50 @@
-<h2>Inscription</h2>
+<div class="signup-container">
 
-<form [formGroup]="signUpForm" class="signup-container" (ngSubmit)="onSignUp()">
+  <h2 class="signup-title">Inscription</h2>
 
-  <p>
-    <mat-form-field appearance="outline">
+  <form [formGroup]="signUpForm" class="signup-form" (ngSubmit)="onSignUp()">
+
+    <mat-form-field class="signup-form__pseudo" appearance="outline">
       <mat-label>Pseudo</mat-label>
       <input matInput type="text" placeholder="Pseudo" formControlName="username" autocomplete="on">
       <mat-error *ngIf="f['username'].getError('required')!=null">Ce champ est requis</mat-error>
     </mat-form-field>
-  </p>
 
-  <p>
-    <mat-form-field appearance="outline">
+    <mat-form-field class="signup-form__email" appearance="outline">
       <mat-label>Adresse email</mat-label>
       <input matInput type="email" placeholder="Email" formControlName="email" autocomplete="on">
       <mat-error *ngIf=" f['email'].getError('email')!=null">Format email incorrect</mat-error>
       <mat-error *ngIf=" f['email'].getError('required')!=null">Ce champ est requis</mat-error>
     </mat-form-field>
-  </p>
 
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>Mot de passe</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" type="password" formControlName="password" autocomplete="off">
-      <mat-error *ngIf=" f['password'].getError('required')!=null">Ce champ est requis</mat-error>
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-    </mat-form-field>
-  </p>
+    <div class="signup-form__password">
 
-  <p>
-    <mat-form-field appearance="outline">
-      <mat-label>Veuiller confirmer le mot de passe</mat-label>
-      <input matInput [type]="hide2 ? 'password' : 'text'" type="password" placeholder="Password" formControlName="passwordConfirmation" autocomplete="off">
-      <mat-error *ngIf="f['passwordConfirmation'].getError('Mustmatch')!=null">La confirmation du mot de passe est incorrect</mat-error>
-      <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" type="button">
-        <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
-      </button>
-    </mat-form-field>
-  </p>
+      <mat-form-field class="password" appearance="outline">
+        <mat-label>Mot de passe</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" type="password" formControlName="password" autocomplete="off">
+        <mat-error *ngIf=" f['password'].getError('required')!=null">Ce champ est requis</mat-error>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
 
-  <button mat-raised-button type="submit" color="primary" [disabled]="signUpForm.valid===false">
-    Inscription
-  </button>
+      <mat-form-field class="password-confirm" appearance="outline">
+        <mat-label>Veuiller confirmer le mot de passe</mat-label>
+        <input matInput [type]="hide2 ? 'password' : 'text'" type="password" placeholder="Password" formControlName="passwordConfirmation" autocomplete="off">
+        <mat-error *ngIf="f['passwordConfirmation'].getError('Mustmatch')!=null">La confirmation du mot de passe est incorrect</mat-error>
+        <button mat-icon-button matSuffix (click)="hide2 = !hide2" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide2" type="button">
+          <mat-icon>{{hide2 ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+      </mat-form-field>
 
-</form>
+    </div>
+
+    <button class="signup-btn" mat-raised-button type="submit" color="primary" [disabled]="signUpForm.valid===false">
+      S'inscrire
+    </button>
+
+  </form>
+
+</div>
+
+
