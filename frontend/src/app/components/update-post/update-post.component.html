@@ -8,14 +8,14 @@
     <form class="form-container" [formGroup]="updateForm">
 
       <p>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="content-input" appearance="outline">
           <mat-label>Exprimez-vous</mat-label>
           <textarea [(ngModel)]="post.content" type="text" rows="4" formControlName="content" matInput></textarea>
         </mat-form-field>
       </p>
 
       <p>
-        <mat-form-field appearance="outline">
+        <mat-form-field class="media-input" appearance="outline">
           <mat-label>Sélectionner une URL d'image</mat-label>
           <input [(ngModel)]="post.media" matInput type="text" formControlName="media">
         </mat-form-field>

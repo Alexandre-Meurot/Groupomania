@@ -1,0 +1,22 @@
+.comment-card {
+  background-color: #efefef;
+  margin-bottom: 10px;
+  display: flex;
+
+  mat-card-content {
+    margin-left: 20px;
+  }
+
+  mat-card-actions {
+    margin-left: auto;
+  }
+
+  .delete-btn {
+    &:hover {
+      color: #FD2D01;
+    }
+  }
+
+}
+
+

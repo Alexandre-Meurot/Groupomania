@@ -1,10 +1,17 @@
 <mat-card class="post-card">
 
   <mat-card-header>
+
     <img *ngIf="post.User.picture" mat-card-avatar [src]="post.User.picture" [alt]="post.User.username">
     <img *ngIf="!post.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut">
     <mat-card-title>{{ post.User.username }}</mat-card-title>
     <mat-card-subtitle>{{ post.createdAt | date }}</mat-card-subtitle>
+
+    <span class="edit-post">
+      <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
+      <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onDelete(post.id)" color="primary">delete</mat-icon>
+    </span>
+
   </mat-card-header>
 
   <img *ngIf="post.media" mat-card-image [src]="post.media" [alt]="post.User.username">
@@ -21,9 +28,6 @@
       <span><a (click)="onComments()">{{ post.Comments.length }} commentaire(s)</a></span>
     </div>
   </mat-card-content>
-
-  <mat-icon *ngIf="myOwnPost()" (click)="onDelete(post.id)" color="primary">delete</mat-icon>
-  <mat-icon *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
 
   <mat-divider inset></mat-divider>
 
