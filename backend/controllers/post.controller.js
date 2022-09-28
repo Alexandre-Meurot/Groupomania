@@ -110,7 +110,7 @@ exports.updatePost = (req, res) => {
 
         .then(postFound => {
 
-            if (postFound.userId !== getAuthUserId(req)) {
+            if (postFound.userId !== getAuthUserId(req).userId) {
                 const message = "Requête non authentifiée, seul l'auteur peut modifier sa propre publication !"
                 return res.status(404).json({ error: message })
             }
