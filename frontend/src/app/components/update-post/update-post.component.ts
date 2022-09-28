@@ -15,7 +15,7 @@ export class UpdatePostComponent implements OnInit {
   updateForm!: FormGroup;
   urlRegex!: RegExp;
   post!: Post
-  postId: number = Number(localStorage.getItem('postID'))
+  postId: number = Number(localStorage.getItem('postId'))
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -34,8 +34,10 @@ export class UpdatePostComponent implements OnInit {
       .subscribe(post => this.post = post)
   }
 
-  click() {
-    console.log(this.post)
+  updatePost() {
+    console.log(this.updateForm.value)
+    this.postService.updatePost(this.postId, this.updateForm.value)
+      .subscribe(() => this.router.navigate(['home']))
   }
 
 }

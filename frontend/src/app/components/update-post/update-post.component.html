@@ -1,5 +1,5 @@
 
-<mat-card *ngIf="post" class="add-post-card">
+<mat-card *ngIf="post" class="update-post-card">
 
   <mat-card-title class="form-title">Modifier Publication</mat-card-title>
 
@@ -10,18 +10,18 @@
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Exprimez-vous</mat-label>
-          <textarea type="text" rows="4" formControlName="content" matInput></textarea>
+          <textarea [(ngModel)]="post.content" type="text" rows="4" formControlName="content" matInput></textarea>
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Sélectionner une URL d'image</mat-label>
-          <input matInput type="text" formControlName="media">
+          <input [(ngModel)]="post.media" matInput type="text" formControlName="media">
         </mat-form-field>
       </p>
 
-      <button (click)="click()" class="form-btn" type="submit" [disabled]="updateForm.invalid" mat-raised-button>Publier</button>
+      <button (click)="updatePost()" class="form-btn" type="submit" [disabled]="updateForm.invalid" mat-raised-button>Publier</button>
 
     </form>
 
