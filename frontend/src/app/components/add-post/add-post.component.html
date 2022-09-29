@@ -4,25 +4,21 @@
 
   <mat-card-content>
 
-    <form class="form-container" [formGroup]="postForm" (ngSubmit)="onAddPost()">
+    <form class="form-container" [formGroup]="postForm" (ngSubmit)="submitData()">
 
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Exprimez-vous</mat-label>
-          <textarea type="text" rows="4" formControlName="content" matInput></textarea>
+          <textarea (change)="getContent(name.value)" #name type="text" rows="4" formControlName="content" matInput></textarea>
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Sélectionner une URL d'image</mat-label>
-          <input matInput type="text" formControlName="media">
+          <ngx-mat-file-input (change)="getFile($event)" formControlName="media"></ngx-mat-file-input>
         </mat-form-field>
       </p>
-
-<!--      <p>-->
-<!--        <input type="file">-->
-<!--      </p>-->
 
       <button class="form-btn" type="submit" [disabled]="postForm.invalid" mat-raised-button>Publier</button>
 

@@ -14,11 +14,10 @@ import {Observable} from "rxjs";
 export class PostComponent implements OnInit {
 
   @Input() post!: Post;
-  @Output() refresh =new EventEmitter<void>()
+  @Output() refresh = new EventEmitter<void>()
   showComments!: boolean;
-  isLiked: number = 0;
   userId!: string | null;
-  like!: Observable<Likes[]>
+  likes$!: Observable<Likes[]>
 
   constructor(private likeService: LikeService,
               private postService: PostService,
@@ -27,7 +26,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.showComments = false
     this.userId = localStorage.getItem('userId')
-    this.like = this.likeService.getAllLikes(this.post.id)
+    this.likes$ = this.likeService.getAllLikes(this.post.id)
   }
 
   onComments():void {
@@ -36,21 +35,17 @@ export class PostComponent implements OnInit {
   }
 
   onLike(postId: number) {
-    if (this.isLiked == 0) {
-      this.likeService.likePost(postId, {like: false})
-        .subscribe(() => {
-          this.isLiked++
-          this.refresh.emit()
-
-          console.log(this.isLiked)
-        })
-    } else if (this.isLiked == 1) {
+    if (this.post.likes%2 == 0) {
       this.likeService.likePost(postId, {like: true})
         .subscribe(() => {
-          this.isLiked--
+          console.log('UNLIKE')
           this.refresh.emit()
-
-          console.log(this.isLiked)
+        })
+    } else {
+      this.likeService.likePost(postId, {like: false})
+        .subscribe(() => {
+          console.log('LIKE')
+          this.refresh.emit()
         })
     }
   }

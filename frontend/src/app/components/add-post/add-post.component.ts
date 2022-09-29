@@ -4,6 +4,7 @@ import {PostService} from "../../services/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, tap} from "rxjs";
 import {Router} from "@angular/router";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-post',
@@ -15,10 +16,14 @@ export class AddPostComponent implements OnInit {
   postForm!: FormGroup;
   postPreview$!: Observable<Post>;
   urlRegex!: RegExp;
+  imagePreview!: string;
+  file!: any
+  content!: string
 
   constructor(private postService: PostService,
               private formBuilder: FormBuilder,
-              private router: Router) { }
+              private router: Router,
+              private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -26,7 +31,7 @@ export class AddPostComponent implements OnInit {
 
     this.postForm = this.formBuilder.group({
       content: [null, Validators.required],
-      media: [null, Validators.pattern(this.urlRegex)],
+      media: [null, null],
     }, {
       updateOn: 'blur'
     });
@@ -39,11 +44,28 @@ export class AddPostComponent implements OnInit {
 
   }
 
-  onAddPost(): void {
-    console.log(this.postForm.value)
-    this.postService.createPost(this.postForm.value).pipe(
-      tap(() => this.router.navigateByUrl('/home'))
-    ).subscribe();
+  // onAddPost(): void {
+  //   this.postService.createPost(this.postForm.value).pipe(
+  //     tap(() => this.router.navigateByUrl('/home'))
+  //   ).subscribe();
+  // }
+
+  getFile(event: any) {
+    this.file = event.target.files[0]
+    console.log("media:", this.file)
   }
 
+  getContent(content: string) {
+    this.content = content
+  }
+
+  submitData() {
+    let formData = new Post()
+    formData.content = this.content
+    formData.media = this.file
+    console.log(formData)
+    // this.postService.createPost(formData).pipe(
+    //     tap(() => this.router.navigateByUrl('/home'))
+    //   ).subscribe();
+  }
 }

@@ -13,11 +13,6 @@
   - pour l'ajout d'un post
   - pour la modification du profil
    
-**Mettre en place la méthode de Like/Dislike :**
-  - modifier le service en question
-  - mettre en place la méthode de récupération de tous les likes du post
-  - afficher les likes de la table Like et pas du Post
-   
 **Vérifier la gestion des erreurs dans tous les formulaires**
 
 **Améliorer les styles SCSS de l'application en général**
