@@ -23,7 +23,7 @@
     <div class="post-content-info">
       <span class="post-content-info__like">
         <mat-icon class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>
-        {{ post.likes }}
+        <span>{{ likesNbrs }}</span>
       </span>
       <span><a (click)="onComments()">{{ post.Comments.length }} commentaire(s)</a></span>
     </div>

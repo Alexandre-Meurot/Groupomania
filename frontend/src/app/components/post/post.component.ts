@@ -3,8 +3,6 @@ import {Post} from "../../models/post.model";
 import {LikeService} from "../../services/like.service";
 import {PostService} from "../../services/post.service";
 import {Router} from "@angular/router";
-import {Likes} from "../../models/likes.model";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-post',
@@ -17,7 +15,8 @@ export class PostComponent implements OnInit {
   @Output() refresh = new EventEmitter<void>()
   showComments!: boolean;
   userId!: string | null;
-  likes$!: Observable<Likes[]>
+  isLiked!: boolean
+  likesNbrs!: number
 
   constructor(private likeService: LikeService,
               private postService: PostService,
@@ -26,28 +25,13 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.showComments = false
     this.userId = localStorage.getItem('userId')
-    this.likes$ = this.likeService.getAllLikes(this.post.id)
+    this.likesNbrs = this.post.likes
+    this.isLiked = false
   }
 
   onComments():void {
     this.showComments = !this.showComments;
     console.log(this.post.Comments)
-  }
-
-  onLike(postId: number) {
-    if (this.post.likes%2 == 0) {
-      this.likeService.likePost(postId, {like: true})
-        .subscribe(() => {
-          console.log('UNLIKE')
-          this.refresh.emit()
-        })
-    } else {
-      this.likeService.likePost(postId, {like: false})
-        .subscribe(() => {
-          console.log('LIKE')
-          this.refresh.emit()
-        })
-    }
   }
 
   onDelete(postId: number) {
@@ -65,4 +49,17 @@ export class PostComponent implements OnInit {
     return this.userId == this.post.userId.toString()
   }
 
+  onLike(postId: number) {
+    if (!this.isLiked) {
+      this.isLiked = true
+      this.likeService.likePost(postId, { like: false })
+      this.likesNbrs ++
+      this.refresh.emit()
+    } else {
+      this.isLiked = false
+      this.likeService.likePost(postId, { like: true })
+      this.likesNbrs --
+      this.refresh.emit()
+    }
+  }
 }

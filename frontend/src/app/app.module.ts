@@ -28,6 +28,8 @@ import { CommentComponent } from './components/comment/comment.component';
 import { AddCommentComponent } from './components/add-comment/add-comment.component';
 import { CommentListComponent } from './components/comment-list/comment-list.component';
 import { UpdatePostComponent } from './components/update-post/update-post.component';
+import { AccountDetailComponent } from './components/account-detail/account-detail.component';
+import { AccountListComponent } from './components/account-list/account-list.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { UpdatePostComponent } from './components/update-post/update-post.compon
     AddCommentComponent,
     CommentListComponent,
     UpdatePostComponent,
+    AccountDetailComponent,
+    AccountListComponent,
   ],
     imports: [
         BrowserModule,
