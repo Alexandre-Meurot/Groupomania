@@ -3,6 +3,7 @@ import {Post} from "../../models/post.model";
 import {LikeService} from "../../services/like.service";
 import {PostService} from "../../services/post.service";
 import {Router} from "@angular/router";
+import {Likes} from "../../models/likes.model";
 
 @Component({
   selector: 'app-post',
@@ -12,11 +13,11 @@ import {Router} from "@angular/router";
 export class PostComponent implements OnInit {
 
   @Input() post!: Post;
-  @Output() refresh = new EventEmitter<void>()
+  @Output() refresh = new EventEmitter<void>();
+  likes!: Likes[]
   showComments!: boolean;
   userId!: string | null;
-  isLiked!: boolean
-  likesNbrs!: number
+  isLiked!: boolean;
 
   constructor(private likeService: LikeService,
               private postService: PostService,
@@ -25,8 +26,16 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     this.showComments = false
     this.userId = localStorage.getItem('userId')
-    this.likesNbrs = this.post.likes
     this.isLiked = false
+
+    this.likeService.getAllLikes(this.post.id)
+      .subscribe(likes => this.likes = likes)
+    if (this.likes) {
+      // @ts-ignore
+      let item1 = this.likes.find(like => like.postId == this.post.id && like.userId == +this.userId)
+      this.isLiked = item1 != null
+    }
+
   }
 
   onComments():void {
@@ -50,18 +59,23 @@ export class PostComponent implements OnInit {
   }
 
   onLike(postId: number) {
-    if (!this.isLiked) {
-      this.isLiked = true
-      this.likeService.likePost(postId, { like: false })
-      this.likesNbrs ++
-      this.refresh.emit()
-    } else {
-      this.isLiked = false
-      this.likeService.likePost(postId, { like: true })
-      this.likesNbrs --
-      this.refresh.emit()
-    }
-  }
+
+    if (this.userId != null) {
+
+      // @ts-ignore
+      let item = this.likes.find(like => like.postId == postId && like.userId == +this.userId)
+      if (typeof item == 'undefined') {
+        console.log('like')
+        this.likeService.likePost(postId, {like: false})
+          .subscribe(() => this.refresh.emit())
+        console.log(item)
+      } else {
+        this.likeService.likePost(postId, {like: true})
+          .subscribe(() => this.refresh.emit())
+        console.log('dislike')
+      }
+
+  }}
 
   toAccountDetail(userId: number) {
     this.router.navigate(['account-detail'], { queryParams: {id: userId} })

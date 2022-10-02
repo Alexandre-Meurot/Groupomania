@@ -1,10 +1,4 @@
-# TODO : 
-
-**Affichage d'un compte tiers lors du clique sur celui-ci :**
-  - créer le composant
-  - créer la méthode de service
-  - permettre le click sur le profil pour rediriger vers celui-ci
-  - permettre le click pour retourner sur la page d'accueil
+# TODO :
    
 **Régler le problème d'affichage des posts à la connexion :**
  - voir le problème au niveau de la requête

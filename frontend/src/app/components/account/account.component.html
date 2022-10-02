@@ -24,7 +24,9 @@
         <mat-form-field class="pseudo-input" appearance="outline">
           <mat-label>Pseudo</mat-label>
           <input formControlName="username" matInput type="text" [(ngModel)]="user.username">
-          <mat-error *ngIf="updateForm.get('username')?.hasError('maxLength')">Le pseudo doit faire entre 3 et 20 caractères</mat-error>
+          <mat-error *ngIf="updateForm.get('username')?.hasError('maxlength')">Le pseudo doit faire moins de 20 caractères</mat-error>
+          <mat-error *ngIf="updateForm.get('username')?.hasError('minlength')">Le pseudo doit faire 3 caractères minimum</mat-error>
+          <mat-error *ngIf="updateForm.get('username')?.hasError('required')">Ce champs est requis</mat-error>
         </mat-form-field>
 
         <mat-form-field class="email-input" appearance="outline">
@@ -38,7 +40,8 @@
         <mat-form-field class="bio-input" appearance="outline">
           <mat-label>Modifier bio</mat-label>
           <textarea formControlName="bio" matInput type="text" rows="4" [(ngModel)]="user.bio"></textarea>
-          <mat-error *ngIf="updateForm.get('bio')?.hasError('minLength')">La bio doit faire entre 10 et 200 caractères</mat-error>
+          <mat-error *ngIf="updateForm.get('bio')?.hasError('minlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
+          <mat-error *ngIf="updateForm.get('bio')?.hasError('maxlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
         </mat-form-field>
       </div>
 

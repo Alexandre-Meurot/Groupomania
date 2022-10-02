@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
   hide = true;
   hide2 = true;
   signUpForm!: FormGroup;
+  passwordRegex!: RegExp
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -22,10 +23,13 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
 
+    // 8 caractères : 1 majuscule et 1 chiffre
+    this.passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+
     this.signUpForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      username: ['', Validators.required, Validators.minLength(3), Validators.maxLength(15)],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.pattern(this.passwordRegex)]],
       passwordConfirmation: ['', Validators.required],
     },
       {

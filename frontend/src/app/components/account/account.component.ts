@@ -26,8 +26,8 @@ export class AccountComponent implements OnInit {
     this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
 
     this.updateForm = this.formBuilder.group({
-      email: [null, Validators.email],
-      username: [null, [Validators.minLength(3), Validators.maxLength(20)]],
+      email: [null,[Validators.required,  Validators.email]],
+      username: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       bio: [null, [Validators.minLength(10), Validators.maxLength(200)]],
       picture: [null, Validators.pattern(this.urlRegex)]
     })

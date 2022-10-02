@@ -44,11 +44,11 @@ export class AddPostComponent implements OnInit {
 
   }
 
-  // onAddPost(): void {
-  //   this.postService.createPost(this.postForm.value).pipe(
-  //     tap(() => this.router.navigateByUrl('/home'))
-  //   ).subscribe();
-  // }
+  onAddPost(): void {
+    // this.postService.createPost(this.postForm.value).pipe(
+    //   tap(() => this.router.navigateByUrl('/home'))
+    // ).subscribe();
+  }
 
   getFile(event: any) {
     this.file = event.target.files[0]
@@ -64,8 +64,8 @@ export class AddPostComponent implements OnInit {
     formData.content = this.content
     formData.media = this.file
     console.log(formData)
-    // this.postService.createPost(formData).pipe(
-    //     tap(() => this.router.navigateByUrl('/home'))
-    //   ).subscribe();
+    this.postService.createPost(formData).pipe(
+        tap(() => this.router.navigateByUrl('/home'))
+      ).subscribe();
   }
 }
