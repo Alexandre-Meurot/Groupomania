@@ -3,6 +3,7 @@ import {UserService} from "../../services/user.service";
 import {User} from "../../models/user.model";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {tap} from "rxjs";
 
 @Component({
   selector: 'app-account',
@@ -15,6 +16,7 @@ export class AccountComponent implements OnInit {
   user!: User;
   updateForm!: FormGroup;
   urlRegex!: RegExp;
+  imagePreview!: string;
 
 
   constructor(private userService: UserService,
@@ -23,13 +25,11 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
-
     this.updateForm = this.formBuilder.group({
       email: [null,[Validators.required,  Validators.email]],
       username: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       bio: [null, [Validators.minLength(10), Validators.maxLength(200)]],
-      picture: [null, Validators.pattern(this.urlRegex)]
+      picture: [null, null]
     })
 
     this.userService.getUserById(this.userId)
@@ -37,17 +37,36 @@ export class AccountComponent implements OnInit {
 
   }
 
+  onFileAdded(event: Event) {
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0]
+    this.updateForm.get('picture')?.setValue(file)
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string
+    }
+    reader.readAsDataURL(file)
+  }
+
+  onUpdate() {
+    // console.log(this.updateForm.value)
+    // console.log(this.user)
+    // this.userService.updateUser(this.user)
+    //   .subscribe()
+    const formData = new FormData();
+    formData.append('email', this.updateForm.get('email')?.value)
+    formData.append('username', this.updateForm.get('username')?.value)
+    formData.append('bio', this.updateForm.get('bio')?.value)
+    formData.append('picture', this.updateForm.get('picture')?.value)
+    this.userService.updateUser(formData).pipe(
+      tap(() => this.router.navigateByUrl('/home'))
+    ).subscribe()
+  }
+
   onDelete() {
     this.userService.deleteUser(this.userId).subscribe(() => {
       this.userService.logout()
     })
-  }
-
-  onUpdate() {
-    console.log(this.updateForm.value)
-    console.log(this.user)
-    this.userService.updateUser(this.user)
-      .subscribe()
   }
 
 }

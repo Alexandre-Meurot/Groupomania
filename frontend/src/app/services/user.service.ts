@@ -66,7 +66,7 @@ export class UserService {
     return this.http.delete<User>(`http://localhost:3000/api/user/${userId}`)
   }
 
-  updateUser(user: User): Observable<User | any> {
+  updateUser(user: FormData): Observable<User | any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };

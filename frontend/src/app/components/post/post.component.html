@@ -4,8 +4,8 @@
 
     <img *ngIf="post.User.picture" mat-card-avatar [src]="post.User.picture" [alt]="post.User.username" (click)="toAccountDetail(post.userId)">
     <img *ngIf="!post.User.picture" mat-card-avatar src="assets/images/default/blank-profile-picture.webp" alt="avatar par défaut" (click)="toAccountDetail(post.userId)">
-    <mat-card-title (click)="toAccountDetail(post.userId)">{{ post.User.username }}</mat-card-title>
-    <mat-card-subtitle>{{ post.createdAt | date }}</mat-card-subtitle>
+    <mat-card-title (click)="toAccountDetail(post.userId)">{{ post.User.username | titlecase }}</mat-card-title>
+    <mat-card-subtitle>le {{ post.createdAt | date }} à {{ post.createdAt | date: 'hh:mm' }}</mat-card-subtitle>
 
     <span class="edit-post">
       <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>

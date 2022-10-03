@@ -10,14 +10,28 @@
     <mat-card-content class="content">
 
       <div class="picture-container">
-        <img *ngIf="user.picture" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
-        <img *ngIf="!user.picture" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+        <img *ngIf="user.picture && !imagePreview" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
+        <img *ngIf="!user.picture && !imagePreview" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+        <img
+          *ngIf="imagePreview"
+          [src]="imagePreview"
+          alt="Preview de l'image"
+          style="max-height: 100px;display:block;margin-top:10px"
+        >
 
-        <mat-form-field class="picture-input" appearance="outline">
-          <mat-label>Url de la photo</mat-label>
-          <input formControlName="picture" matInput type="text" [(ngModel)]="user.picture">
-          <mat-error *ngIf="updateForm.get('picture')?.hasError('pattern')">L'URL n'est pas conforme</mat-error>
-        </mat-form-field>
+        <input
+          class="display-none"
+          type="file"
+          name="picture"
+          accept="image/*"
+          (change)="onFileAdded($event); $event.preventDefault()"
+          #fileInput
+        >
+
+        <button mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
+          <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
+          Image
+        </button>
       </div>
 
       <div class="pseudo-email-container">
