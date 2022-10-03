@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post.model";
 import {Observable} from "rxjs";
@@ -17,15 +17,17 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.loading = false
-
+    this.loading = true
     this.getPosts()
 
   }
 
   getPosts() {
     this.posts$ = this.postService.getAllPosts()
-    this.loading = false
+    if (this.posts$) {
+      this.loading = false
+    }
   }
+
 
 }

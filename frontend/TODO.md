@@ -4,10 +4,9 @@
  - voir le problème au niveau de la requête
 
 **Mettre en place l'upload de fichier :**
-  - pour l'ajout d'un post
   - pour la modification du profil
 
-**Vérifier la gestion des erreurs dans tous les formulaires**
+**Supprimer le champs après avoir commenté**
 
 **Améliorer les styles SCSS de l'application en général**
 

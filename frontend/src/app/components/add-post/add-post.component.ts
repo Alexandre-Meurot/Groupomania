@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Post} from "../../models/post.model";
 import {PostService} from "../../services/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {map, Observable, tap} from "rxjs";
+import {tap} from "rxjs";
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-post',
@@ -21,16 +19,13 @@ export class AddPostComponent implements OnInit {
 
   constructor(private postService: PostService,
               private formBuilder: FormBuilder,
-              private router: Router,
-              private http: HttpClient) { }
+              private router: Router) { }
 
   ngOnInit(): void {
-
     this.postForm = this.formBuilder.group({
         content: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
         media: [null, null],
     })
-
   }
 
   getFile(event: any) {

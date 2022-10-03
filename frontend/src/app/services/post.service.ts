@@ -31,7 +31,7 @@ export class PostService {
     return this.http.delete<Post>(`http://localhost:3000/api/post/${postId}`)
   }
 
-  updatePost(postId: number, postUpdated: Post): Observable<Post> {
+  updatePost(postId: number, postUpdated: FormData): Observable<Post> {
     return this.http.put<Post>(`http://localhost:3000/api/post/${postId}`, postUpdated)
   }
 

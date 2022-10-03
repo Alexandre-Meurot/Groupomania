@@ -1,5 +1,9 @@
-<mat-spinner *ngIf="loading === true"></mat-spinner>
+<mat-spinner *ngIf="loading === true" mode="indeterminate"></mat-spinner>
+
 <div *ngIf="loading === false" class="post-list">
-  <app-post *ngFor="let post of posts$ | async" [post]="post" (refresh)="getPosts()"></app-post>
+  <app-post *ngFor="let post of posts$ | async" [post]="post"
+            (refresh)="getPosts()"
+            >
+  </app-post>
 </div>
 

@@ -7,21 +7,44 @@
 
     <form class="form-container" [formGroup]="updateForm">
 
-      <p>
-        <mat-form-field class="content-input" appearance="outline">
-          <mat-label>Exprimez-vous</mat-label>
-          <textarea [(ngModel)]="post.content" type="text" rows="4" formControlName="content" matInput></textarea>
-        </mat-form-field>
-      </p>
+      <mat-form-field class="content-input" appearance="outline">
+        <mat-label>Exprimez-vous</mat-label>
+        <textarea [(ngModel)]="post.content" type="text" rows="4" formControlName="content" matInput></textarea>
+        <mat-error *ngIf="updateForm.get('content')?.hasError('required')">Ce champs est requis</mat-error>
+        <mat-error *ngIf="updateForm.get('content')?.hasError('minlength')">Ce champs doit contenir entre 3 et 100 caractères</mat-error>
+        <mat-error *ngIf="updateForm.get('content')?.hasError('maxlength')">Ce champs doit contenir entre 3 et 100 caractères</mat-error>
+      </mat-form-field>
 
-      <p>
-        <mat-form-field class="media-input" appearance="outline">
-          <mat-label>Sélectionner une URL d'image</mat-label>
-          <input [(ngModel)]="post.media" matInput type="text" formControlName="media">
-        </mat-form-field>
-      </p>
+      <img
+        *ngIf="imagePreview"
+        [src]="imagePreview"
+        alt="Preview de l'image"
+        style="max-height: 200px;display:block;margin-top:10px;margin-bottom: 10px;"
+      >
 
-      <button (click)="updatePost()" class="form-btn" type="submit" [disabled]="updateForm.invalid" mat-raised-button>Publier</button>
+      <input
+        class="display-none"
+        type="file"
+        name="image"
+        accept="image/*"
+        (change)="onFileAdded($event); $event.preventDefault()"
+        #fileInput
+      >
+
+      <button mat-raised-button
+              (click)="fileInput.click(); $event.preventDefault()"
+              class="img-btn">
+        <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
+        Image
+      </button>
+
+      <button (click)="updatePost()"
+              class="form-btn"
+              type="submit"
+              mat-raised-button
+              [disabled]="updateForm.invalid">
+        Modifier
+      </button>
 
     </form>
 
