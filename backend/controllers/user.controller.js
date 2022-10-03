@@ -5,6 +5,9 @@ const jwt = require('jsonwebtoken');
 const passwordValidator = require('password-validator')
 const db = require('../models');
 const User = db.User;
+const Post = db.Post;
+const Like = db.Like;
+const Comment = db.Comment;
 const getAuthUserId = require('../middleware/getAuthUserId.middleware');
 
 const schema = new passwordValidator();
@@ -161,8 +164,11 @@ exports.updateUser = (req, res) => {
 
     const userObject = req.file ?
         {
-            ...JSON.parse(req.body.user),
-            imageProfile: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            // ...JSON.parse(req.body.user),
+            email: req.body.email,
+            username: req.body.username,
+            bio: req.body.bio,
+            picture: `${req.protocol}://${req.get('host')}/images/profil/${req.file.filename}`
         } : { ...req.body };
 
     User.findOne({
@@ -208,30 +214,70 @@ exports.deleteUser = (req, res) => {
     })
         .then(userFound => {
 
-            console.log(getAuthUserId(req).isAdmin)
-            console.log(getAuthUserId(req).userId)
-
             if ((userFound.id === getAuthUserId(req).userId) || getAuthUserId(req).isAdmin === true) {
 
-                userFound.destroy({
-                    where: { id: req.params.id }
-                })
-                    .then(() => {
-                        res.status(200).json({ message: 'Le profil a bien été supprimé !' })
-                    })
-                    .catch(error => {
-                        res.status(409).json({ error })
-                    })
+                if (userFound) {
+                    if (userFound.picture != null) {
+                        const filename = userFound.picture.split('/images/profil/')[1]
+                        fs.unlink(`images/profil/${filename}`, () => {
+
+                            Comment.destroy({
+                                where: { userId: req.params.id }
+                            })
+                            Like.destroy({
+                                where: { userId: req.params.id }
+                            })
+                            Post.destroy({
+                                where: { userId: req.params.id }
+                            })
+                            User.destroy({
+                                where: { id: req.params.id }
+                            })
+                                .then(() => {
+                                    const message = 'La publication a bien été supprimé !'
+                                    res.status(200).json({ message: message })
+                                })
+                                .catch((error) => {
+                                    const message = "Une erreur s'est produite lors de la supression de votre publication"
+                                    res.status(500).json({ message, error })
+                                })
+                        })
+                    } else {
+                        Comment.destroy({
+                            where: { userId: req.params.id }
+                        })
+                        Like.destroy({
+                            where: { userId: req.params.id }
+                        })
+                        Post.destroy({
+                            where: { userId: req.params.id }
+                        })
+                        User.destroy({
+                            where: { id: req.params.id }
+                        })
+                            .then(() => {
+                                const message = 'La publication a bien été supprimé !'
+                                res.status(200).json({ message: message })
+                            })
+                            .catch((error) => {
+                                const message = "Une erreur s'est produite lors de la supression de votre publication"
+                                res.status(500).json({ message, error })
+                            })
+                    }
+                } else {
+                    const message = 'Utilisateur non trouvé !'
+                    return res.status(404).json({ message, error })
+                }
 
             } else {
-                const message = "Requête non authentifiée, seul l'auteur peut supprimer son propre compte !"
-                return res.status(401).json({ error: message })
+                const message = "Requête non authentifiée, seul l'administrateur peut supprimer un utilisateur tiers !"
+                return res.status(404).json({ error: message })
             }
 
         })
-        .catch(error => {
-            console.log(error)
-            res.status(500).json({ message: 'Une erreur est survenue !' })
+        .catch( error => {
+            const message = "Une erreur s'est produite !"
+            res.status(500).json({ message })
         })
 }
 
