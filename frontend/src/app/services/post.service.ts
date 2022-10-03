@@ -21,7 +21,7 @@ export class PostService {
     return this.http.get<Post>(`http://localhost:3000/api/post/${postId}`)
   }
 
-  createPost(newPost: Post): Observable<Post> {
+  createPost(newPost: FormData): Observable<Post> {
     return this.getAllPosts().pipe(
       switchMap(post => this.http.post<Post>('http://localhost:3000/api/post', newPost))
     )

@@ -30,6 +30,8 @@ import { CommentListComponent } from './components/comment-list/comment-list.com
 import { UpdatePostComponent } from './components/update-post/update-post.component';
 import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 import { AccountListComponent } from './components/account-list/account-list.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
   declarations: [
@@ -49,23 +51,25 @@ import { AccountListComponent } from './components/account-list/account-list.com
     AccountDetailComponent,
     AccountListComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        FormsModule,
-        MatButtonModule,
-        MatIconModule,
-        HttpClientModule,
-        MatCardModule,
-        MatDialogModule,
-        MatToolbarModule,
-        MatDividerModule,
-        MaterialFileInputModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatButtonModule,
+    MatIconModule,
+    HttpClientModule,
+    MatCardModule,
+    MatDialogModule,
+    MatToolbarModule,
+    MatDividerModule,
+    MaterialFileInputModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
+  ],
   providers: [
     httpInterceptorProviders,
   ],

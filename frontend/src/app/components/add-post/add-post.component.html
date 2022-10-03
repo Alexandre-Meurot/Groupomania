@@ -10,15 +10,32 @@
         <mat-form-field appearance="outline">
           <mat-label>Exprimez-vous</mat-label>
           <textarea (change)="getContent(name.value)" #name type="text" rows="4" formControlName="content" matInput></textarea>
+          <mat-error *ngIf="postForm.get('content')?.hasError('required')">Ce champs est requis !</mat-error>
+          <mat-error *ngIf="postForm.get('content')?.hasError('minlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>
+          <mat-error *ngIf="postForm.get('content')?.hasError('maxlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>
         </mat-form-field>
       </p>
 
-      <p>
-        <mat-form-field appearance="outline">
-          <mat-label>Sélectionner une URL d'image</mat-label>
-          <ngx-mat-file-input (change)="getFile($event)" formControlName="media"></ngx-mat-file-input>
-        </mat-form-field>
-      </p>
+      <img
+        [src]="imagePreview"
+        alt="Preview de l'image"
+        *ngIf="imagePreview"
+        style="max-height: 100px;display:block;margin-top:10px"
+        >
+
+      <input
+        class="display-none"
+        type="file"
+        name="image"
+        accept="image/*"
+        (change)="onFileAdded($event); $event.preventDefault()"
+        #fileInput
+      >
+
+      <button mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
+        <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
+        Image
+      </button>
 
       <button class="form-btn" type="submit" [disabled]="postForm.invalid" mat-raised-button>Publier</button>
 
@@ -28,21 +45,3 @@
 
 </mat-card>
 
-<mat-card class="post-card" *ngIf="postPreview$ | async as post">
-  <img *ngIf="post.media" mat-card-image [src]="post.media" alt="photo">
-  <mat-card-content>
-    <div class="post-content-text">
-      <p>{{ post.content }}</p>
-    </div>
-    <div class="post-content-info">
-      <span class="post-content-info__like">
-        <mat-icon class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>0</span>
-      <span>0 commentaire(s)</span>
-    </div>
-  </mat-card-content>
-  <mat-divider inset></mat-divider>
-  <mat-card-actions class="post-action-btn">
-    <button mat-button>J'aime</button>
-    <button mat-button>Commenter</button>
-  </mat-card-actions>
-</mat-card>

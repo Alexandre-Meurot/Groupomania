@@ -14,7 +14,6 @@ import {HttpClient} from "@angular/common/http";
 export class AddPostComponent implements OnInit {
 
   postForm!: FormGroup;
-  postPreview$!: Observable<Post>;
   urlRegex!: RegExp;
   imagePreview!: string;
   file!: any
@@ -27,27 +26,11 @@ export class AddPostComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
-
     this.postForm = this.formBuilder.group({
-      content: [null, Validators.required],
-      media: [null, null],
-    }, {
-      updateOn: 'blur'
-    });
+        content: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
+        media: [null, null],
+    })
 
-    this.postPreview$ = this.postForm.valueChanges.pipe(
-      map(formValue => ({
-        ...formValue,
-      }))
-    );
-
-  }
-
-  onAddPost(): void {
-    // this.postService.createPost(this.postForm.value).pipe(
-    //   tap(() => this.router.navigateByUrl('/home'))
-    // ).subscribe();
   }
 
   getFile(event: any) {
@@ -59,13 +42,24 @@ export class AddPostComponent implements OnInit {
     this.content = content
   }
 
-  submitData() {
-    let formData = new Post()
-    formData.content = this.content
-    formData.media = this.file
-    console.log(formData)
-    this.postService.createPost(formData).pipe(
-        tap(() => this.router.navigateByUrl('/home'))
-      ).subscribe();
+  onFileAdded(event: Event) {
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0]
+    this.postForm.get('media')?.setValue(file)
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string
+    }
+    reader.readAsDataURL(file)
   }
+
+  submitData() {
+    const formData = new FormData();
+    formData.append('content', this.postForm.get('content')?.value)
+    formData.append('media', this.postForm.get('media')?.value)
+    this.postService.createPost(formData).pipe(
+      tap(() => this.router.navigateByUrl('/home'))
+    ).subscribe()
+  }
+
 }

@@ -9,10 +9,12 @@ const MIME_TYPES = {
 
 // Permet de configurer multer
 const storage = multer.diskStorage({
+
     // Permet de stocker les images dans le dossier images
     destination: (req, file, callback) => {
         callback(null, 'images')
     },
+
     // Permet de générer un nouveau nom de fichier image
     filename: (req, file, callback) => {
         const name = file.originalname.split(' ').join('_');
@@ -22,4 +24,4 @@ const storage = multer.diskStorage({
 });
 
 // Permet d'exporter le middleware multer
-module.exports = multer({storage}).single('image');
+module.exports = multer({ storage: storage }).single('media');

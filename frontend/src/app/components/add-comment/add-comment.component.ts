@@ -13,12 +13,16 @@ export class AddCommentComponent implements OnInit {
   commentForm!: FormGroup
   @Input() postId!: number
   @Output() refresh = new EventEmitter<void>()
+  loading!: boolean
 
   constructor(private formBuilder: FormBuilder,
               private commentService: CommentService,
               private postService: PostService) { }
 
   ngOnInit(): void {
+
+    this.loading = false
+
     this.commentForm = this.formBuilder.group({
       content: [null, [Validators.minLength(3), Validators.maxLength(50), Validators.required]]
     })
@@ -27,9 +31,11 @@ export class AddCommentComponent implements OnInit {
 
   onAddComment() {
     console.log(this.commentForm.value)
+    this.loading = true
     this.commentService.createComment(this.commentForm.value, this.postId)
       .subscribe(() => {
         this.refresh.emit()
+        this.loading = false
       })
   }
 

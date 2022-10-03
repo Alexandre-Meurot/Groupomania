@@ -18,15 +18,18 @@ export class PostComponent implements OnInit {
   showComments!: boolean;
   userId!: string | null;
   isLiked!: boolean;
+  loading!: boolean
 
   constructor(private likeService: LikeService,
               private postService: PostService,
               private router: Router) { }
 
   ngOnInit(): void {
+    this.loading = true
     this.showComments = false
     this.userId = localStorage.getItem('userId')
     this.isLiked = false
+
 
     this.likeService.getAllLikes(this.post.id)
       .subscribe(likes => this.likes = likes)

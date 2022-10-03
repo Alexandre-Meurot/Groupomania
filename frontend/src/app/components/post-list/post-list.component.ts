@@ -11,10 +11,13 @@ import {Observable} from "rxjs";
 export class PostListComponent implements OnInit {
 
   posts$!: Observable<Post[]>
+  loading!: boolean
 
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
+
+    this.loading = false
 
     this.getPosts()
 
@@ -22,6 +25,7 @@ export class PostListComponent implements OnInit {
 
   getPosts() {
     this.posts$ = this.postService.getAllPosts()
+    this.loading = false
   }
 
 }
