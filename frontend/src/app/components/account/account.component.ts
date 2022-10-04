@@ -4,6 +4,7 @@ import {User} from "../../models/user.model";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {tap} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-account',
@@ -21,7 +22,8 @@ export class AccountComponent implements OnInit {
 
   constructor(private userService: UserService,
               private router: Router,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -49,10 +51,6 @@ export class AccountComponent implements OnInit {
   }
 
   onUpdate() {
-    // console.log(this.updateForm.value)
-    // console.log(this.user)
-    // this.userService.updateUser(this.user)
-    //   .subscribe()
     const formData = new FormData();
     formData.append('email', this.updateForm.get('email')?.value)
     formData.append('username', this.updateForm.get('username')?.value)
@@ -70,3 +68,4 @@ export class AccountComponent implements OnInit {
   }
 
 }
+

@@ -38,14 +38,24 @@
         Image
       </button>
 
-      <button (click)="updatePost()"
-              class="form-btn"
-              type="submit"
-              mat-raised-button
-              [disabled]="updateForm.invalid">
-        Modifier
-      </button>
+      <div class="btn-container">
+        <button (click)="backToHome()"
+                class="back-btn"
+                type="reset"
+                mat-raised-button
+        >
+          Retour
+        </button>
 
+        <button (click)="updatePost()"
+                class="form-btn"
+                type="submit"
+                mat-raised-button
+                [disabled]="updateForm.invalid">
+          Modifier
+        </button>
+
+      </div>
     </form>
 
   </mat-card-content>

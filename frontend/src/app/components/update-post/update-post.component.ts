@@ -44,6 +44,10 @@ export class UpdatePostComponent implements OnInit {
     reader.readAsDataURL(file)
   }
 
+  backToHome() {
+    this.router.navigate(['home'])
+  }
+
   updatePost() {
     const formData = new FormData();
     formData.append('content', this.updateForm.get('content')?.value)
@@ -52,4 +56,5 @@ export class UpdatePostComponent implements OnInit {
       tap(() => this.router.navigateByUrl('/home'))
     ).subscribe()
   }
+
 }

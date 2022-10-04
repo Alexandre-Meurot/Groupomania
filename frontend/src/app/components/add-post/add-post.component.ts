@@ -57,4 +57,7 @@ export class AddPostComponent implements OnInit {
     ).subscribe()
   }
 
+  backToHome() {
+    this.router.navigate(['home'])
+  }
 }

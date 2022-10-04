@@ -37,7 +37,23 @@
         Image
       </button>
 
-      <button class="form-btn" type="submit" [disabled]="postForm.invalid" mat-raised-button>Publier</button>
+      <div class="btn-container">
+        <button (click)="backToHome()"
+                class="back-btn"
+                type="reset"
+                mat-raised-button
+        >
+          Retour
+        </button>
+
+        <button class="form-btn"
+                type="submit"
+                mat-raised-button
+                [disabled]="postForm.invalid"
+        >
+          Publier
+        </button>
+      </div>
 
     </form>
 
