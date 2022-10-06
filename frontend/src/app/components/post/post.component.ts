@@ -30,7 +30,6 @@ export class PostComponent implements OnInit {
     this.userId = localStorage.getItem('userId')
     this.isLiked = false
 
-
     this.likeService.getAllLikes(this.post.id)
       .subscribe(likes => this.likes = likes)
     if (this.likes) {
@@ -59,6 +58,10 @@ export class PostComponent implements OnInit {
 
   myOwnPost(): boolean {
     return this.userId == this.post.userId.toString()
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('isAdmin') == 'true';
   }
 
   onLike(postId: number) {

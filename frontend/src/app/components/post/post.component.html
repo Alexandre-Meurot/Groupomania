@@ -9,7 +9,7 @@
 
     <span class="edit-post">
       <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
-      <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onDelete(post.id)" color="primary">delete</mat-icon>
+      <mat-icon class="edit-post__btn" *ngIf="myOwnPost() || isAdmin()" (click)="onDelete(post.id)" color="primary">delete</mat-icon>
     </span>
 
   </mat-card-header>

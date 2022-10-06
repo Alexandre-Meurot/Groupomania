@@ -1,5 +1,6 @@
 
 .header {
+  height: 100px;
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr;
@@ -7,7 +8,7 @@
   grid-row-gap: 0;
 
   .logo {
-    max-width: 60%;
+    max-width: 90%;
   }
 }
 
