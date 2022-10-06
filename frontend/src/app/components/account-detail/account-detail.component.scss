@@ -1,4 +1,32 @@
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .user-card {
-  max-width: 500px;
-  margin: 50px auto;
+  max-width: 550px;
+  margin: 50px 20px;
+  padding: 50px;
+
+  &__header {
+    margin-bottom: 20px;
+    .title {
+      font-size: 24px;
+      .username {
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__content {
+    .bio {
+      font-size: 17px;
+
+      &__content {
+        margin-left: 10px;
+        font-style: italic;
+      }
+    }
+  }
 }

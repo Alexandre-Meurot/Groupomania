@@ -1,15 +1,33 @@
-<mat-card class="user-card">
+<div class="container">
+  <mat-card class="user-card">
 
-  <mat-card-header>
-    <mat-card-title>{{ user.username }}</mat-card-title>
-    <mat-card-subtitle>Compte créé le {{ user.createdAt | date }}</mat-card-subtitle>
-  </mat-card-header>
+    <mat-card-header class="user-card__header">
+      <mat-card-title class="title">
+        Profil de
+        <span class="username">{{ user.username | titlecase }}</span>
+      </mat-card-title>
+    </mat-card-header>
 
-  <mat-card-content>
-    <img *ngIf="user.picture" mat-card-lg-image [src]="user.picture" [alt]="user.username">
-    <img *ngIf="!user.picture" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" [alt]="user.username">
-    <p>{{ user.bio }}</p>
-    <p *ngIf="user.isAdmin">Ce profil est modératreur</p>
-  </mat-card-content>
+    <mat-card-content class="user-card__content">
+      <img *ngIf="user.picture" mat-card-image [src]="user.picture" [alt]="user.username">
+      <img *ngIf="!user.picture" mat-card-image src="assets/images/default/blank-profile-picture.webp" [alt]="user.username">
+      <div class="bio">
+        <p class="bio__title">A propos de {{ user.username }} : </p>
+        <p class="bio__content">{{ user.bio }}</p>
+      </div>
+    </mat-card-content>
 
-</mat-card>
+    <mat-card-actions class="user-card__actions">
+      <button (click)="toHome()" mat-raised-button color="primary">Retour</button>
+      <button *ngIf="myOwnAccount()" (click)="toUpdate()" mat-raised-button color="primary">Modifier profil</button>
+      <button *ngIf="isAdmin()" (click)="toDelete()" mat-raised-button color="primary">Supprimer profil</button>
+    </mat-card-actions>
+
+    <mat-card-footer class="user-card__footer">
+      <p *ngIf="user.isAdmin">⚠️ Ce profil est modératreur</p>
+      <p>Ce compte a été créé le {{ user.createdAt | date }}</p>
+    </mat-card-footer>
+
+  </mat-card>
+</div>
+
