@@ -7,4 +7,8 @@
 
 **Supprimer le champs après avoir commenté**
 
+**Afficher la liste de tous les Users pour l'admin avec possibilité de supprimer les Users**
+
+**Créer un footer**
+
 **Refactoriser la structure de lapplication : modules, feature, etc ...**
