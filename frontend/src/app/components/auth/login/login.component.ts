@@ -4,7 +4,6 @@ import {UserService} from "../../../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SignupComponent} from "../signup/signup.component";
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

@@ -9,10 +9,17 @@
     align-items: center;
 
     .picture-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
+      position: relative;
+      //display: flex;
+      //justify-content: space-between;
+      //align-items: center;
+      //margin-bottom: 20px;
+      //margin-left: 20px;
+
+      .picture-btn {
+        position: absolute;
+        top: 80%;
+      }
     }
 
     .pseudo-email-container {

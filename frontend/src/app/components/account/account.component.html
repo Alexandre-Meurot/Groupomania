@@ -10,14 +10,9 @@
     <mat-card-content class="content">
 
       <div class="picture-container">
-        <img *ngIf="user.picture && !imagePreview" mat-card-lg-image [src]="user.picture" alt="Photo de profil">
-        <img *ngIf="!user.picture && !imagePreview" mat-card-lg-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
-        <img
-          *ngIf="imagePreview"
-          [src]="imagePreview"
-          alt="Preview de l'image"
-          style="max-height: 100px;display:block;margin-top:10px"
-        >
+        <img *ngIf="user.picture && !imagePreview" mat-card-image [src]="user.picture" alt="Photo de profil">
+        <img *ngIf="!user.picture && !imagePreview" mat-card-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+        <img *ngIf="imagePreview" [src]="imagePreview" mat-card-image alt="Preview de l'image">
 
         <input
           class="display-none"
@@ -28,8 +23,8 @@
           #fileInput
         >
 
-        <button mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
-          <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
+        <button class="picture-btn" mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
+          <mat-icon>add_photo_alternate</mat-icon>
           Image
         </button>
       </div>
