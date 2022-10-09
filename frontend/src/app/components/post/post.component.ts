@@ -4,6 +4,8 @@ import {LikeService} from "../../services/like.service";
 import {PostService} from "../../services/post.service";
 import {Router} from "@angular/router";
 import {Likes} from "../../models/likes.model";
+import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-post',
@@ -22,7 +24,8 @@ export class PostComponent implements OnInit {
 
   constructor(private likeService: LikeService,
               private postService: PostService,
-              private router: Router) { }
+              private router: Router,
+              public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.loading = true
@@ -45,9 +48,15 @@ export class PostComponent implements OnInit {
     console.log(this.post.Comments)
   }
 
-  onDelete(postId: number) {
-    this.postService.deletePost(postId).subscribe(() => {
-      this.refresh.emit()
+  onConfirmDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent)
+    dialogRef.afterClosed().subscribe(formData => {
+      if (!formData) {
+        return 'Suppression annulée !'
+      }
+      this.postService.deletePost(this.post.id)
+        .subscribe(() => this.refresh.emit())
+      return 'Suppression confirmée !'
     })
   }
 

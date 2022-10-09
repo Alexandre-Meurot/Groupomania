@@ -1,0 +1,26 @@
+.confirm-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+
+    mat-icon {
+      color: orange;
+    }
+  }
+
+  .content {
+    text-align: center;
+
+    .bold {
+      font-size: medium;
+    }
+  }
+
+}

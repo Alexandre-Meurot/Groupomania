@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {tap} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
+import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-account',
@@ -61,9 +62,17 @@ export class AccountComponent implements OnInit {
     ).subscribe()
   }
 
-  onDelete() {
-    this.userService.deleteUser(this.userId).subscribe(() => {
-      this.userService.logout()
+  onConfirmDialog() {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent)
+    dialogRef.afterClosed().subscribe(formData => {
+      if (!formData) {
+        return 'Suppression annulée !'
+      }
+      this.userService.deleteUser(this.userId)
+        .subscribe(() => {
+          this.userService.logout()
+        })
+      return 'Suppression confirmée !'
     })
   }
 

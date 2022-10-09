@@ -1,8 +1,7 @@
 .add-post-card {
-  max-width: 510px;
+  max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
 }
 
 .form-title {
@@ -17,12 +16,27 @@
   align-items: center;
 }
 
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.content-input {
+  width: 100%;
+}
+
+.image-btn {
+  margin-bottom: 1.34375em;
+}
+
 .btn-container {
   display: flex;
-  margin-top: 25px;
 
-  .back-btn, .form-btn {
-    margin: 15px;
+  .back-btn {
+    margin-right: 20px;
   }
 }
 

@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {Post} from "../../models/post.model";
 import {Observable} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-post-list',
@@ -11,22 +12,17 @@ import {Observable} from "rxjs";
 export class PostListComponent implements OnInit {
 
   posts$!: Observable<Post[]>
-  loading!: boolean
 
   constructor(private postService: PostService) { }
 
   ngOnInit(): void {
 
-    this.loading = true
     this.getPosts()
 
   }
 
   getPosts() {
     this.posts$ = this.postService.getAllPosts()
-    if (this.posts$) {
-      this.loading = false
-    }
   }
 
 

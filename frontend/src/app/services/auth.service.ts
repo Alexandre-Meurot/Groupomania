@@ -5,15 +5,13 @@ import {Injectable} from "@angular/core";
 })
 
 export class AuthService {
-  private token = localStorage.getItem('token')
-  private isAdmin = localStorage.getItem('isAdmin')
 
   getToken(): string | null {
-    return this.token
+    return localStorage.getItem('token')
   }
 
   getIsAdmin(): string | null {
-    return this.isAdmin
+    return localStorage.getItem('isAdmin')
   }
 
 }

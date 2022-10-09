@@ -1,49 +1,50 @@
 <mat-card class="add-post-card">
 
-  <mat-card-title class="form-title">Nouvelle Publication</mat-card-title>
+  <mat-card-title *ngIf="user" class="form-title">Bonjour {{user.username | titlecase}}, quoi de neuf ? </mat-card-title>
 
   <mat-card-content>
 
     <form class="form-container" [formGroup]="postForm" (ngSubmit)="submitData()">
 
-      <p>
-        <mat-form-field appearance="outline">
+      <div class="input-container">
+        <mat-form-field appearance="outline" class="content-input">
           <mat-label>Exprimez-vous</mat-label>
-          <textarea (change)="getContent(name.value)" #name type="text" rows="4" formControlName="content" matInput></textarea>
+          <textarea (change)="getContent(name.value)" #name type="text" rows="1" formControlName="content" matInput></textarea>
           <mat-error *ngIf="postForm.get('content')?.hasError('required')">Ce champs est requis !</mat-error>
           <mat-error *ngIf="postForm.get('content')?.hasError('minlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>
           <mat-error *ngIf="postForm.get('content')?.hasError('maxlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>
         </mat-form-field>
-      </p>
 
-      <img
-        [src]="imagePreview"
-        alt="Preview de l'image"
-        *ngIf="imagePreview"
-        style="max-height: 100px;display:block;margin-top:10px"
+        <input
+          class="display-none"
+          type="file"
+          name="image"
+          accept="image/*"
+          (change)="onFileAdded($event); $event.preventDefault()"
+          #fileInput
         >
 
-      <input
-        class="display-none"
-        type="file"
-        name="image"
-        accept="image/*"
-        (change)="onFileAdded($event); $event.preventDefault()"
-        #fileInput
+        <button class="image-btn" mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
+          Image
+          <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
+        </button>
+      </div>
+
+      <img
+        *ngIf="imagePreview"
+        mat-card-image
+        class="image-preview"
+        [src]="imagePreview"
+        alt="Preview de l'image"
       >
 
-      <button mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
-        <mat-icon class="mat-icon--color">add_photo_alternate</mat-icon>
-        Image
-      </button>
-
       <div class="btn-container">
-        <button (click)="backToHome()"
+        <button (click)="reset()"
                 class="back-btn"
                 type="reset"
                 mat-raised-button
         >
-          Retour
+          Annuler
         </button>
 
         <button class="form-btn"

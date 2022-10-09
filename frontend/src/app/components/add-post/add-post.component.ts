@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {PostService} from "../../services/post.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {tap} from "rxjs";
-import {Router} from "@angular/router";
+import {User} from "../../models/user.model";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-add-post',
@@ -11,6 +11,9 @@ import {Router} from "@angular/router";
 })
 export class AddPostComponent implements OnInit {
 
+  @Output() refresh = new EventEmitter<void>();
+  userId: number = Number(this.userService.getUserId());
+  user!: User;
   postForm!: FormGroup;
   urlRegex!: RegExp;
   imagePreview!: string;
@@ -18,14 +21,17 @@ export class AddPostComponent implements OnInit {
   content!: string
 
   constructor(private postService: PostService,
-              private formBuilder: FormBuilder,
-              private router: Router) { }
+              private userService: UserService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.postForm = this.formBuilder.group({
         content: [null, [Validators.required, Validators.minLength(5), Validators.maxLength(150)]],
         media: [null, null],
     })
+
+    this.userService.getUserById(this.userId)
+      .subscribe(user => this.user = user)
   }
 
   getFile(event: any) {
@@ -52,12 +58,16 @@ export class AddPostComponent implements OnInit {
     const formData = new FormData();
     formData.append('content', this.postForm.get('content')?.value)
     formData.append('media', this.postForm.get('media')?.value)
-    this.postService.createPost(formData).pipe(
-      tap(() => this.router.navigateByUrl('/home'))
-    ).subscribe()
+    this.postService.createPost(formData)
+    .subscribe(() => {
+      this.imagePreview = ''
+      this.refresh.emit()
+      this.postForm.reset()
+    })
   }
 
-  backToHome() {
-    this.router.navigate(['home'])
+  reset() {
+    this.imagePreview = ''
+    this.refresh.emit()
   }
 }

@@ -34,6 +34,8 @@ export class AddCommentComponent implements OnInit {
     this.loading = true
     this.commentService.createComment(this.commentForm.value, this.postId)
       .subscribe(() => {
+        this.commentForm.reset()
+        this.commentForm.markAsPristine()
         this.refresh.emit()
         this.loading = false
       })

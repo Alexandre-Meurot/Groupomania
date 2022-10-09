@@ -34,6 +34,8 @@ import { AccountDetailComponent } from './components/account-detail/account-deta
 import { AccountListComponent } from './components/account-list/account-list.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
     UpdatePostComponent,
     AccountDetailComponent,
     AccountListComponent,
+    ConfirmDialogComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

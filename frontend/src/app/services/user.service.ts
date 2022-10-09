@@ -18,18 +18,8 @@ export class UserService {
     return this.http.post('http://localhost:3000/api/user/signup', newUser)
   }
 
-  loginUser(email: string, password: string): Subscription {
+  loginUser(email: string, password: string): Observable<any> {
     return this.http.post<User>('http://localhost:3000/api/user/login', { email, password })
-      .subscribe(
-        (response) => {
-          let userId = response.userId.toString()
-          let isAdmin = response.isAdmin.toString()
-          localStorage.setItem('token', response.token)
-          localStorage.setItem('isAdmin', isAdmin)
-          localStorage.setItem('userId', userId)
-          this.router.navigate(['home'])
-        }
-      )
   }
 
   isAuthenticated(): boolean {
