@@ -1,1 +1,18 @@
+.footer {
+  height: 100px;
+  display: flex;
+  justify-content: center;
 
+  &__licence {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      font-size: 12px;
+      height: 20px;
+    }
+  }
+
+
+}

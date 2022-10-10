@@ -31,8 +31,8 @@ export class AccountComponent implements OnInit {
     this.updateForm = this.formBuilder.group({
       email: [null,[Validators.required,  Validators.email]],
       username: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
-      bio: [null, [Validators.minLength(10), Validators.maxLength(200)]],
-      picture: [null, null]
+      bio: ['', [Validators.minLength(10), Validators.maxLength(200)]],
+      picture: ['', null]
     })
 
     this.userService.getUserById(this.userId)
@@ -56,7 +56,9 @@ export class AccountComponent implements OnInit {
     formData.append('email', this.updateForm.get('email')?.value)
     formData.append('username', this.updateForm.get('username')?.value)
     formData.append('bio', this.updateForm.get('bio')?.value)
-    formData.append('picture', this.updateForm.get('picture')?.value)
+    if (this.imagePreview != undefined ) {
+      formData.append('picture', this.updateForm.get('picture')?.value)
+    }
     this.userService.updateUser(formData).pipe(
       tap(() => this.router.navigateByUrl('/home'))
     ).subscribe()

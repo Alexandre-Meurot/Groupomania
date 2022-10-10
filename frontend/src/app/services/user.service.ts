@@ -46,6 +46,10 @@ export class UserService {
     )
   }
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:3000/api/user/userlist')
+  }
+
   logout(): void {
     localStorage.clear()
     this.router.navigate(['authentification'])

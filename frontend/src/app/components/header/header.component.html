@@ -24,7 +24,7 @@
       <mat-icon>account_circle</mat-icon>
       <span>Mon compte</span>
     </button>
-    <button *ngIf="isAdmin()" (click)="toAccountList()" mat-menu-item>
+    <button (click)="toAccountList()" mat-menu-item>
       <mat-icon>list</mat-icon>
       <span>Liste des comptes</span>
     </button>
@@ -36,6 +36,10 @@
 
   <span class="header__logo-container">
     <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
+  </span>
+
+  <span *ngIf="isAdmin()" class="header__isAdmin">
+    <p>⚠️Administrateur</p>
   </span>
 
 </mat-toolbar>

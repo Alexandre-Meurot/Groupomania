@@ -18,4 +18,11 @@
       max-width: 100%;
     }
   }
+
+  &__isAdmin {
+    grid-area: 1 / 3 / 2 / 4;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 15px;
+  }
 }
