@@ -146,7 +146,7 @@ exports.getOneUser = (req, res) => {
 exports.getAllUsers = (req, res) => {
 
     User.findAll({
-        attributes: ['id', 'username', 'picture', 'bio', 'isAdmin']
+        attributes: ['id', 'username', 'picture', 'bio', 'isAdmin', 'createdAt']
     })
         .then(users => {
             res.status(200).json( users )
@@ -168,7 +168,7 @@ exports.updateUser = (req, res) => {
             email: req.body.email,
             username: req.body.username,
             bio: req.body.bio,
-            picture: `${req.protocol}://${req.get('host')}/images/profil/${req.file.filename}`
+            picture: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         } : { ...req.body };
 
     User.findOne({

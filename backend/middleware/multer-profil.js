@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
 
     // Permet de stocker les images dans le dossier images
     destination: (req, file, callback) => {
-        callback(null, 'images/profil')
+        callback(null, 'images')
     },
 
     // Permet de générer un nouveau nom de fichier image
