@@ -1,39 +1,42 @@
-<mat-toolbar *ngIf="isAdmin() == false" class="header" color="primary">
+<mat-toolbar class="header" color="primary">
 
-  <span class="header-logo-container">
+<!--  <span class="header-icon-container">-->
+<!--    <button *ngIf="isConnected()" (click)="toHome()" mat-icon-button>-->
+<!--      <mat-icon class="icon-home" aria-hidden="false" fontIcon="home"></mat-icon>-->
+<!--    </button>-->
+<!--    <button *ngIf="isConnected()" (click)="toAccount()" mat-icon-button>-->
+<!--      <mat-icon class="icon-account" aria-hidden="false" fontIcon="account_circle"></mat-icon>-->
+<!--    </button>-->
+<!--    <button *ngIf="isConnected()" (click)="onLogout()" mat-icon-button>-->
+<!--      <mat-icon class="icon-output" aria-hidden="false" fontIcon="output"></mat-icon>-->
+<!--    </button>-->
+<!--  </span>-->
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="header__menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button (click)="toHome()" mat-menu-item>
+      <mat-icon>home</mat-icon>
+      <span>Accueil</span>
+    </button>
+    <button (click)="toAccount()" mat-menu-item>
+      <mat-icon>account_circle</mat-icon>
+      <span>Mon compte</span>
+    </button>
+    <button *ngIf="isAdmin()" (click)="toAccountList()" mat-menu-item>
+      <mat-icon>list</mat-icon>
+      <span>Liste des comptes</span>
+    </button>
+    <button (click)="onLogout()" mat-menu-item>
+      <mat-icon>output</mat-icon>
+      <span>Se déconnecter</span>
+    </button>
+  </mat-menu>
+
+  <span class="header__logo-container">
     <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
-  </span>
-
-  <span class="header-icon-container">
-    <button *ngIf="isConnected()" (click)="toHome()" mat-icon-button>
-      <mat-icon class="icon-home" aria-hidden="false" fontIcon="home"></mat-icon>
-    </button>
-    <button *ngIf="isConnected()" (click)="toAccount()" mat-icon-button>
-      <mat-icon class="icon-account" aria-hidden="false" fontIcon="account_circle"></mat-icon>
-    </button>
-    <button *ngIf="isConnected()" (click)="onLogout()" mat-icon-button>
-      <mat-icon class="icon-output" aria-hidden="false" fontIcon="output"></mat-icon>
-    </button>
   </span>
 
 </mat-toolbar>
 
-<mat-toolbar *ngIf="isAdmin() == true" class="header" color="warn">
-
-  <span class="header-logo-container">
-    <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
-  </span>
-
-  <span class="header-icon-container">
-    <button *ngIf="isConnected()" (click)="toHome()" mat-icon-button>
-      <mat-icon class="icon-home" aria-hidden="false" fontIcon="home"></mat-icon>
-    </button>
-    <button *ngIf="isConnected()" (click)="toAccount()" mat-icon-button>
-      <mat-icon class="icon-account" aria-hidden="false" fontIcon="account_circle"></mat-icon>
-    </button>
-    <button *ngIf="isConnected()" (click)="onLogout()" mat-icon-button>
-      <mat-icon class="icon-output" aria-hidden="false" fontIcon="output"></mat-icon>
-    </button>
-  </span>
-
-</mat-toolbar>

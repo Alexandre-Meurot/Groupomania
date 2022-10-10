@@ -1,27 +1,21 @@
-
 .header {
   height: 100px;
   margin-bottom: 50px;
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0;
   grid-row-gap: 0;
 
-  .logo {
-    max-width: 90%;
+  &__menu {
+    grid-area: 1 / 1 / 2 / 2;
   }
-}
 
-.header-logo-container {
-  grid-area: 1 / 3 / 2 / 6;
-  display: flex;
-  justify-content: center;
-}
+  &__logo-container {
+    grid-area: 1 / 2 / 2 / 3;
 
-.header-icon-container {
-  grid-area: 1 / 7 / 2 / 8;
-  display: flex;
-  justify-content: flex-end;
-  gap: 20px;
+    .logo {
+      max-width: 100%;
+    }
+  }
 }

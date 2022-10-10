@@ -36,6 +36,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -57,25 +58,26 @@ import { FooterComponent } from './components/footer/footer.component';
     ConfirmDialogComponent,
     FooterComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatButtonModule,
-    MatIconModule,
-    HttpClientModule,
-    MatCardModule,
-    MatDialogModule,
-    MatToolbarModule,
-    MatDividerModule,
-    MaterialFileInputModule,
-    MatProgressSpinnerModule,
-    MatProgressBarModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatButtonModule,
+        MatIconModule,
+        HttpClientModule,
+        MatCardModule,
+        MatDialogModule,
+        MatToolbarModule,
+        MatDividerModule,
+        MaterialFileInputModule,
+        MatProgressSpinnerModule,
+        MatProgressBarModule,
+        MatMenuModule,
+    ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR'},
     httpInterceptorProviders,

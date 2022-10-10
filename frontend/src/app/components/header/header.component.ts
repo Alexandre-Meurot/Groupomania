@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {UserService} from "../../services/user.service";
@@ -26,12 +26,16 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['home'])
   }
 
-  isAdmin() : boolean {
-    return this.auth.getIsAdmin() == 'true';
+  toAccountList() {
+    this.router.navigate(['account-list'])
   }
 
   onLogout() {
     this.userService.logout()
+  }
+
+  isAdmin() : boolean {
+    return this.auth.getIsAdmin() == 'true';
   }
 
   isConnected(): boolean  {
