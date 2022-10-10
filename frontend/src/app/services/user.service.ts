@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
-import {catchError, Observable, of, tap} from "rxjs";
+import {catchError, Observable, of} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,6 @@ export class UserService {
 
   getUserById(userId: number): Observable<User|any> {
     return this.http.get<User>(`http://localhost:3000/api/user/${userId}`).pipe(
-      tap((user) => console.table(user)),
       catchError((error) => {
         console.log(error);
         return of(undefined)
@@ -65,7 +64,6 @@ export class UserService {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
     return this.http.put(`http://localhost:3000/api/user/${this.getUserId()}`, user, httpOptions).pipe(
-      tap((response) => console.log(response)),
       catchError((error) => {
         console.log(error);
         return of(undefined)

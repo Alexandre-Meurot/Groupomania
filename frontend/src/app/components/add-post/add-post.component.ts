@@ -36,7 +36,6 @@ export class AddPostComponent implements OnInit {
 
   getFile(event: any) {
     this.file = event.target.files[0]
-    console.log("media:", this.file)
   }
 
   getContent(content: string) {

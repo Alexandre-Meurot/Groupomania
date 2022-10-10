@@ -45,7 +45,6 @@ export class PostComponent implements OnInit {
 
   onComments():void {
     this.showComments = !this.showComments;
-    console.log(this.post.Comments)
   }
 
   onConfirmDialog() {
@@ -80,14 +79,11 @@ export class PostComponent implements OnInit {
       // @ts-ignore
       let item = this.likes.find(like => like.postId == postId && like.userId == +this.userId)
       if (typeof item == 'undefined') {
-        console.log('like')
         this.likeService.likePost(postId, {like: false})
           .subscribe(() => this.refresh.emit())
-        console.log(item)
       } else {
         this.likeService.likePost(postId, {like: true})
           .subscribe(() => this.refresh.emit())
-        console.log('dislike')
       }
 
   }}

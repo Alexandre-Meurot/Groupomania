@@ -4,7 +4,6 @@ import {UserService} from "../../services/user.service";
 import {User} from "../../models/user.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
-import {tap} from "rxjs";
 
 @Component({
   selector: 'app-account-detail',
@@ -27,7 +26,6 @@ export class AccountDetailComponent implements OnInit {
     this.activated.queryParams.subscribe(
       params => {
         this.userId = params['id']
-        console.log( this.userId)
       })
     this.userService.getUserById(+this.userId)
       .subscribe(user => this.user = user)

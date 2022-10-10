@@ -4,7 +4,6 @@ import {UserService} from "../../../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SignupComponent} from "../signup/signup.component";
 import {Router} from "@angular/router";
-import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +19,6 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
-              private authService: AuthService,
               public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -31,7 +29,6 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(){
-    console.log(this.loginForm.value);
     const email = this.loginForm.value.email
     const password = this.loginForm.value.password
     this.userService.loginUser(email, password)

@@ -16,8 +16,7 @@ export class AddCommentComponent implements OnInit {
   loading!: boolean
 
   constructor(private formBuilder: FormBuilder,
-              private commentService: CommentService,
-              private postService: PostService) { }
+              private commentService: CommentService) { }
 
   ngOnInit(): void {
 

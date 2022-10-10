@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
 import {PostService} from "./post.service";
-import {Observable, switchMap, tap} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {Comment} from "../models/comment.model";
-import {Post} from "../models/post.model";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -15,9 +14,7 @@ export class CommentService {
               private http: HttpClient) { }
 
   getAllComments(postId: number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`http://localhost:3000/api/comment/${postId}`).pipe(
-      tap((response) => console.table(response))
-    )
+    return this.http.get<Comment[]>(`http://localhost:3000/api/comment/${postId}`)
   }
 
   createComment(newComment: Comment, postId: number): Observable<Comment> {

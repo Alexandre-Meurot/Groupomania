@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {catchError, Observable, of, Subscription, switchMap, tap} from "rxjs";
+import { Observable, switchMap } from "rxjs";
 import {Post} from "../models/post.model";
 
 @Injectable({
@@ -12,9 +12,7 @@ export class PostService {
   constructor(private http: HttpClient) {}
 
   getAllPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>('http://localhost:3000/api/post').pipe(
-      tap((response) => console.table(response)),
-    )
+    return this.http.get<Post[]>('http://localhost:3000/api/post')
   }
 
   getPostById(postId: number): Observable<Post> {

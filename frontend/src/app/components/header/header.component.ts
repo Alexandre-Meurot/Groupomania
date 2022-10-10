@@ -14,9 +14,7 @@ export class HeaderComponent implements OnInit {
               private auth: AuthService,
               private userService: UserService) { }
 
-  ngOnInit(): void {
-    console.log(this.userService.isAuthenticated())
-  }
+  ngOnInit(): void {}
 
   toAccount() {
     this.router.navigate(['account'])
@@ -38,8 +36,5 @@ export class HeaderComponent implements OnInit {
     return this.auth.getIsAdmin() == 'true';
   }
 
-  isConnected(): boolean  {
-    return this.userService.isAuthenticated();
-  }
 
 }
