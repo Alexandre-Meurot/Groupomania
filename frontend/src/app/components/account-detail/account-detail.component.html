@@ -20,7 +20,7 @@
     <mat-card-actions class="user-card__actions">
       <button (click)="toHome()" mat-raised-button color="primary">Retour</button>
       <button *ngIf="myOwnAccount()" (click)="toUpdate()" mat-raised-button color="primary">Modifier profil</button>
-      <button *ngIf="isAdmin()" (click)="toDelete()" mat-raised-button color="primary">Supprimer profil</button>
+      <button *ngIf="isAdmin()" (click)="onConfirmDialog()" mat-raised-button color="primary">Supprimer profil</button>
     </mat-card-actions>
 
     <mat-card-footer class="user-card__footer">
