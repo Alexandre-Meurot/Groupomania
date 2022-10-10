@@ -1,77 +1,80 @@
-<mat-card *ngIf="user" class="user-card">
+<div class="card-container">
+  <mat-card *ngIf="user" class="user-card">
 
-  <mat-card-subtitle>
-    <p>Compte créé le {{ user.createdAt | date }}</p>
-    <p *ngIf="user.createdAt != user.updatedAt">Compte modifié le {{ user.updatedAt | date }}</p>
-  </mat-card-subtitle>
+    <mat-card-subtitle>
+      <p>Compte créé le {{ user.createdAt | date }}</p>
+      <p *ngIf="user.createdAt != user.updatedAt">Compte modifié le {{ user.updatedAt | date }}</p>
+    </mat-card-subtitle>
 
-  <form class="form-container" [formGroup]="updateForm">
+    <form class="form-container" [formGroup]="updateForm">
 
-    <mat-card-content class="content">
+      <mat-card-content class="content">
 
-      <div class="picture-container">
-        <img *ngIf="user.picture && !imagePreview" mat-card-image [src]="user.picture" alt="Photo de profil">
-        <img *ngIf="!user.picture && !imagePreview" mat-card-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
-        <img *ngIf="imagePreview" [src]="imagePreview" mat-card-image alt="Preview de l'image">
+        <div class="picture-container">
+          <img *ngIf="user.picture && !imagePreview" mat-card-image [src]="user.picture" alt="Photo de profil">
+          <img *ngIf="!user.picture && !imagePreview" mat-card-image src="assets/images/default/blank-profile-picture.webp" alt="Photo de profil par défaut">
+          <img *ngIf="imagePreview" [src]="imagePreview" mat-card-image alt="Preview de l'image">
 
-        <input
-          class="display-none"
-          type="file"
-          name="picture"
-          accept="image/*"
-          (change)="onFileAdded($event); $event.preventDefault()"
-          #fileInput
-        >
+          <input
+            class="display-none"
+            type="file"
+            name="picture"
+            accept="image/*"
+            (change)="onFileAdded($event); $event.preventDefault()"
+            #fileInput
+          >
 
-        <button class="picture-btn" mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
-          <mat-icon>add_photo_alternate</mat-icon>
-          Image
+          <button class="picture-btn" mat-raised-button (click)="fileInput.click(); $event.preventDefault()">
+            <mat-icon>add_photo_alternate</mat-icon>
+            Image
+          </button>
+        </div>
+
+        <div class="pseudo-email-container">
+          <mat-form-field class="pseudo-input" appearance="outline">
+            <mat-label>Pseudo</mat-label>
+            <input formControlName="username" matInput type="text" [(ngModel)]="user.username">
+            <mat-error *ngIf="updateForm.get('username')?.hasError('maxlength')">Le pseudo doit faire moins de 20 caractères</mat-error>
+            <mat-error *ngIf="updateForm.get('username')?.hasError('minlength')">Le pseudo doit faire 3 caractères minimum</mat-error>
+            <mat-error *ngIf="updateForm.get('username')?.hasError('required')">Ce champs est requis</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="email-input" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput type="email" [(ngModel)]="user.email">
+            <mat-error *ngIf=" updateForm.get('email')?.hasError('email')">Format email incorrect</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="bio-container">
+          <mat-form-field class="bio-input" appearance="outline">
+            <mat-label>Modifier bio</mat-label>
+            <textarea formControlName="bio" matInput type="text" rows="4" [(ngModel)]="user.bio"></textarea>
+            <mat-error *ngIf="updateForm.get('bio')?.hasError('minlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
+            <mat-error *ngIf="updateForm.get('bio')?.hasError('maxlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
+          </mat-form-field>
+        </div>
+
+        <p *ngIf="user.isAdmin === true">Vous êtes modérateur</p>
+
+      </mat-card-content>
+
+      <mat-card-actions>
+
+        <button (click)="onUpdate()" mat-raised-button type="submit" color="primary" [disabled]="updateForm.valid===false">
+          Modifier profil
         </button>
-      </div>
+        <button (click)="onConfirmDialog()" mat-raised-button color="primary">
+          Supprimer compte
+        </button>
 
-      <div class="pseudo-email-container">
-        <mat-form-field class="pseudo-input" appearance="outline">
-          <mat-label>Pseudo</mat-label>
-          <input formControlName="username" matInput type="text" [(ngModel)]="user.username">
-          <mat-error *ngIf="updateForm.get('username')?.hasError('maxlength')">Le pseudo doit faire moins de 20 caractères</mat-error>
-          <mat-error *ngIf="updateForm.get('username')?.hasError('minlength')">Le pseudo doit faire 3 caractères minimum</mat-error>
-          <mat-error *ngIf="updateForm.get('username')?.hasError('required')">Ce champs est requis</mat-error>
-        </mat-form-field>
+      </mat-card-actions>
 
-        <mat-form-field class="email-input" appearance="outline">
-          <mat-label>Email</mat-label>
-          <input formControlName="email" matInput type="email" [(ngModel)]="user.email">
-          <mat-error *ngIf=" updateForm.get('email')?.hasError('email')">Format email incorrect</mat-error>
-        </mat-form-field>
-      </div>
+    </form>
 
-      <div class="bio-container">
-        <mat-form-field class="bio-input" appearance="outline">
-          <mat-label>Modifier bio</mat-label>
-          <textarea formControlName="bio" matInput type="text" rows="4" [(ngModel)]="user.bio"></textarea>
-          <mat-error *ngIf="updateForm.get('bio')?.hasError('minlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
-          <mat-error *ngIf="updateForm.get('bio')?.hasError('maxlength')">La bio doit faire entre 10 et 200 caractères</mat-error>
-        </mat-form-field>
-      </div>
+  </mat-card>
+</div>
 
-      <p *ngIf="user.isAdmin === true">Vous êtes modérateur</p>
-
-    </mat-card-content>
-
-    <mat-card-actions>
-
-      <button (click)="onUpdate()" mat-raised-button type="submit" color="primary" [disabled]="updateForm.valid===false">
-        Modifier profil
-      </button>
-      <button (click)="onConfirmDialog()" mat-raised-button color="primary">
-        Supprimer compte
-      </button>
-
-    </mat-card-actions>
-
-  </form>
-
-</mat-card>
 
 
 

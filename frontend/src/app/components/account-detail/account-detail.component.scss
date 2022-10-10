@@ -20,13 +20,28 @@
   }
 
   &__content {
+
     .bio {
       font-size: 17px;
+      border: #FFD7D7 solid 2px;
+      border-radius: 10px;
+      padding: 10px;
 
       &__content {
         margin-left: 10px;
         font-style: italic;
       }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      margin-top: 8px;
     }
   }
 }

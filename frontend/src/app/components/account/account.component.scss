@@ -1,6 +1,12 @@
+.card-container {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
 .user-card {
-  max-width: 500px;
-  margin: 50px auto;
+  max-width: 600px;
+  margin: 0 auto 50px;
+  padding: 40px;
 
   .form-container {
     display: flex;
