@@ -22,7 +22,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {httpInterceptorProviders} from "./interceptors";
 import { PostComponent } from './components/post/post.component';
 import { PostListComponent } from './components/post-list/post-list.component';
-import { AccountComponent } from './components/account/account.component';
+import { AccountFormComponent } from './components/account-form/account-form.component';
 import {MatDividerModule} from "@angular/material/divider";
 import { AddPostComponent } from './components/add-post/add-post.component';
 import {MaterialFileInputModule} from "ngx-material-file-input";
@@ -47,7 +47,7 @@ import {MatMenuModule} from "@angular/material/menu";
     HeaderComponent,
     PostComponent,
     PostListComponent,
-    AccountComponent,
+    AccountFormComponent,
     AddPostComponent,
     CommentComponent,
     AddCommentComponent,

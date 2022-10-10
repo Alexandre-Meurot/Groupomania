@@ -8,11 +8,11 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.component.html',
-  styleUrls: ['./account.component.scss']
+  selector: 'app-account-form',
+  templateUrl: './account-form.component.html',
+  styleUrls: ['./account-form.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountFormComponent implements OnInit {
 
   userId: number = Number(this.userService.getUserId());
   user!: User;

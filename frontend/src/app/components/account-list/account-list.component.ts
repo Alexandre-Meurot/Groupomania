@@ -7,7 +7,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
-  selector: 'app-account-list',
+  selector: 'app-account-form-list',
   templateUrl: './account-list.component.html',
   styleUrls: ['./account-list.component.scss']
 })

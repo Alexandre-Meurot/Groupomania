@@ -89,6 +89,6 @@ export class PostComponent implements OnInit {
   }}
 
   toAccountDetail(userId: number) {
-    this.router.navigate(['account-detail'], { queryParams: {id: userId} })
+    this.router.navigate(['account-form-detail'], { queryParams: {id: userId} })
   }
 }

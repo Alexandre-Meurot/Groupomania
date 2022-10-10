@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   toAccount() {
-    this.router.navigate(['account'])
+    this.router.navigate(['account-form'])
   }
 
   toHome() {
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toAccountList() {
-    this.router.navigate(['account-list'])
+    this.router.navigate(['account-form-list'])
   }
 
   onLogout() {

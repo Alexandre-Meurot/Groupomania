@@ -6,7 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 
 @Component({
-  selector: 'app-account-detail',
+  selector: 'app-account-form-detail',
   templateUrl: './account-detail.component.html',
   styleUrls: ['./account-detail.component.scss']
 })
@@ -43,7 +43,7 @@ export class AccountDetailComponent implements OnInit {
   }
 
   toUpdate() {
-    this.router.navigate(['account'])
+    this.router.navigate(['account-form'])
   }
 
   onConfirmDialog() {
