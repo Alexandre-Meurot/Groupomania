@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../services/user.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorDialogComponent} from "../../error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-signup',
@@ -15,6 +17,7 @@ export class SignupComponent implements OnInit {
   hide2 = true;
   signUpForm!: FormGroup;
   passwordRegex!: RegExp
+  errorMessage!: string
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -41,9 +44,16 @@ export class SignupComponent implements OnInit {
 
 
   onSignUp() {
-    this.userService.createUser(this.signUpForm.value).subscribe()
-    this.router.navigate(['authentification'])
-    this.dialog.closeAll()
+    this.userService.createUser(this.signUpForm.value).subscribe(() => {
+      this.router.navigate(['authentification'])
+      this.dialog.closeAll()
+    }, (error: HttpErrorResponse) => {
+      this.errorMessage = error.error.message
+      console.log(this.errorMessage)
+      this.dialog.open(ErrorDialogComponent, {
+        data: { errorMessage: this.errorMessage }
+      })
+    })
   }
 
   get f() {

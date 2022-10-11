@@ -4,6 +4,8 @@ import {UserService} from "../../../services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {SignupComponent} from "../signup/signup.component";
 import {Router} from "@angular/router";
+import {HttpErrorResponse} from "@angular/common/http";
+import {ErrorDialogComponent} from "../../error-dialog/error-dialog.component";
 
 @Component({
   selector: 'app-login',
@@ -15,9 +17,10 @@ export class LoginComponent implements OnInit {
 
   hide = true;
   loginForm!: FormGroup
+  errorMessage!: string
 
   constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
+              public userService: UserService,
               private router: Router,
               public dialog: MatDialog) {}
 
@@ -26,6 +29,7 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     })
+
   }
 
   onLogin(){
@@ -42,6 +46,12 @@ export class LoginComponent implements OnInit {
         if (this.userService.isAuthenticated()) {
           this.router.navigate(['home'])
         }
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMessage = error.error.message
+        this.dialog.open(ErrorDialogComponent, {
+          data: { errorMessage: this.errorMessage }
+        })
       }
     )
   }
