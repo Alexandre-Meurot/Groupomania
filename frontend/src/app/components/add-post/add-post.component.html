@@ -9,7 +9,7 @@
       <div class="input-container">
         <mat-form-field appearance="outline" class="content-input">
           <mat-label>Exprimez-vous</mat-label>
-          <textarea (change)="getContent(name.value)" #name type="text" rows="1" formControlName="content" matInput></textarea>
+          <textarea type="text" rows="1" formControlName="content" matInput></textarea>
           <mat-error *ngIf="postForm.get('content')?.hasError('required')">Ce champs est requis !</mat-error>
           <mat-error *ngIf="postForm.get('content')?.hasError('minlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>
           <mat-error *ngIf="postForm.get('content')?.hasError('maxlength')">Votre publication doit entre 5 et 150 caractères !</mat-error>

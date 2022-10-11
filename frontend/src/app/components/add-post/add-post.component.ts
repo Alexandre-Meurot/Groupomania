@@ -32,14 +32,7 @@ export class AddPostComponent implements OnInit {
 
     this.userService.getUserById(this.userId)
       .subscribe(user => this.user = user)
-  }
 
-  getFile(event: any) {
-    this.file = event.target.files[0]
-  }
-
-  getContent(content: string) {
-    this.content = content
   }
 
   onFileAdded(event: Event) {
@@ -59,9 +52,9 @@ export class AddPostComponent implements OnInit {
     formData.append('media', this.postForm.get('media')?.value)
     this.postService.createPost(formData)
     .subscribe(() => {
-      this.imagePreview = ''
-      this.refresh.emit()
-      this.postForm.reset()
+      // this.postForm.reset()
+      // this.reset()
+      window.location.reload()
     })
   }
 

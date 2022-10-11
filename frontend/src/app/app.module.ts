@@ -37,6 +37,7 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
 import {MatMenuModule} from "@angular/material/menu";
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import {MatMenuModule} from "@angular/material/menu";
     AccountListComponent,
     ConfirmDialogComponent,
     FooterComponent,
+    ErrorDialogComponent,
   ],
     imports: [
         BrowserModule,
