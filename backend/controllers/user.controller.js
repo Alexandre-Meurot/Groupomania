@@ -41,24 +41,25 @@ exports.signup = async (req, res) => {
         if (userMail !== null) {
             if (userMail.email === req.body.email) {
                 const message = "Cet adresse email est déjà utilisé !"
-                return res.status(400).json({error: message})
+                return res.status(400).json({message: message, error})
             }
+        }
 
-        } else if (userUsername !== null) {
+        if (userUsername !== null) {
             if (userUsername.username === req.body.username) {
                 const message = "Ce nom d'utilisateur est déjà utilisé !"
-                return res.status(400).json({error: message})
+                return res.status(400).json({message: message, error})
             }
 
         } else {
 
             if (!schema.validate(req.body.password)) {
                 const message = 'Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et ne doit pas contenir d\'espace !'
-                return res.status(400).json({error: message})
+                return res.status(400).json({message: message, error})
             }
             if (!mailRegex.test(req.body.email)) {
                 const message = 'Votre email ne respecte pas les règles de validation !'
-                return res.status(400).json({error: message})
+                return res.status(400).json({message: message, error})
             }
             const hash = await bcrypt.hash(req.body.password, 10)
             const newUser = await User.create({
@@ -68,9 +69,10 @@ exports.signup = async (req, res) => {
             })
             return res.status(201).json( newUser )
         }
+
     } catch (error) {
-        const message = "Une erreur est survenue !"
-        return res.status(500).json({error: message})
+        const message = "Une erreur est survenue ! Ce pseudo ou cet email existe déjà !"
+        return res.status(500).json({message: message, error})
     }
 
 }
