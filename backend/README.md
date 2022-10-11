@@ -1,4 +1,4 @@
-# Groupomania Social Network
+# Groupomania Social Network : BACKEND
 
 ## Projet n°7 du parcours Développeur Web OpenClassrooms
 
@@ -10,9 +10,9 @@
 - CLI de Sequelize 
 - Sécurité : dotenv, helmet, bcrypt, jsonwebtoken ainsi que multer
 
-### Backend : 
+### Installation : 
 
-**Installer les dépendances :**
+**Installer les dépendances depuis le répertoire 'backend' :**
  - `npm install`
 
 **Définir les variables d'environnements :**
@@ -24,7 +24,7 @@
 **Créer la base de données SQL :**
  - installer XAMPP
  - lancer le serveur Apache et MySql
- - ouvrir phpmyadmin via Xampp puis créer la BDD 'groupomania'
+ - ouvrir phpmyadmin via Xampp puis y créer la BDD 'groupomania'
  - `sequelize db:migrate` = pour intégrer les modèles vers la base de données groupomania
    
 
