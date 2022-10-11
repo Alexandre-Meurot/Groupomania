@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
   }
 
   toAccountList() {
-    this.router.navigate(['account-form-list'])
+    this.router.navigate(['account-list'])
   }
 
   onLogout() {
