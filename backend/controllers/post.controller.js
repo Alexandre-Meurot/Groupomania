@@ -57,6 +57,9 @@ exports.getAllPosts = (req, res) => {
             attributes: ['username', 'picture']
         },{
             model: Comment,
+
+        },{
+            model: Like
         }]
     })
         .then(postFound => {

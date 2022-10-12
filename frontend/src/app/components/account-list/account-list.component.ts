@@ -31,7 +31,8 @@ export class AccountListComponent implements OnInit {
     return this.auth.getIsAdmin() == 'true';
   }
 
-  onConfirmDialog(userId: number) {
+  onConfirmDialog(userId: any) {
+    console.log(userId)
     const dialogRef = this.dialog.open(ConfirmDialogComponent)
     dialogRef.afterClosed().subscribe(formData => {
       if (!formData) {

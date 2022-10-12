@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {Likes} from "../../models/likes.model";
 import {MatDialog} from "@angular/material/dialog";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
+import {CommentService} from "../../services/comment.service";
 
 @Component({
   selector: 'app-post',
@@ -15,33 +16,45 @@ import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component
 export class PostComponent implements OnInit {
 
   @Input() post!: Post;
-  @Output() refresh = new EventEmitter<void>();
+  @Output() refresh = new EventEmitter<void>()
+
   likes!: Likes[]
-  showComments!: boolean;
-  userId!: string | null;
-  isLiked!: boolean;
-  loading!: boolean
+  showComments!: boolean
+  userId!: string | null
+  isLiked!: boolean
+  buttonText!: string
 
   constructor(private likeService: LikeService,
               private postService: PostService,
+              private commentService: CommentService,
               private router: Router,
               public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.loading = true
+
     this.showComments = false
     this.userId = localStorage.getItem('userId')
-    this.isLiked = false
 
-    this.likeService.getAllLikes(this.post.id)
-      .subscribe(likes => this.likes = likes)
-    if (this.likes) {
-      // @ts-ignore
-      let item1 = this.likes.find(like => like.postId == this.post.id && like.userId == +this.userId)
-      this.isLiked = item1 != null
-    }
-
+    this.getAllLikes()
   }
+
+  getAllLikes() {
+    this.likeService.getAllLikes(this.post.id)
+      .subscribe(likes => {
+        this.likes = likes
+        this.post.Likes = likes
+        if (this.likes) {
+          // @ts-ignore
+          this.isLiked = this.likes.some(like => like.postId == this.post.id && like.userId == +this.userId)
+          if (!this.isLiked) {
+            this.buttonText = "J'aime"
+          } else {
+            this.buttonText = "Je n'aime plus"
+          }
+        }
+      })
+  }
+
 
   onComments():void {
     this.showComments = !this.showComments;
@@ -77,13 +90,17 @@ export class PostComponent implements OnInit {
     if (this.userId != null) {
 
       // @ts-ignore
-      let item = this.likes.find(like => like.postId == postId && like.userId == +this.userId)
-      if (typeof item == 'undefined') {
+      let alreadyLiked = this.likes.find(like => like.postId == postId && like.userId == +this.userId)
+      if (typeof alreadyLiked == 'undefined') {
         this.likeService.likePost(postId, {like: false})
-          .subscribe(() => this.refresh.emit())
+          .subscribe(() => {
+            this.getAllLikes()
+          })
       } else {
         this.likeService.likePost(postId, {like: true})
-          .subscribe(() => this.refresh.emit())
+          .subscribe(() => {
+            this.getAllLikes()
+          })
       }
 
   }}

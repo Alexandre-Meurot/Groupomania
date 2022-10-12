@@ -31,6 +31,7 @@
         </div>
 
         <div class="pseudo-email-container">
+
           <mat-form-field class="pseudo-input" appearance="outline">
             <mat-label>Pseudo</mat-label>
             <input formControlName="username" matInput type="text" [(ngModel)]="user.username">
@@ -44,6 +45,9 @@
             <input formControlName="email" matInput type="email" [(ngModel)]="user.email">
             <mat-error *ngIf=" updateForm.get('email')?.hasError('email')">Format email incorrect</mat-error>
           </mat-form-field>
+
+          <button (click)="toUpdatePassword()" mat-stroked-button>Modifier mot de passe</button>
+
         </div>
 
         <div class="bio-container">
@@ -59,16 +63,19 @@
 
       </mat-card-content>
 
-      <mat-card-actions>
+      <mat-card-footer class="footer-btns">
 
-        <button (click)="onUpdate()" mat-raised-button type="submit" color="primary" [disabled]="updateForm.valid===false">
-          Modifier profil
+        <button (click)="onHome()" mat-raised-button color="primary">
+          Retour
         </button>
-        <button (click)="onConfirmDialog()" mat-raised-button color="primary">
+        <button (click)="onUpdate()" mat-raised-button type="submit" color="primary" [disabled]="updateForm.valid===false">
+          Valider modifications
+        </button>
+        <button (click)="onConfirmDialog()" mat-raised-button color="warn">
           Supprimer compte
         </button>
 
-      </mat-card-actions>
+      </mat-card-footer>
 
     </form>
 

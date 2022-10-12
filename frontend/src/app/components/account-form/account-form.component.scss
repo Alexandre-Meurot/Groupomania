@@ -1,47 +1,51 @@
 .card-container {
-  margin-left: 20px;
-  margin-right: 20px;
-}
+  display: flex;
+  justify-content: center;
 
-.user-card {
-  max-width: 600px;
-  margin: 0 auto 50px;
-  padding: 40px;
-
-  .form-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  .user-card {
+    max-width: 550px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 50px;
+    padding: 30px;
 
     .picture-container {
-      margin-top: 10px;
+      margin-top: 20px;
       position: relative;
+    }
 
-      .picture-btn {
-        position: absolute;
-        top: 80%;
-      }
+    .picture-btn {
+      position: absolute;
+      top: 80%;
     }
 
     .pseudo-email-container {
       display: flex;
-      justify-content: space-between;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
 
-      .pseudo-input {
-        margin-right: 20px;
-      }
+    .bio-input {
+      width: 100%;
+    }
+
+    .footer-btns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
     }
   }
-
-  .bio-input {
-    width: 100%;
-  }
-
-  .display-none {
-    display: none;
-  }
 }
+
+button{
+  margin: 10px;
+}
+
+.display-none {
+  display: none;
+}
+
 
 
 

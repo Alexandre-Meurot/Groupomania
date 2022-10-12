@@ -1,10 +1,8 @@
 # TODO :
 
-**Revoir méthode de like :**
- - recréer une méthode de like côté back sans passer par une table Like 
-mais en utilisant la table Post (créer une nouvelle ligne)
- - recréer une méthode like frontend 
+**changement de mot de passe**
 
-**Revoir le responsive de la page account**
+**gestions erreurs formulaires inscription**
 
 **Refactoriser la structure de lapplication : modules, feature, etc ...**
+

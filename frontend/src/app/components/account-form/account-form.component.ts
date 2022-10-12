@@ -78,5 +78,12 @@ export class AccountFormComponent implements OnInit {
     })
   }
 
+  onHome() {
+    this.router.navigateByUrl('/home')
+  }
+
+  toUpdatePassword() {
+    // this.dialog.open()
+  }
 }
 

@@ -52,9 +52,9 @@ export class AddPostComponent implements OnInit {
     formData.append('media', this.postForm.get('media')?.value)
     this.postService.createPost(formData)
     .subscribe(() => {
-      // this.postForm.reset()
-      // this.reset()
-      window.location.reload()
+      this.postForm.reset()
+      this.reset()
+      this.postForm.get('content')?.setErrors(null)
     })
   }
 

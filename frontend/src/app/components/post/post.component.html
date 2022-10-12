@@ -22,8 +22,9 @@
     </div>
     <div class="post-content-info">
       <span class="post-content-info__like">
-        <mat-icon class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>
-        <span >{{ post.likes }}</span>
+        <mat-icon *ngIf="isLiked === true" class="icon-like" aria-hidden="false" color="warn" fontIcon="favorite"></mat-icon>
+        <mat-icon *ngIf="isLiked === false" class="icon-like" aria-hidden="false" fontIcon="favorite"></mat-icon>
+        <span>{{ post.Likes.length }}</span>
       </span>
       <span><a (click)="onComments()">{{ post.Comments.length }} commentaire(s)</a></span>
     </div>
@@ -32,7 +33,7 @@
   <mat-divider inset></mat-divider>
 
   <mat-card-actions class="post-action-btn">
-    <button (click)="onLike(post.id)" mat-button>J'aime</button>
+    <button (click)="onLike(post.id)" mat-button>{{ buttonText }}</button>
     <button (click)="onComments()" mat-button>Commenter</button>
   </mat-card-actions>
 

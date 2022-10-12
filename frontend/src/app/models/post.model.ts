@@ -1,4 +1,5 @@
 import {Comment} from "./comment.model";
+import {Likes} from "./likes.model";
 
 export class Post {
   id!: number;
@@ -7,6 +8,7 @@ export class Post {
   media?: string;
   likes!: number;
   Comments!: Comment[];
+  Likes!: Likes[];
   User!: { username: string, picture: string }
   createdAt!: string;
   updatedAt!: string
