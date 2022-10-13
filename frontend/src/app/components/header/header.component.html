@@ -23,7 +23,7 @@
   </mat-menu>
 
   <span class="header__logo-container">
-    <img class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
+    <img (click)="toHome()" class="logo" src="assets/images/GroupomaniaLogos/icon-left-font-monochrome-white.svg" alt="Logo de Groupomania">
   </span>
 
   <span *ngIf="isAdmin()" class="header__isAdmin">

@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {HttpErrorResponse} from "@angular/common/http";
 import {ErrorDialogComponent} from "../../error-dialog/error-dialog.component";
+import {AuthService} from "../../../services/auth.service";
 
 @Component({
   selector: 'app-signup',
@@ -21,6 +22,7 @@ export class SignupComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
+              private authService: AuthService,
               private router: Router,
               public dialog: MatDialog) { }
 
@@ -36,12 +38,11 @@ export class SignupComponent implements OnInit {
       passwordConfirmation: ['', Validators.required],
     },
       {
-      validators: this.Mustmatch('password','passwordConfirmation')
+      validators: this.authService.Mustmatch('password','passwordConfirmation')
       }
     )
 
   }
-
 
   onSignUp() {
     this.userService.createUser(this.signUpForm.value).subscribe(() => {
@@ -49,7 +50,6 @@ export class SignupComponent implements OnInit {
       this.dialog.closeAll()
     }, (error: HttpErrorResponse) => {
       this.errorMessage = error.error.message
-      console.log(this.errorMessage)
       this.dialog.open(ErrorDialogComponent, {
         data: { errorMessage: this.errorMessage }
       })
@@ -59,26 +59,5 @@ export class SignupComponent implements OnInit {
   get f() {
     return this.signUpForm.controls;
   }
-
-  Mustmatch(password: any, passwordConfirmation: any) {
-
-    return(formgroup: FormGroup) => {
-
-      const passwordControl = formgroup.controls[password]
-      const passwordConfirmationControl = formgroup.controls[passwordConfirmation]
-
-      if (passwordConfirmationControl.errors && !passwordConfirmationControl.errors['Mustmatch']) {
-        return;
-      }
-
-      if (passwordControl.value !== passwordConfirmationControl.value) {
-        passwordConfirmationControl.setErrors({ Mustmatch: true })
-      } else {
-        passwordConfirmationControl.setErrors(null)
-      }
-    }
-  }
-
-
 
 }

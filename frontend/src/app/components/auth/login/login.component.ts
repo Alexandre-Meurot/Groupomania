@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
               public dialog: MatDialog) {}
 
   ngOnInit() {
+
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]

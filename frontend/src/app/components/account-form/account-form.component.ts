@@ -55,7 +55,11 @@ export class AccountFormComponent implements OnInit {
     const formData = new FormData();
     formData.append('email', this.updateForm.get('email')?.value)
     formData.append('username', this.updateForm.get('username')?.value)
-    formData.append('bio', this.updateForm.get('bio')?.value)
+    if (this.updateForm.get('bio')?.value === null) {
+      formData.append('bio', '' )
+    } else {
+      formData.append('bio', this.updateForm.get('bio')?.value)
+    }
     if (this.imagePreview != undefined ) {
       formData.append('picture', this.updateForm.get('picture')?.value)
     }
@@ -82,8 +86,5 @@ export class AccountFormComponent implements OnInit {
     this.router.navigateByUrl('/home')
   }
 
-  toUpdatePassword() {
-    // this.dialog.open()
-  }
 }
 
