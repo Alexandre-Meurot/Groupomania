@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
   signUpForm!: FormGroup;
   passwordRegex!: RegExp
   errorMessage!: string
+  disabled!: boolean
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -32,7 +33,7 @@ export class SignupComponent implements OnInit {
     this.passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
 
     this.signUpForm = this.formBuilder.group({
-      username: ['', Validators.required, Validators.minLength(3), Validators.maxLength(15)],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(this.passwordRegex)]],
       passwordConfirmation: ['', Validators.required],
