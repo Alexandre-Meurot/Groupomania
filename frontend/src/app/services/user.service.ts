@@ -3,23 +3,26 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
 import {catchError, Observable, of} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserService {
+  private apiBaseUrl = environment.apiBaseUrl
 
   constructor(
     private http: HttpClient,
-    private router: Router) {}
+    private router: Router,
+    ) {}
 
   createUser(newUser: User): Observable<object> {
-    return this.http.post('http://localhost:3000/api/user/signup', newUser)
+    return this.http.post(`${ this.apiBaseUrl }/api/user/signup`, newUser)
   }
 
   loginUser(email: string, password: string): Observable<any> {
-    return this.http.post<User>('http://localhost:3000/api/user/login', { email, password })
+    return this.http.post<User>(`${ this.apiBaseUrl }/api/user/login`, { email, password })
   }
 
   isAuthenticated(): boolean {
@@ -37,7 +40,7 @@ export class UserService {
   }
 
   getUserById(userId: number): Observable<User|any> {
-    return this.http.get<User>(`http://localhost:3000/api/user/${userId}`).pipe(
+    return this.http.get<User>(`${ this.apiBaseUrl }/api/user/${userId}`).pipe(
       catchError((error) => {
         console.log(error);
         return of(undefined)
@@ -46,7 +49,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>('http://localhost:3000/api/user/userlist')
+    return this.http.get<User[]>(`${ this.apiBaseUrl }/api/user/userlist`)
   }
 
   logout(): void {
@@ -56,14 +59,14 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<User> {
-    return this.http.delete<User>(`http://localhost:3000/api/user/${userId}`)
+    return this.http.delete<User>(`${ this.apiBaseUrl }/api/user/${userId}`)
   }
 
   updateUser(user: FormData): Observable<User | any> {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
-    return this.http.put(`http://localhost:3000/api/user/${this.getUserId()}`, user, httpOptions).pipe(
+    return this.http.put(`${ this.apiBaseUrl }/api/user/${this.getUserId()}`, user, httpOptions).pipe(
       catchError((error) => {
         console.log(error);
         return of(undefined)
