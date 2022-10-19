@@ -1,6 +1,6 @@
 <mat-toolbar class="header" color="primary">
 
-  <button mat-icon-button [matMenuTriggerFor]="menu" class="header__menu">
+  <button *ngIf="userService.isAuthenticated() === true" mat-icon-button [matMenuTriggerFor]="menu" class="header__menu">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
