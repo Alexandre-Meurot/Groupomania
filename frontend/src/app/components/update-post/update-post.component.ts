@@ -50,11 +50,18 @@ export class UpdatePostComponent implements OnInit {
 
   updatePost() {
     const formData = new FormData();
-    formData.append('content', this.updateForm.get('content')?.value)
-    formData.append('media', this.updateForm.get('media')?.value)
-    this.postService.updatePost(this.postId, formData).pipe(
-      tap(() => this.router.navigateByUrl('/home'))
-    ).subscribe()
+    if (this.updateForm.get('media')?.value) {
+      formData.append('content', this.updateForm.get('content')?.value)
+      formData.append('media', this.updateForm.get('media')?.value)
+      this.postService.updatePost(this.postId, formData).pipe(
+        tap(() => this.router.navigateByUrl('/home'))
+      ).subscribe()
+    } else {
+      formData.append('content', this.updateForm.get('content')?.value)
+      this.postService.updatePost(this.postId, formData).pipe(
+        tap(() => this.router.navigateByUrl('/home'))
+      ).subscribe()
+    }
   }
 
 }
