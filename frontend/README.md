@@ -12,5 +12,12 @@
 **Installer les dépendances depuis le répertoire 'frontend' :**
 - `npm install`
 
-**Lancer le serveur :**
+**Lancer le serveur de développement :**
 - `ng serve` 
+
+### Personnalisation : 
+
+Pour changer le thème couleur de l'application 
+aller sur le site Material Theme Generator : https://materialtheme.arcsine.dev/
+
+Une fois votre thème choisi, remplacer votre nouveau code SCSS dans my-theme.scss
