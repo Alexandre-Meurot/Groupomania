@@ -5,7 +5,7 @@
 **Création d'une interface application frontend en single page :**
 - Framework Angular 14
 - Language de programmation: TypeScript
-- Librairie utilisé : Material
+- Librairie utilisée : Angular Material
 
 ### Installation :
 
