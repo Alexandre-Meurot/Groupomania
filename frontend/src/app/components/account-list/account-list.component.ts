@@ -5,6 +5,7 @@ import {UserService} from "../../services/user.service";
 import {ConfirmDialogComponent} from "../confirm-dialog/confirm-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-account-form-list',
@@ -17,7 +18,8 @@ export class AccountListComponent implements OnInit {
 
   constructor(private userService: UserService,
               private auth: AuthService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.getUsers()
@@ -44,5 +46,9 @@ export class AccountListComponent implements OnInit {
         })
       return 'Suppression confirmée !'
     })
+  }
+
+  toAccount(userId: number) {
+    this.router.navigate(['account-detail'], { queryParams: {id: userId} })
   }
 }

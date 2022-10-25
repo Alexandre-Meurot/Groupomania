@@ -2,12 +2,12 @@
 
   <div *ngFor="let user of users$ | async" class="post">
     <mat-card class="post__card">
-      <mat-card-header class="post__card__header">
+      <mat-card-header (click)="toAccount(user.id)" class="post__card__header">
         <img mat-card-avatar [src]="user.picture" alt="avatar">
         <mat-card-title>{{ user.username | titlecase }}</mat-card-title>
         <mat-card-subtitle>{{ user.createdAt | date }}</mat-card-subtitle>
         <mat-card-actions *ngIf="isAdmin()" class="post__card__header__btn">
-          <button (click)="onConfirmDialog(user.userId)" color="primary" mat-icon-button>
+          <button (click)="onConfirmDialog(user.id)" color="primary" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
