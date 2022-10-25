@@ -51,7 +51,11 @@ export class AccountListComponent implements OnInit {
       }
       this.userService.deleteUser(userId)
         .subscribe(() => {
-          this.userService.logout()
+          if (this.myOwnAccount(userId)) {
+            this.userService.logout()
+          } else {
+            this.getUsers()
+          }
         })
       return 'Suppression confirmée !'
     })
