@@ -64,4 +64,17 @@ export class AccountDetailComponent implements OnInit {
     this.router.navigate(['home'])
   }
 
+  toUpgrade() {
+    this.userService.updateRights(+this.userId, 1).subscribe(() => {
+      this.userService.getUserById(+this.userId)
+        .subscribe(user => this.user = user)
+    })
+  }
+
+  toDisgress() {
+    this.userService.updateRights(+this.userId, 0).subscribe(() => {
+      this.userService.getUserById(+this.userId)
+        .subscribe(user => this.user = user)
+    })
+  }
 }

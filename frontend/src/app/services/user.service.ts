@@ -74,4 +74,13 @@ export class UserService {
     )
   }
 
+  updateRights(id: number, isAdmin: number): Observable<User | any> {
+    return this.http.put(`${ this.apiBaseUrl }/api/user/upgrade/${id}`, {isAdmin}).pipe(
+      catchError((error) => {
+        console.log(error);
+        return of(undefined)
+      })
+    )
+  }
+
 }

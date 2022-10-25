@@ -207,6 +207,35 @@ exports.updateUser = (req, res) => {
         });
 }
 
+// ---------- UPGRADE D'UN UTILISATEUR -----------
+
+exports.upgradeUser = (req, res) => {
+
+    const userObject = {
+        isAdmin : req.body.isAdmin
+    }
+
+    User.findOne({
+        where: { id: req.params.id },
+    })
+        .then(userFound => {
+            User.update(userObject, {
+                where: { id: req.params.id}
+            })
+                .then(user => {
+                    res.status(200).json( user )
+                })
+                .catch(error => {
+                    const message = 'Une erreur est survenue !'
+                    res.status(400).json({ message: message, error  })
+                })
+        })
+        .catch(error => {
+            const message = 'Utilisateur non trouvé !'
+            res.status(500).json({ message: message, error })
+        })
+}
+
 // ---------- SUPPRESSION D'UN UTILISATEUR -----------
 
 exports.deleteUser = (req, res) => {
