@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
 export class AccountListComponent implements OnInit {
 
   users$!: Observable<User[]>
+  myUserId = localStorage.getItem('userId')
 
   constructor(private userService: UserService,
               private auth: AuthService,
@@ -29,8 +30,16 @@ export class AccountListComponent implements OnInit {
     this.users$ = this.userService.getAllUsers()
   }
 
-  isAdmin() : boolean {
+  isAdmin(): boolean {
     return this.auth.getIsAdmin() == 'true';
+  }
+
+  myOwnAccount(userId: number): boolean {
+    if (this.myUserId) {
+      return +this.myUserId === userId;
+    } else {
+      return false
+    }
   }
 
   onConfirmDialog(userId: any) {
@@ -50,5 +59,9 @@ export class AccountListComponent implements OnInit {
 
   toAccount(userId: number) {
     this.router.navigate(['account-detail'], { queryParams: {id: userId} })
+  }
+
+  toUpdateAccount() {
+    this.router.navigate(['account-form'])
   }
 }
