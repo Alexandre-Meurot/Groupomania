@@ -23,10 +23,14 @@
 
 **Créer la base de données SQL :**
  - installer XAMPP
- - lancer le serveur Apache et MySql
+ - lancer le serveur Apache et MySql via XAMPP
  - ouvrir phpmyadmin via Xampp puis y créer la BDD 'groupomania'
  - `sequelize db:migrate` = pour intégrer les modèles vers la base de données groupomania
-   
+ - éxécuter le script sql fourni via phpMyAdmin (afin de créer le compte Administrateur*)
 
 **Lancer le serveur :**
  - `npm start` = lance le script 'start' défini dans le package.json
+
+***Identifiants du compte Administrateur :**
+ - email : admin@email.com
+ - mot de passe : Password2022
