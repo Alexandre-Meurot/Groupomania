@@ -26,7 +26,8 @@
  - lancer le serveur Apache et MySql via XAMPP
  - ouvrir phpmyadmin via Xampp puis y créer la BDD 'groupomania'
  - `sequelize db:migrate` = pour intégrer les modèles vers la base de données groupomania
- - éxécuter le script sql fourni via phpMyAdmin (afin de créer le compte Administrateur*)
+ - éxécuter le script ***scripts/users.sql***  via phpMyAdmin (création compte Administrateur*)
+ - éxécuter le script ***scripts/posts.sql***  via phpMyAdmin (création premier post de l'admin)
 
 **Lancer le serveur :**
  - `npm start` = lance le script 'start' défini dans le package.json
