@@ -21,7 +21,7 @@
    - `PORT` = Le port sur lequel l'application backend démarre
    - `JWT_SECRET_TOKEN` = clé secrète du token
 
-**Créer la base de données SQL :**
+**Créer la base de données SQL (méthode 1) :**
  - installer XAMPP
  - lancer le serveur Apache et MySql via XAMPP
  - ouvrir phpmyadmin via Xampp puis y créer la BDD 'groupomania'
@@ -29,9 +29,9 @@
  - éxécuter le script ***scripts/users.sql***  via phpMyAdmin (création compte Administrateur*)
  - éxécuter le script ***scripts/posts.sql***  via phpMyAdmin (création premier post de l'admin)
 
+**Créer la base de données SQL (méthode 2) :**
+ - créer la BDD 'groupomania' via le serveur local de votre choix
+ - éxécuter le script Meurot_Alexandre_bdd_112022
+
 **Lancer le serveur :**
  - `npm start` = lance le script 'start' défini dans le package.json
-
-***Identifiants du compte Administrateur :**
- - email : admin@email.com
- - mot de passe : Password2022
