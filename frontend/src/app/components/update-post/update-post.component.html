@@ -16,6 +16,13 @@
       </mat-form-field>
 
       <img
+        *ngIf="post.media && !imagePreview"
+        [src]="post.media"
+        alt="Preview de l'image"
+        style="max-height: 200px;display:block;margin-top:10px;margin-bottom: 10px;"
+      >
+
+      <img
         *ngIf="imagePreview"
         [src]="imagePreview"
         alt="Preview de l'image"
