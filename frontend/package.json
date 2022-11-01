@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
-    "file-system": "^2.2.2",
+    "file-system": "^1.2.2",
     "ngx-material-file-input": "^4.0.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
