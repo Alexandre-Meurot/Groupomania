@@ -8,8 +8,8 @@
     <mat-card-subtitle>le {{ post.createdAt | date }} à {{ post.createdAt | date: 'HH:mm' }}</mat-card-subtitle>
 
     <span class="edit-post">
-      <mat-icon class="edit-post__btn" *ngIf="myOwnPost()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
-      <mat-icon class="edit-post__btn" *ngIf="myOwnPost() || isAdmin()" (click)="onConfirmDialog()" color="primary">delete</mat-icon>
+      <mat-icon class="edit-post__btn" *ngIf="myOwnPost() || isAdmin()" (click)="onUpdate(post.id)" color="primary">edit</mat-icon>
+      <mat-icon class="delete-post__btn" *ngIf="myOwnPost() || isAdmin()" (click)="onConfirmDialog()" color="primary">delete</mat-icon>
     </span>
 
   </mat-card-header>
