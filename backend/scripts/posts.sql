@@ -9,7 +9,7 @@ SET time_zone = "+00:00";
 
 
 INSERT INTO `posts` (`id`, `userId`, `content`, `media`, `likes`, `createdAt`, `updatedAt`) VALUES
-(2, 2, 'Bienvenue sur Groupomania !', 'http://localhost:3000/images/social-media-3846597_960_720.webp1666707812160.undefined', 0, '2022-10-25 14:23:32', '2022-10-25 14:23:32');
+(2, 2, 'Bienvenue sur Groupomania !', 'http://localhost:3000/images/social-media.png1667292311384.png', 0, '2022-10-25 14:23:32', '2022-10-25 14:23:32');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

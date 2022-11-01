@@ -9,7 +9,7 @@ SET time_zone = "+00:00";
 
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `isAdmin`, `picture`, `bio`, `createdAt`, `updatedAt`) VALUES
-(2, 'Baby Boss', 'admin@email.com', '$2b$10$orsxbO18mR1u8J/nV2et4.s3JhohwFs2RXmM0wENRPupgqzgry5zK', 0, 'http://localhost:3000/images/admin.jpg1666707792261.jpg', 'Bonjour tout le monde ! Je suis l\'administrateur de Groupomania !', '2022-10-25 14:22:24', '2022-10-25 14:23:12');
+(2, 'Baby Boss', 'admin@email.com', '$2b$10$orsxbO18mR1u8J/nV2et4.s3JhohwFs2RXmM0wENRPupgqzgry5zK', 0, 'http://localhost:3000/images/admin.jpg1667292231031.jpg', 'Bonjour tout le monde ! Je suis l\'administrateur de Groupomania !', '2022-10-25 14:22:24', '2022-10-25 14:23:12');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
