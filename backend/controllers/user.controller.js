@@ -41,25 +41,25 @@ exports.signup = async (req, res) => {
         if (userMail !== null) {
             if (userMail.email === req.body.email) {
                 const message = "Cet adresse email est déjà utilisé !"
-                return res.status(400).json({message: message, error})
+                return res.status(400).json({message: message})
             }
         }
 
         if (userUsername !== null) {
             if (userUsername.username === req.body.username) {
                 const message = "Ce nom d'utilisateur est déjà utilisé !"
-                return res.status(400).json({message: message, error})
+                return res.status(400).json({message: message})
             }
 
         } else {
 
             if (!schema.validate(req.body.password)) {
-                const message = 'Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et ne doit pas contenir d\'espace !'
-                return res.status(400).json({message: message, error})
+                const message = 'Le mot de passe doit faire entre 6 et 15 caractères, contenir au moins 1 majuscule, 1 minuscule, 2 chiffres et ne doit pas contenir d\'espace !'
+                return res.status(400).json({message: message})
             }
             if (!mailRegex.test(req.body.email)) {
                 const message = 'Votre email ne respecte pas les règles de validation !'
-                return res.status(400).json({message: message, error})
+                return res.status(400).json({message: message})
             }
             const hash = await bcrypt.hash(req.body.password, 10)
             const newUser = await User.create({
@@ -90,7 +90,7 @@ exports.login = (req, res) => {
                     .then(passwordIsValid => {
                         if (!passwordIsValid) {
                             const message = 'Mot de passe incorrect !'
-                            return res.status(401).json({ message: message, error })
+                            return res.status(401).json({ message: message })
                         }
                         res.status(200).json({
                             userId: userFound.id,
@@ -110,12 +110,12 @@ exports.login = (req, res) => {
                     })
             } else {
                 const message = 'Cet email ne correspond à aucun utilisateur, veuillez créer un compte !'
-                res.status(404).json({ message: message, error })
+                res.status(400).json({ message: message })
             }
         })
         .catch(error => {
             const message = 'Cet email ne correspond à aucun utilisateur, veuillez créer un compte'
-            res.status(404).json({ message: message, error })
+            res.status(400).json({ message: message, error })
         })
 }
 
@@ -134,7 +134,7 @@ exports.getOneUser = (req, res) => {
                 res.status(200).json( userFound )
             } else {
                 const message = 'Utilisateur non trouvé !'
-                res.status(404).json({ message: message, error })
+                res.status(404).json({ message: message })
             }
         })
         .catch(error => {
@@ -198,7 +198,7 @@ exports.updateUser = (req, res) => {
                     })
             } else {
                 const message = 'Utilisateur non trouvé !'
-                res.status(404).json({ message: message, error });
+                res.status(404).json({ message: message });
             }
         })
         .catch(error => {
@@ -297,7 +297,7 @@ exports.deleteUser = (req, res) => {
                     }
                 } else {
                     const message = 'Utilisateur non trouvé !'
-                    return res.status(404).json({ message, error })
+                    return res.status(404).json({ message })
                 }
 
             } else {

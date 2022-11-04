@@ -9,6 +9,9 @@
 
 ### Installation :
 
+**Installer le CLI d'Angular sur votre machine :**
+- `npm install -g @angular/cli`
+
 **Installer les dépendances depuis le répertoire 'frontend' :**
 - `npm install`
 

@@ -12,6 +12,9 @@
 
 ### Installation : 
 
+**Installer le CLI de Sequelize :**
+- `npm install --save-dev sequelize-cli`
+
 **Installer les dépendances depuis le répertoire 'backend' :**
  - `npm install`
 
